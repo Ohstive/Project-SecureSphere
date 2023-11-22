@@ -69,17 +69,6 @@ If the software proves satisfactory, a future directive may request the developm
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 ## UML Diagram
 
 We will have four diagram to represent our application:
