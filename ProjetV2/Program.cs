@@ -10,12 +10,17 @@ namespace ProjetV2
         static void Main(string[] args)
         {
             ErrorCatchException error = new ErrorCatchException();
+            //error.SourceTargetSimilar();
+            Console.WriteLine(error.IsNotError());
 
-            string Source = @"C:\Users\Ostiv\Documents\Test";
-            string Target = @"C:\Users\Ostiv\Documents\Test3";
-            Jobs J = new Jobs("JOB",Source,Target);
-            JobDirectory JD = new JobDirectory(J);
-            Console.WriteLine("dtzqt");
+            string Source = @"C:\Users\Ostiv\Documents\Test4\ZIP.rar";
+
+            string Target = @"C:\Users\Ostiv\Documents\Test";
+
+            Jobs J = new Jobs("JOB1",Source,Target);
+           
+
+
         }
     }
 }
