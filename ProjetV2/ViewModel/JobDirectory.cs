@@ -12,24 +12,16 @@ namespace ProjetV2.ViewModel
     internal class JobDirectory
     {
         private Jobs BackupJobs;
-        
-      
-
-        //To open the files and directory for the backup
-        
-
         private string[] AlreadySave;
 
         public JobDirectory(Jobs backupJobs)
         {
             this.BackupJobs = backupJobs;
-           
- 
         }
 
         public void DifferentialCopy()
         {
-            BackupJobs.Affiche();
+            
         }
         public void FullCopy()
         {
@@ -56,7 +48,7 @@ namespace ProjetV2.ViewModel
 
         public void FileCompare()
         {
-            BackupJobs.Affiche();
+            
         }
 
     }

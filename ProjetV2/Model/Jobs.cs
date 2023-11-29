@@ -7,118 +7,175 @@ using System.Threading.Tasks;
 
 namespace ProjetV2.Model
 {
+   
+
     internal class Jobs
     {
-        //Error Management
+        // Error Management
         private ErrorCatchException Error = new ErrorCatchException();
 
-
-        //Job Management
+        // Job Management
         private string JobName;
         private string SourceDirectoryPath;
         private string TargetDirectoryPath;
 
-        //Directory Management
-        private System.IO.DirectoryInfo SourceDirectory;
-        private System.IO.DirectoryInfo TargetDirectory;
-        //File Management
-        private readonly System.IO.FileInfo[] AllFileInSourcesList;
-        private readonly System.IO.FileInfo[] AllFileInTargetList;
+        // Directory Management
+        private DirectoryInfo SourceDirectory;
+        private DirectoryInfo TargetDirectory;
 
-        //Type Management if the user want to copy file or directory 0 for file and 1 for directory
+        // File Management
+        private FileInfo[] AllFileInSourcesList;
+        private FileInfo[] AllFileInTargetList;
+
+        // Type Management: 0 for file, 1 for directory
         private int TypeOfJob;
 
-        //Size Management
+        // Size Management
         private long SizeOfSource;
         private long FreeSpaceInTarget;
 
-        //Constructor
+        // Constructor
         public Jobs(string name, string source, string target)
         {
-            //Job Management
+            // Job Management
             this.JobName = name;
-            //Path directory Management
+            // Path directory Management
             this.SourceDirectoryPath = source;
             this.TargetDirectoryPath = target;
-            //Type Management
 
-            //If the user want to copy a file to directory
+            //Check Source
+            CheckInitializeSourceDirectory();
+
+            // Check Target
+            CheckInitializeTargetDirectory();
+
+            
+        }
+
+        // Initialize TypeOfJob based on source path
+        private void CheckInitializeSourceDirectory()
+        {
             if (File.Exists(this.SourceDirectoryPath))
             {
-                Console.WriteLine("Fichier");
+                Console.WriteLine("File");
                 this.TypeOfJob = 0;
-                this.AllFileInSourcesList = new System.IO.FileInfo[1];
-                this.AllFileInSourcesList[0] = new System.IO.FileInfo(this.SourceDirectoryPath);
-                this.sizeOfSource = this.AllFileInSourcesList[0].Length;
-                this.TargetDirectory = new System.IO.DirectoryInfo(this.TargetDirectoryPath);
-
+                try 
+                {
+                    this.AllFileInSourcesList = new FileInfo[1];
+                    this.AllFileInSourcesList[0] = new FileInfo(this.SourceDirectoryPath);
+                    this.SizeOfSource = this.AllFileInSourcesList[0].Length;
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    Console.WriteLine("Read or write access to the directory is not allowed.");
+                    this.Error.IsAccessToSourceAllowed();
+                }
+                
             }
-            //If the user want to copy a directory to directory
-            else if (Directory.Exists(source))
+            else if (Directory.Exists(this.SourceDirectoryPath))
             {
-                Console.WriteLine("Dossier");
+                Console.WriteLine("Directory");
                 this.TypeOfJob = 1;
-                this.SourceDirectory = new System.IO.DirectoryInfo(this.SourceDirectoryPath);
-                this.TargetDirectory = new System.IO.DirectoryInfo(this.TargetDirectoryPath);
-                // Take a snapshot of the file system.
-                this.AllFileInSourcesList = SourceDirectory.GetFiles("*.*", System.IO.SearchOption.AllDirectories);
-                this.AllFileInTargetList = TargetDirectory.GetFiles("*.*", System.IO.SearchOption.AllDirectories);
-                this.SizeOfSource = this.SourceDirectory.EnumerateFiles("*", System.IO.SearchOption.AllDirectories).Sum(fi => fi.Length);
+                try
+                {
+                    this.SourceDirectory = new DirectoryInfo(this.SourceDirectoryPath);
+                    this.AllFileInSourcesList = SourceDirectory.GetFiles("*.*", SearchOption.AllDirectories);
+                    this.SizeOfSource = this.SourceDirectory.EnumerateFiles("*", SearchOption.AllDirectories).Sum(fi => fi.Length);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    Console.WriteLine("Read or write access to the directory is not allowed.");
+                    this.Error.IsAccessToSourceAllowed();
+                } 
             }
-            //if the user enter a wrong source path
             else
             {
                 Console.WriteLine("Source doesn't exist");
-                this.error.PathSourceDirectoryExists();
+                this.Error.PathSourceDirectoryExists();
             }
+        }
 
-            // if the user enter a file as target
-            if (File.Exists(target))
+        
+
+        // Check the Target Directory
+        private void CheckInitializeTargetDirectory()
+        {
+            if (File.Exists(this.TargetDirectoryPath))
             {
                 Console.WriteLine("Target is a file");
-                this.error.TargetIsFile();
+                this.Error.TargetIsFile();
             }
-            //if the user enter a directory as target
-            else if (Directory.Exists(target))
+            else if (Directory.Exists(this.TargetDirectoryPath))
             {
-                Console.WriteLine("Target exist");
-
-                //Take a snapshot of the file system.
-                if (this.TargetDirectory != null && this.TargetDirectory.Root != null)
+                Console.WriteLine("Target exists");
+                try
                 {
-                    this.FreeSpaceInTarget = new System.IO.DriveInfo(this.TargetDirectory.Root.Name).AvailableFreeSpace;
+                    this.TargetDirectory = new DirectoryInfo(this.TargetDirectoryPath);
+                    CheckReadWriteAccessToTarget();
+                    CheckFreeSpaceInTarget();
                 }
-                else
+                catch (UnauthorizedAccessException)
                 {
-                    Console.WriteLine("Target root doesn't exist");
-                }
-              
-                //if the user doesn't have enough storage space
-                if (this.FreeSpaceInTarget < this.SizeOfSource)
-                {
-                    Console.WriteLine("Not enough storage space available");
-                    this.error.StorageSpaceAvailable();
+                    Console.WriteLine("Read or write access to the directory is not allowed.");
+                    this.Error.PermissionToCreateInTargetAllowed();
                 }
             }
-            //if the user enter a wrong target path
             else
             {
                 Console.WriteLine("Target doesn't exist");
-                this.error.PathTargetDirectoryExists();
+                this.Error.PathTargetDirectoryExists();
             }
         }
-        // Get the size of the source in a readable format
-        public void GetSourceSize()
+
+        // Check read and write access to the target directory
+        private void CheckReadWriteAccessToTarget()
         {
+            Console.WriteLine("Checking read and write access to the directory...");
+
+            // Test read access
+            this.AllFileInTargetList = TargetDirectory.GetFiles("*.*", SearchOption.AllDirectories);
+
+            // Test write access by creating a subdirectory
+            DirectoryInfo subdirectory = this.TargetDirectory.CreateSubdirectory("TestSubdirectory");
+
+            Console.WriteLine("Read and write access to the directory is allowed.");
+            subdirectory.Delete();
+        }
+
+        // Check free space in the target directory
+        private void CheckFreeSpaceInTarget()
+        {
+            Console.WriteLine("Checking free space in the target directory...");
+            if (this.TargetDirectory != null && this.TargetDirectory.Root != null)
+            {
+                this.FreeSpaceInTarget = new DriveInfo(this.TargetDirectory.Root.Name).AvailableFreeSpace;
+            }
+            else
+            {
+                Console.WriteLine("Target root doesn't exist");
+            }
+
+            // If the user doesn't have enough storage space
+            if (this.FreeSpaceInTarget < this.SizeOfSource)
+            {
+                Console.WriteLine("Not enough storage space available");
+                this.Error.StorageSpaceAvailable();
+            }
+        }
+
+        // Calculate the size of the source
+        private void GetSizeSource()
+        {
+            Console.WriteLine("Source Size:");
             Console.WriteLine(FormatBytes(this.SizeOfSource));
         }
 
-        //Function to convert bytes to a readable format
+        // Function to convert bytes to a readable format
         public string FormatBytes(long bytes)
         {
             string[] suffixes = { "B", "KB", "MB", "GB", "TB" };
             int suffixIndex = 0;
-            
+
             while (bytes >= 1024 && suffixIndex < suffixes.Length - 1)
             {
                 bytes /= 1024;
@@ -128,20 +185,21 @@ namespace ProjetV2.Model
             return $"{bytes} {suffixes[suffixIndex]}";
         }
 
-        //Getter and Setter
+        // Temporary function for testing
+        public void Display()
+        {
+            Console.WriteLine(this.JobName);
+            Console.WriteLine(this.SourceDirectoryPath);
+            Console.WriteLine(this.TargetDirectoryPath);
+        }
+
+        // Getter and Setter
         public string jobsName { get => this.JobName; set => this.JobName = value; }
         public string sourceDirectoryPath { get => this.SourceDirectoryPath; set => this.SourceDirectoryPath = value; }
         public string targetDirectoryPath { get => this.TargetDirectoryPath; set => TargetDirectoryPath = value; }
         public int typeOfJob { get => this.TypeOfJob; set => this.TypeOfJob = value; }
         public long sizeOfSource { get => this.SizeOfSource; set => this.SizeOfSource = value; }
         public ErrorCatchException error { get => this.Error; set => this.Error = value; }
-
-        //Temporary function for testing
-        public void Affiche()
-        {
-            Console.WriteLine(this.JobName);
-            Console.WriteLine(this.SourceDirectoryPath);
-            Console.WriteLine(this.TargetDirectoryPath);
-        }
     }
+
 }
