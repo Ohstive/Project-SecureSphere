@@ -12,7 +12,7 @@ namespace ProjetV2.ViewModel
     internal class JobDirectory
     {
         private Jobs BackupJobs;
-        private ErrorHandler Error;
+        
       
 
         //To open the files and directory for the backup
@@ -20,10 +20,10 @@ namespace ProjetV2.ViewModel
 
         private string[] AlreadySave;
 
-        public JobDirectory(Jobs backupJobs, ErrorHandler error)
+        public JobDirectory(Jobs backupJobs)
         {
             this.BackupJobs = backupJobs;
-            this.Error = error;
+           
  
         }
 
