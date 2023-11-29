@@ -30,5 +30,30 @@ namespace ProjetV2.Model
                 Console.WriteLine(item);
             }
         }
+
+        public void PathSourceDirectoryExists()
+        {
+            this.arrayOfError["PermissionAccesToCreateError"] = true;
+        }
+        public void PathTargetDirectoryExists()
+        {
+            this.arrayOfError["PermissionAccesToSourceError"] = true;
+        }
+        public void CanAccessSourceFileOrDirectory()
+        {
+            this.arrayOfError["PathSourceDirectoryError"] = true;
+        }
+        public void CanCreateFileOrDirectory()
+        {
+            this.arrayOfError["PathTargetDirectoryError"] = true;
+        }
+        public void StorageSpaceAvailable()
+        {
+            this.arrayOfError["StorageError"] = true;
+        }
+        public void ExceedsCharacterLimit()
+        {
+            this.arrayOfError["ExceedsCharacterLimitError"] = true;
+        }
     }
 }
