@@ -15,12 +15,7 @@ namespace ProjetV2
             string Target = @"C:\Users\Ostiv\Documents\Test3";
             Jobs J = new Jobs("JOB",Source,Target);
             JobDirectory JD = new JobDirectory(J);
-
-
-
-
-
-
+            Console.WriteLine("dtzqt");
         }
     }
 }
