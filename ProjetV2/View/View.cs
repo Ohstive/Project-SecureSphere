@@ -63,7 +63,7 @@ namespace ProjetV2.View
                             string target = Console.ReadLine();
 
                             Console.Write("Type (Full/Differential): ");
-                            BackupType type;
+                            BType type;
                             Enum.TryParse(Console.ReadLine(), true, out type);
 
                             // Create and add backup job to the list
