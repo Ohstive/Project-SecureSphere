@@ -18,14 +18,17 @@ namespace ProjetV2.Model
         private string JobName;
         private string SourceDirectoryPath;
         private string TargetDirectoryPath;
+        private string LogsDirectoryPath;
 
         // Directory Management
         private DirectoryInfo SourceDirectory;
         private DirectoryInfo TargetDirectory;
+        private DirectoryInfo LogsDirectory;
 
         // File Management
         private FileInfo[] AllFileInSourcesList;
         private FileInfo[] AllFileInTargetList;
+        private FileInfo[] AllFileInLogsList;
 
         // Type Management: 0 for file, 1 for directory
         private int TypeOfJob;
@@ -35,13 +38,14 @@ namespace ProjetV2.Model
         private long FreeSpaceInTarget;
 
         // Constructor
-        public Jobs(string name, string source, string target)
+        public Jobs(string name, string source, string target, string logs)
         {
             // Job Management
             this.JobName = name;
             // Path directory Management
             this.SourceDirectoryPath = source;
             this.TargetDirectoryPath = target;
+            this.LogsDirectoryPath = logs;
 
             //Check Source
             CheckInitializeSourceDirectory();
