@@ -49,7 +49,6 @@ namespace ProjetV2.Model
             // Check Target
             CheckInitializeTargetDirectory();
 
-            
         }
 
         // Initialize TypeOfJob based on source path
