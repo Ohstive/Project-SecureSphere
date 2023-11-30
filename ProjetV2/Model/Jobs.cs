@@ -36,7 +36,7 @@ namespace ProjetV2.Model
         private long FreeSpaceInTarget;
 
         // Constructor
-        public Jobs(string name, string source, string target, string type)
+        public Jobs(string name, string source, string target, BType type)
         {
             // Job Management
             this.JobName = name;
@@ -203,5 +203,9 @@ namespace ProjetV2.Model
         public ErrorCatchException error { get => this.Error; set => this.Error = value; }
         public string backupType { get => this.BackupType; set => this.BackupType = value}
     }
-
+    enum BType
+{
+    Full,
+    Differential
+}
 }
