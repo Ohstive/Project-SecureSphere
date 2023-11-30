@@ -57,17 +57,17 @@ namespace ProjetV2.View
                             string name = Console.ReadLine();
 
                             Console.Write("Source Directory: ");
-                            string sourceDirectory = Console.ReadLine();
+                            string source = Console.ReadLine();
 
                             Console.Write("Target Directory: ");
-                            string targetDirectory = Console.ReadLine();
+                            string target = Console.ReadLine();
 
                             Console.Write("Type (Full/Differential): ");
                             BackupType type;
                             Enum.TryParse(Console.ReadLine(), true, out type);
 
                             // Create and add backup job to the list
-                            BackupJob newBackupJob = new BackupJob(name, source, target, type);
+                            Jobs newBackupJob = new Jobs(name, source, target, type);
                             backupJobs.Add(newBackupJob);
 
                             Console.WriteLine($"Backup Job {i} created: {newBackupJob}");
