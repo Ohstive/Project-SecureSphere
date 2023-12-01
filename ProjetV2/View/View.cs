@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ProjetV2.Model;
+using ProjetV2.ViewModel;
 
 namespace ProjetV2.View
 {
@@ -17,19 +19,16 @@ namespace ProjetV2.View
 
         public void testc()
         { 
-            
-
             while (true)
             {
-                
                 ShowMenu();
-                int choice = int.Parse(Console.ReadLine());
-
+                int choice = int.TryParse(Console.ReadLine(), out choice) ? choice : 0;
+       
                 switch (choice)
                 {
                     case 1:
                         // Prompt user for the number of backup jobs to create
-                        Console.Write("Enter the number of backup jobs to create (between 1 and 5): ");
+                        Console.WriteLine("Enter the number of backup jobs to create (between 1 and 5): ");
                         int numberOfJobs = int.Parse(Console.ReadLine());
 
                         // Validate the user input
@@ -38,7 +37,11 @@ namespace ProjetV2.View
                             Console.WriteLine("Invalid input. Please enter a number between 1 and 5.");
                             break;
                         }
-                        if (backupJobs.Length
+                        if (backupJobs.Count>5)
+                        {
+                            Console.WriteLine("You have already created 5 backup jobs. Please delete some before creating more.");
+                            break;
+                        }   
                         // Create the specified number of backup jobs
                         for (int i = 1; i <= numberOfJobs; i++)
                         {
@@ -58,10 +61,9 @@ namespace ProjetV2.View
                             Enum.TryParse(Console.ReadLine(), true, out type);
 
                             // Create and add backup job to the list
-                            Jobs newBackupJob = new Jobs(name, source, target, type);
-                            backupJobs.Add(newBackupJob);
+                            backupJobs.Add(new JobManager(new Jobs(name, source, target, type)));
 
-                            Console.WriteLine($"Backup Job {i} created: {newBackupJob}");
+                           // Console.WriteLine($"Backup Job {i} created: {newBackupJob}");
                             Console.WriteLine();
                         }
                         break;
@@ -85,13 +87,13 @@ namespace ProjetV2.View
                     case 4:
                         Console.WriteLine("Enter the index of the job to run:");
                         int jobIndex = int.Parse(Console.ReadLine());
-                        RunBackupJob(backupJobs[jobIndex]);
+                        //RunBackupJob(backupJobs[jobIndex]);
                         break;
 
                     case 5:
                         foreach (var job in backupJobs)
                         {
-                            RunBackupJob(job);
+                            //RunBackupJob(job);
                         }
                         break;
 
@@ -133,7 +135,8 @@ namespace ProjetV2.View
             Console.WriteLine("4. Run a specific backup job");
             Console.WriteLine("5. Run all backup jobs sequentially");
             Console.WriteLine("6. Show the log repertory");
-            Console.WriteLine("7. Exit");
+            Console.WriteLine("7. Change language");
+            Console.WriteLine("8. Exit");
 
         }
     }
