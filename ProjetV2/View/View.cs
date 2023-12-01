@@ -12,7 +12,7 @@ namespace ProjetV2.View
         {
             ShowLogo();
         }
-        List<BackupJob> backupJobs = new List<BackupJob>(); //Initialize the backup jobs list
+        List<JobManager> backupJobs = new List<JobManager>(); //Initialize the backup jobs list
         string logDirectory = ""; // Variable to store the chosen log directory
 
         public void testc()
@@ -38,7 +38,7 @@ namespace ProjetV2.View
                             Console.WriteLine("Invalid input. Please enter a number between 1 and 5.");
                             break;
                         }
-
+                        if (backupJobs.Length
                         // Create the specified number of backup jobs
                         for (int i = 1; i <= numberOfJobs; i++)
                         {
