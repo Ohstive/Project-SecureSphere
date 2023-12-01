@@ -18,7 +18,7 @@ namespace ProjetV2.Model
         private string JobName;
         private string SourceDirectoryPath;
         private string TargetDirectoryPath;
-        private string BackupType;
+        private int BackupType;
 
         // Directory Management
         private DirectoryInfo SourceDirectory;
@@ -36,7 +36,7 @@ namespace ProjetV2.Model
         private long FreeSpaceInTarget;
 
         // Constructor
-        public Jobs(string name, string source, string target, BType type)
+        public Jobs(string name, string source, string target, int type)
         {
             // Job Management
             this.JobName = name;
@@ -201,7 +201,7 @@ namespace ProjetV2.Model
         public int typeOfJob { get => this.TypeOfJob; set => this.TypeOfJob = value; }
         public long sizeOfSource { get => this.SizeOfSource; set => this.SizeOfSource = value; }
         public ErrorCatchException error { get => this.Error; set => this.Error = value; }
-        public string backupType { get => this.BackupType; set => this.BackupType = value}
+        public int backupType { get => this.BackupType; set => this.BackupType = value; }
     }
     enum BType
 {

@@ -8,7 +8,7 @@ namespace ProjetV2.ViewModel
 {
     internal class Log
     {
-        JobDirectory LogDirectory;
+        JobManager LogDirectory;
         int TotalFilesToCopy;
         float TotalFilesToCopySize;
         DateTime TotalFileTransferTime;
