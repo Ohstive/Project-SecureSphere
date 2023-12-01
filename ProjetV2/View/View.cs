@@ -16,22 +16,13 @@ namespace ProjetV2.View
         string logDirectory = ""; // Variable to store the chosen log directory
 
         public void testc()
-        {
-            List<BackupJob> backupJobs = new List<BackupJob>(); //Initialize the backup jobs list
-            string logDirectory = ""; // Variable to store the chosen log directory
-
+        { 
+            
 
             while (true)
             {
-                Console.WriteLine("Choose an option:");
-                Console.WriteLine("1. Create backup jobs");
-                Console.WriteLine("2. Show created backup jobs");
-                Console.WriteLine("3. Set log directory");
-                Console.WriteLine("4. Run a specific backup job");
-                Console.WriteLine("5. Run all backup jobs sequentially");
-                Console.WriteLine("6. Show the log repertory");
-                Console.WriteLine("7. Exit");
-
+                
+                ShowMenu();
                 int choice = int.Parse(Console.ReadLine());
 
                 switch (choice)
@@ -133,7 +124,18 @@ namespace ProjetV2.View
             Console.WriteLine("");
         }
 
-        
+        static void ShowMenu()
+        {
+            Console.WriteLine("Choose an option:");
+            Console.WriteLine("1. Create backup jobs");
+            Console.WriteLine("2. Show created backup jobs");
+            Console.WriteLine("3. Set log directory");
+            Console.WriteLine("4. Run a specific backup job");
+            Console.WriteLine("5. Run all backup jobs sequentially");
+            Console.WriteLine("6. Show the log repertory");
+            Console.WriteLine("7. Exit");
+
+        }
     }
     
 }
