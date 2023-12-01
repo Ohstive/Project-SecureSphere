@@ -12,22 +12,37 @@ namespace ProjetV2.Model
     {
         private string CurrentLanguage;
 
-        private Dictionary< string ,Dictionary<string, string> > dialogueDictionary;
+        private Dictionary<string, Dictionary<string, string>> dialogueDictionary;
 
-        public Language() 
+        public Language()
         {
             this.CurrentLanguage = "en";//default language
-            
-            dialogueDictionary = new Dictionary<string,Dictionary<string, string>>()
+
+            dialogueDictionary = new Dictionary<string, Dictionary<string, string>>()
                 ; // Initialize the dictionary
 
-            Dictionary<string, string> Text = new Dictionary<string, string>()
+            Dictionary<string, string> English = new Dictionary<string, string>()
             {
-                {"Speed","Speed"},
+                {"Cancel","Cancel"},
                 {"Job Name","Job Name"},
-                {"From","From"}
+                {"Source","Source"},
+                {"Target","Target"},
+                {"Remaining time","Remaining time"}
             };
-            AddLanguage(CurrentLanguage, Text);
+            AddLanguage(CurrentLanguage, English);
+
+            Dictionary<string, string> French = new Dictionary<string, string>()
+            {
+                {"Cancel","Annuler" },
+                {"Job Name","Nom du Travail de sauvegarde"},
+                {"Source","Source"},
+                {"Target","Cible"},
+                {"Remaining time","Temps restant"}
+            };
+            AddLanguage("fr", French);
+
+
+
         }
         //Temporary function for testing
         public void Affiche()
@@ -36,10 +51,10 @@ namespace ProjetV2.Model
             {
                 foreach (var text in paire.Value)
 
-                Console.WriteLine($"Clé:{paire.Key} , Valeur: {text}");
+                    Console.WriteLine($"Clé:{paire.Key} , Valeur: {text}");
             }
         }
-        public string currentLanguage { get=>this.CurrentLanguage;}
+        public string currentLanguage { get => this.CurrentLanguage; }
 
         public Dictionary<string, string> GetDialogue(string language)
         {
@@ -71,7 +86,7 @@ namespace ProjetV2.Model
             {
                 throw new Exception("This language Already exist");
             }
-        
+
             else
             {
                 dialogueDictionary.Add(languageCode, dialogue);
