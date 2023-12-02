@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,17 +11,24 @@ namespace ProjetV2.View
 {
     internal class ViewJob
     {
-        public ViewJob()
-        {
-            ShowLogo();
-        }
+
         List<JobManager> backupJobs = new List<JobManager>(); //Initialize the backup jobs list
         string logDirectory = ""; // Variable to store the chosen log directory
         string answer = "";
         string JobModification = "";
         string JobsModification = "";
 
-        public void testc()
+
+
+        public ViewJob()
+        {
+            ShowLogo();
+            Launch();
+        }
+     
+   
+
+        public void Launch() // Main menu
         { 
             while (true)
             {
@@ -46,18 +54,20 @@ namespace ProjetV2.View
                         Console.Write("Target Directory: ");
                         string target = Console.ReadLine();
 
-                        Console.Write("Type (Full/Differential): ");
-                        BackupType type;
-                        Enum.TryParse(Console.ReadLine(), true, out type);
+                        Console.Write("Type (0:Full/1:Differential): ");
+                        int typeJob=int.TryParse(Console.ReadLine(), out typeJob) ? typeJob : 0;
 
-                        // Create and add backup job to the list
-                        BackupJob newBackupJob = new BackupJob(name, source, target, type);
+
                         
 
+                        // Create and add backup job to the list
+                        JobManager newBackupJob = new JobManager(new Jobs(name, source, target, typeJob));
+                        
                         Console.WriteLine($"Backup Job created: {newBackupJob}");
                         Console.WriteLine("Modify the previous Job ? (y/n)");
-                        modification = Console.ReadLine();
-                        if (modification == "y")
+
+                        JobModification = Console.ReadLine();
+                        if (JobModification == "y")
                         {
                             Console.WriteLine(newBackupJob);
                             Console.Write("Name: ");
@@ -69,10 +79,11 @@ namespace ProjetV2.View
                             Console.Write("Target Directory: ");
                             string targetM = Console.ReadLine();
 
-                            Console.Write("Type (Full/Differential): ");
+                            Console.Write("Type (0:Full/1:Differential): ");
+                            int typeJobM = int.TryParse(Console.ReadLine(), out typeJobM) ? typeJobM : 0;
 
-                            Enum.TryParse(Console.ReadLine(), true, out type);
-                            BackupJob newBackupJobM = new BackupJob(nameM, sourceM, targetM, type);
+                           
+                            JobManager newBackupJobM = new JobManager(new Jobs(nameM, sourceM, targetM, typeJobM));
                             backupJobs.Add(newBackupJobM);
 
                         }
@@ -138,9 +149,12 @@ namespace ProjetV2.View
                                         string Newtarget = Console.ReadLine();
 
                                         Console.Write("Type (Full/Differential): ");
-                                        BackupType Newtype;
-                                        Enum.TryParse(Console.ReadLine(), true, out Newtype);
-                                        BackupJob NewBackupJob = new BackupJob(Newname, Newsource, Newtarget, Newtype);
+                                      
+
+                                        Console.Write("Type (0:Full/1:Differential): ");
+                                        int typeJob = int.TryParse(Console.ReadLine(), out typeJob) ? typeJob : 0;
+
+                                        JobManager NewBackupJob = new JobManager(new Jobs(Newname, Newsource, Newtarget, typeJob));
                                         backupJobs[JobIndex - 1] = NewBackupJob;
                                         break;
 
@@ -179,15 +193,11 @@ namespace ProjetV2.View
                                 Console.Clear();
                                 ShowLogo();
                                 Console.WriteLine($"Your current Logs repertory is: {logDirectory}");
-                                Console.WriteLine("Press any keybind to leave:");
-                                DisplayBackup = Console.ReadLine();
+                                Console.WriteLine("Press any key to leave:");
+                                Console.ReadLine();
                                 Console.Clear();
                                 break;
                         }
-                        break;
-
-                        
-                        
                         break;
 
                     case 4:
@@ -225,7 +235,7 @@ namespace ProjetV2.View
                         }
                         else if (language == "en")
                         {
-                            Console.WriteLine("Yes")
+                            Console.WriteLine("Yes");
                         }
                         break;
 
