@@ -223,6 +223,10 @@ namespace ProjetV2.View
                         {
                             Console.WriteLine("Oui baguette");
                         }
+                        else if (language == "en")
+                        {
+                            Console.WriteLine("Yes")
+                        }
                         break;
 
                     default:
