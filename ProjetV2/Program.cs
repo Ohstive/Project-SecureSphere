@@ -17,7 +17,7 @@ namespace ProjetV2
 
             string Target = @"C:\Users\Ostiv\Documents\Test4";
 
-            Jobs J = new Jobs("JOB1",Source,Target);
+           
             ViewJob V = new ViewJob();
            
 

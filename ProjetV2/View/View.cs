@@ -166,11 +166,6 @@ namespace ProjetV2.View
                                 }
 
                             }
-                            else
-                            {
-
-                            }
-
                         }
                     break;
  

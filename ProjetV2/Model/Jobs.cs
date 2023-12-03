@@ -203,9 +203,5 @@ namespace ProjetV2.Model
         public ErrorCatchException error { get => this.Error; set => this.Error = value; }
         public int backupType { get => this.BackupType; set => this.BackupType = value; }
     }
-    enum BType
-{
-    Full,
-    Differential
-}
+  
 }

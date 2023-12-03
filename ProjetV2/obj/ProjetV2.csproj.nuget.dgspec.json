@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\nemgb\\source\\repos\\Project-SecureSphere\\ProjetV2\\ProjetV2.csproj": {}
+    "C:\\Users\\nemgb\\source\\repos\\GIT SS\\ProjetV2\\ProjetV2.csproj": {}
   },
   "projects": {
-    "C:\\Users\\nemgb\\source\\repos\\Project-SecureSphere\\ProjetV2\\ProjetV2.csproj": {
+    "C:\\Users\\nemgb\\source\\repos\\GIT SS\\ProjetV2\\ProjetV2.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\nemgb\\source\\repos\\Project-SecureSphere\\ProjetV2\\ProjetV2.csproj",
+        "projectUniqueName": "C:\\Users\\nemgb\\source\\repos\\GIT SS\\ProjetV2\\ProjetV2.csproj",
         "projectName": "ProjetV2",
-        "projectPath": "C:\\Users\\nemgb\\source\\repos\\Project-SecureSphere\\ProjetV2\\ProjetV2.csproj",
+        "projectPath": "C:\\Users\\nemgb\\source\\repos\\GIT SS\\ProjetV2\\ProjetV2.csproj",
         "packagesPath": "C:\\Users\\nemgb\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\nemgb\\source\\repos\\Project-SecureSphere\\ProjetV2\\obj\\",
+        "outputPath": "C:\\Users\\nemgb\\source\\repos\\GIT SS\\ProjetV2\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
