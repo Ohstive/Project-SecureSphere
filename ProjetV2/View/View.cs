@@ -25,213 +25,74 @@ namespace ProjetV2.View
             ShowLogo();
             Launch();
         }
-     
-   
-
         public void Launch() // Main menu
-        { 
+        {
             while (true)
             {
                 ShowMenu();
                 int choice = int.TryParse(Console.ReadLine(), out choice) ? choice : 0;
-       
+
                 switch (choice)
                 {
                     case 1:
-                        // Create the specified number of backup jobs
-                    while (answer != "n")
-                    {
-                        Console.Clear();
-                        ShowLogo();
-                        Console.WriteLine($"Enter details for Backup Job:");
-
-                        Console.Write("Name: ");
-                        string name = Console.ReadLine();
-
-                        Console.Write("Source Directory: ");
-                        string source = Console.ReadLine();
-
-                        Console.Write("Target Directory: ");
-                        string target = Console.ReadLine();
-
-                        Console.Write("Type (0:Full/1:Differential): ");
-                        int typeJob=int.TryParse(Console.ReadLine(), out typeJob) ? typeJob : 0;
-
-
-                        
-
-                        // Create and add backup job to the list
-                        JobManager newBackupJob = new JobManager(new Jobs(name, source, target, typeJob));
-                        
-                        Console.WriteLine($"Backup Job created: {newBackupJob}");
-                        Console.WriteLine("Modify the previous Job ? (y/n)");
-
-                        JobModification = Console.ReadLine();
-                        if (JobModification == "y")
+                        // Create backup jobs
+                        while (answer != "n")
                         {
-                            Console.WriteLine(newBackupJob);
-                            Console.Write("Name: ");
-                            string nameM = Console.ReadLine();
+                            Console.Clear();
+                            ShowLogo();
+                            Console.WriteLine("Enter details for Backup Job:");
 
-                            Console.Write("Source Directory: ");
-                            string sourceM = Console.ReadLine();
+                            string name = GetInput("Name");
+                            string source = GetInput("Source Directory");
+                            string target = GetInput("Target Directory");
+                            int typeJob = GetIntegerInput("Type (0:Full/1:Differential)");
 
-                            Console.Write("Target Directory: ");
-                            string targetM = Console.ReadLine();
+                            JobManager newBackupJob = CreateBackupJob(name, source, target, typeJob);
 
-                            Console.Write("Type (0:Full/1:Differential): ");
-                            int typeJobM = int.TryParse(Console.ReadLine(), out typeJobM) ? typeJobM : 0;
+                            Console.WriteLine($"Backup Job created: {newBackupJob}");
+                            Console.WriteLine("Modify the previous Job? (y/n)");
 
-                           
-                            JobManager newBackupJobM = new JobManager(new Jobs(nameM, sourceM, targetM, typeJobM));
-                            backupJobs.Add(newBackupJobM);
+                            JobModification = Console.ReadLine();
+                            if (JobModification == "y")
+                            {
+                                ModifyBackupJob(newBackupJob);
+                            }
+                            else
+                            {
+                                backupJobs.Add(newBackupJob);
+                            }
 
+                            Console.WriteLine("Add another Job? (y/n)");
+                            answer = Console.ReadLine();
+                            Console.WriteLine();
+                            Console.Clear();
                         }
-                        else
-                        {
-
-                            backupJobs.Add(newBackupJob);                        
-                        }
-                        Console.WriteLine("Add an another Job ? (y/n)");
-                        answer = Console.ReadLine();
-                        Console.WriteLine();
-                        Console.Clear();
-                    }
                         break;
 
-                    case 2: 
-                    // Show created backup jobs
-                    
-                        Console.Clear();
-                        ShowLogo();
-                        if (backupJobs.Count == 0)
-                        {
-                            Console.WriteLine("There is no Jobs");
-                            Console.WriteLine("Press any keybind to leave:");
-                            string key = Console.ReadLine();
-                        }
-                        else
-                        {
-
-                            Console.WriteLine("Created Backup Jobs:");
-                            foreach (var job in backupJobs)
-                            {
-                                Console.WriteLine(job);
-                            }
-                            
-                            Console.WriteLine("Modify any Jobs ? (y/n)");
-                            Console.WriteLine("");
-
-                            JobsModification = Console.ReadLine();
-                            if (JobsModification == "y")//Modify or delete jobs
-                        {
-                                foreach (var job in backupJobs)
-                                {
-                                    int index = backupJobs.IndexOf(job);
-                                    Console.WriteLine($"{index + 1}. {job}");
-                                }
-                                Console.WriteLine("");
-                                Console.WriteLine("1. To modify one Job");
-                                Console.WriteLine("2. To delete one Job");
-                                int Mchoice = int.Parse(Console.ReadLine());
-                                switch (Mchoice)
-                                {
-                                    case 1:
-                                        Console.WriteLine("Enter the index that you want to modify:");
-                                        int JobIndex = int.Parse(Console.ReadLine());
-                                        Console.Write("Name: ");
-                                        string Newname = Console.ReadLine();
-
-                                        Console.Write("Source Directory: ");
-                                        string Newsource = Console.ReadLine();
-
-                                        Console.Write("Target Directory: ");
-                                        string Newtarget = Console.ReadLine();
-
-                                        Console.Write("Type (Full/Differential): ");
-                                      
-
-                                        Console.Write("Type (0:Full/1:Differential): ");
-                                        int typeJob = int.TryParse(Console.ReadLine(), out typeJob) ? typeJob : 0;
-
-                                        JobManager NewBackupJob = new JobManager(new Jobs(Newname, Newsource, Newtarget, typeJob));
-                                        backupJobs[JobIndex - 1] = NewBackupJob;
-                                        break;
-
-                                    case 2:
-                                        Console.WriteLine("Enter the index that you want to delete:");
-                                        int JobIndex2 = int.Parse(Console.ReadLine());
-                                        backupJobs.RemoveAt(JobIndex2 - 1);
-                                        break;
-                                }
-
-                            }
-                        }
-                    break;
- 
+                    case 2:
+                        // Show created backup jobs
+                        ShowBackupJobs();
+                        break;
 
                     case 3:
                         // Show log parameters
-                        Console.WriteLine("1. Set Logs Repertory");
-                        Console.WriteLine("2. Show Logs Repertory");
-                        int logchoice = int.TryParse(Console.ReadLine(), out logchoice) ? logchoice : 0;
-                        switch (logchoice)
-                        {
-                            case 1:
-                                Console.Clear();
-                                ShowLogo();
-                                Console.Write("Enter the directory path for logs: ");
-                                logDirectory = Console.ReadLine();
-                                Console.Clear();
-                                break;
-                            case 2:
-                                Console.Clear();
-                                ShowLogo();
-                                Console.WriteLine($"Your current Logs repertory is: {logDirectory}");
-                                Console.WriteLine("Press any key to leave:");
-                                Console.ReadLine();
-                                Console.Clear();
-                                break;
-                        }
+                        ShowLogParameters();
                         break;
 
                     case 4:
-                        Console.WriteLine("Enter the index of the job to run:");
-                        int jobIndex = int.Parse(Console.ReadLine());
-                        //RunBackupJob(backupJobs[jobIndex]);
+                        RunSingleJob();
                         break;
 
                     case 5:
-                        foreach (var job in backupJobs)
-                        {
-                            //RunBackupJob(job);
-                        }
+                        RunAllJobs();
+                        break;
+
+                    case 6:
+                        ChooseLanguage();
                         break;
 
                     case 7:
                         Environment.Exit(0);
-                        break;
-
-                    case 6:
-                        Console.Clear();
-                        ShowLogo();
-                        Console.WriteLine("Choose the language / Choisir la langue:");
-                        Console.WriteLine("French(fr) or English(en) / Français(fr) ou Englais(en):");
-                        string language = Console.ReadLine();
-                        if (language != "fr" || language != "en")
-                        {
-                        
-                            Console.WriteLine("Please choose between French(fr) or English(en)");
-                            language = Console.ReadLine();
-                        }
-                        else if (language == "fr")
-                        {
-                            Console.WriteLine("Oui baguette");
-                        }
-                        else if (language == "en")
-                        {
-                            Console.WriteLine("Yes");
-                        }
                         break;
 
                     default:
@@ -240,6 +101,188 @@ namespace ProjetV2.View
                 }
             }
         }
+
+        private string GetInput(string prompt)
+        {
+            Console.Write($"{prompt}: ");
+            return Console.ReadLine();
+        }
+
+        private int GetIntegerInput(string prompt)
+        {
+            int result;
+            return int.TryParse(GetInput(prompt), out result) ? result : 0;
+        }
+
+        private JobManager CreateBackupJob(string name, string source, string target, int typeJob)
+        {
+            Jobs newJob = new Jobs(name, source, target, typeJob);
+            return new JobManager(newJob);
+        }
+
+        private void ModifyBackupJob(JobManager backupJob)
+        {
+            Console.WriteLine(backupJob);
+            string nameM = GetInput("Name");
+            string sourceM = GetInput("Source Directory");
+            string targetM = GetInput("Target Directory");
+            int typeJobM = GetIntegerInput("Type (0:Full/1:Differential)");
+
+            JobManager newBackupJobM = CreateBackupJob(nameM, sourceM, targetM, typeJobM);
+            backupJobs.Add(newBackupJobM);
+        }
+
+        private void ShowBackupJobs()
+        {
+            Console.Clear();
+            ShowLogo();
+            if (backupJobs.Count == 0)
+            {
+                Console.WriteLine("There are no Jobs");
+                Console.WriteLine("Press any key to leave:");
+                string key = Console.ReadLine();
+                Console.Clear();
+            }
+            else
+            {
+                Console.WriteLine("Created Backup Jobs:");
+                foreach (var job in backupJobs)
+                {
+                    Console.WriteLine(job);
+                }
+
+                Console.WriteLine("Modify any Jobs? (y/n)");
+                Console.WriteLine("");
+
+                JobsModification = Console.ReadLine();
+                if (JobsModification == "y") // Modify or delete jobs
+                {
+                    ModifyOrDeleteJobs();
+                }
+            }
+        }
+
+        private void ModifyOrDeleteJobs()
+        {
+            foreach (var job in backupJobs)
+            {
+                int index = backupJobs.IndexOf(job);
+                Console.WriteLine($"{index + 1}. {job}");
+            }
+            Console.WriteLine("");
+            Console.WriteLine("1. To modify one Job");
+            Console.WriteLine("2. To delete one Job");
+            int Mchoice = int.Parse(Console.ReadLine());
+            switch (Mchoice)
+            {
+                case 1:
+                    ModifyJob();
+                    break;
+
+                case 2:
+                    DeleteJob();
+                    break;
+            }
+        }
+
+        private void ModifyJob()
+        {
+            Console.WriteLine("Enter the index that you want to modify:");
+            int JobIndex = int.Parse(Console.ReadLine());
+            string Newname = GetInput("Name");
+            string Newsource = GetInput("Source Directory");
+            string Newtarget = GetInput("Target Directory");
+            int typeJob = GetIntegerInput("Type (0:Full/1:Differential)");
+
+            JobManager NewBackupJob = CreateBackupJob(Newname, Newsource, Newtarget, typeJob);
+            backupJobs[JobIndex - 1] = NewBackupJob;
+        }
+
+        private void DeleteJob()
+        {
+            Console.WriteLine("Enter the index that you want to delete:");
+            int JobIndex2 = int.Parse(Console.ReadLine());
+            backupJobs.RemoveAt(JobIndex2 - 1);
+        }
+
+        private void ShowLogParameters()
+        {
+            Console.WriteLine("1. Set Logs Repertory");
+            Console.WriteLine("2. Show Logs Repertory");
+            int logchoice = GetIntegerInput("Choice");
+            switch (logchoice)
+            {
+                case 1:
+                    SetLogsRepertory();
+                    break;
+
+                case 2:
+                    ShowLogsRepertory();
+                    break;
+            }
+        }
+
+        private void SetLogsRepertory()
+        {
+            Console.Clear();
+            ShowLogo();
+            Console.Write("Enter the directory path for logs: ");
+            logDirectory = Console.ReadLine();
+            Console.Clear();
+        }
+
+        private void ShowLogsRepertory()
+        {
+            Console.Clear();
+            ShowLogo();
+            Console.WriteLine($"Your current Logs repertory is: {logDirectory}");
+            Console.WriteLine("Press any key to leave:");
+            Console.ReadLine();
+            Console.Clear();
+        }
+
+        private void RunSingleJob()
+        {
+            Console.WriteLine("Enter the index of the job to run:");
+            int jobIndex = int.Parse(Console.ReadLine());
+            // RunBackupJob(backupJobs[jobIndex]);
+        }
+
+        private void RunAllJobs()
+        {
+            foreach (var job in backupJobs)
+            {
+                // RunBackupJob(job);
+            }
+        }
+
+        private void ChooseLanguage()
+        {
+            Console.Clear();
+            ShowLogo();
+            Console.WriteLine("Choose the language / Choisir la langue:");
+            Console.WriteLine("French(fr) or English(en) / Français(fr) ou Anglais(en):");
+            string language = Console.ReadLine();
+
+            if (language != "fr" && language != "en")
+            {
+                Console.WriteLine("Please choose between French(fr) or English(en)");
+                language = Console.ReadLine();
+            }
+            else if (language == "fr")
+            {
+                Console.WriteLine("Oui baguette");
+            }
+            else if (language == "en")
+            {
+                Console.WriteLine("Yes");
+            }
+        }
+
+
+
+
+
 
         static void ShowLogo()
         {
