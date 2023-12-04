@@ -75,14 +75,17 @@ namespace Project_1._0.View
                         Console.WriteLine("Enter the index of the job to run:");
                         int jobIndex = int.Parse(Console.ReadLine());
                         backupJobs[jobIndex-1].JobRun();
+                        GetInput("The backup Jobs is done. Press any key to continue...");
                         break;
                     
                     case 5:
                         //Run all the jobs sequentially
                         foreach (JobManager job in backupJobs)
                         {
-                            job.JobRun(); 
+                            job.JobRun();
+                            
                         }
+                        GetInput("All the backup Jobs are done. Press any key to continue...");
                         break;
                
                     case 6:
