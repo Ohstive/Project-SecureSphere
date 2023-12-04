@@ -75,7 +75,7 @@ namespace Project_1._0.View
                         //Run all the jobs sequentially
                         foreach (var job in backupJobs)
                         {
-                            JobManager JobRun();
+                            job.JobRun(); 
                         }
                         break;
                
