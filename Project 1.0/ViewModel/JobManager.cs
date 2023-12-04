@@ -12,7 +12,8 @@ namespace Project_1._0.ViewModel
     {
      
         private string logDirectory { get; set;}
-        private readonly Jobs _jobs;
+        private Jobs _jobs { get; set; }
+        public Jobs Jobs { get { return _jobs; } }
         IFileHandler _fileHandler ; 
         IDirectoryHandler _directoryHandler ;
 
@@ -25,6 +26,7 @@ namespace Project_1._0.ViewModel
             
         }
 
+      
         public void SetLogDirectory(string path)
         {
             logDirectory = path;

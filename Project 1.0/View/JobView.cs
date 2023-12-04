@@ -73,11 +73,14 @@ namespace Project_1._0.View
                         foreach (JobManager job in backupJobs)
                         {
                             int index = backupJobs.IndexOf(job);
-                            Console.WriteLine($"{index + 1}. {job}");
+                            Console.WriteLine($"{index + 1}.{job.Jobs.JobConfiguration.JobName} " +
+                                $"{job.Jobs.JobConfiguration.SourceDirectoryPath}" +
+                                $"{job.Jobs.JobConfiguration.TargetDirectoryPath}" +
+                                $"{job.Jobs.JobConfiguration.BackupType} ");
                         }
                         Console.WriteLine("Enter the index of the job to run:");
                         int jobIndex = int.Parse(Console.ReadLine());
-                        backupJobs.IndexOf(jobIndex).JobRun();
+                        backupJobs[jobIndex].JobRun();
                         break;
                     
                     case 5:
