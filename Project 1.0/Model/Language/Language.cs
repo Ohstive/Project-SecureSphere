@@ -14,11 +14,6 @@ namespace Project_1._0.Model.Language
 
         private Dictionary<string, Dictionary<string, string>> dialogueDictionary;
 
-
-
-
-
-
         public Language()
         {
             this._currentLanguage = "en";//default language
@@ -83,7 +78,10 @@ namespace Project_1._0.Model.Language
         }
         //Temporary function for testing
 
-
+        public string GetCurrentLanguage()
+        {
+            return this._currentLanguage;
+        }
         public Dictionary<string, string> GetDialogue(string language)
         {
             if (this.dialogueDictionary.ContainsKey(language))
