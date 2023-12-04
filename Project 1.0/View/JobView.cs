@@ -25,12 +25,9 @@ namespace Project_1._0.View
             this.language = new Language();
             this.currentLanguage = language.GetCurrentLanguage();
             this.dialogueDictionary = language.GetDialogue(currentLanguage);
-
-
-
         }
 
-  
+
 
         List<JobManager> backupJobs = new List<JobManager>(); //Initialize the backup jobs list
 
@@ -49,15 +46,16 @@ namespace Project_1._0.View
 
             while (true)
             {
+                Console.Clear();
                 ShowLogo();
                 ShowMenu();
-                int choice = int.TryParse(Console.ReadLine(), out choice) ? choice : 0;
+                int choice = int.TryParse(Console.ReadLine(), out choice) ? choice : -1;
 
                 switch (choice)
                 {
                     case 1:
                         // Create backup jobs
-                        //CreateBackupJobs();
+                        CreateBackupJobs();
                         break;
 
                     case 2:
@@ -69,15 +67,15 @@ namespace Project_1._0.View
                         // 
                         //RunAllJobs();
                         break;
-                        
-                    
+
+
 
                     case 4:
                         // Show log parameters
                         //ShowLogParameters();
                         break;
                     case 5:
-                        
+
 
                     case 6:
                         //ChooseLanguage();
@@ -90,11 +88,95 @@ namespace Project_1._0.View
                     default:
                         Console.WriteLine("Invalid choice");
                         break;
-                }   
+                }
 
 
             }
         }
+
+       
+        private int GetIntegerInput(string prompt)
+        {
+            int result;
+            return int.TryParse(GetInput(prompt), out result) ? result : -1;
+        }
+
+        private string GetInput(string prompt)
+        {
+            Console.WriteLine($"{prompt}: ");
+            return Console.ReadLine();
+        }
+
+
+        private void CreateBackupJobs()
+        {
+            // Create backup jobs
+            Console.Clear();
+            ShowLogo();
+            Console.WriteLine("Enter details for Backup Job:");
+            // Define the variables to create a job
+            string name = GetInput("Enter the name of the job");
+            string source = GetInput("Enter the source directory of the job");
+            string target = GetInput("Enter the target Directory");
+            int typeJob = GetIntegerInput("Enter the type of the job : 0 for Full 1 for Differential");
+
+            JobManager newBackupJob = new JobManager(new Jobs(name, source, target, typeJob));
+            Console.WriteLine($"Backup Job created: {newBackupJob}");
+
+
+            string answerModification = GetInput("Do you want to modify the previous Job? (y/n)");
+            while (answerModification != "y" && answerModification != "n")
+            {
+                if (answerModification == "y")
+                {
+                    answerModification = "y";
+                    ModifyBackupJob(newBackupJob);
+                }
+                else
+                {
+                    backupJobs.Add(newBackupJob);
+                    answerModification = "n";
+                    break;
+                }
+            }
+
+
+            string answerAdd = GetInput("Do you want to add another Job? (y/n)");
+            while (answerAdd != "y" && answerAdd != "n")
+            {
+                if (answerAdd == "y")
+                {
+                    answerAdd = "y";
+                    CreateBackupJobs();
+                }
+                else
+                {
+                    answerAdd = "n";
+                    backupJobs.Add(newBackupJob);
+                    break;
+                    
+                }
+            }
+
+
+
+
+
+
+        }
+        private void ModifyBackupJob(JobManager backupJob)
+        {
+            string nameM = GetInput("Name");
+            string sourceM = GetInput("Source Directory");
+            string targetM = GetInput("Target Directory");
+            int typeJobM = GetIntegerInput("Type (0:Full/1:Differential)");
+            JobManager newBackupJobM = new JobManager(new Jobs(nameM,sourceM,targetM,typeJobM)) ;
+            backupJobs.Add(newBackupJobM);
+        }
+
+
+
+
 
         static void ShowLogo()
         {
@@ -128,11 +210,6 @@ namespace Project_1._0.View
             Console.WriteLine("╚═════════════════════════════════╝");
 
         }
-
-       
-
-       
-
 
 
     }

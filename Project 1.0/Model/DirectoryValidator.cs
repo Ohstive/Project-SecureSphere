@@ -24,26 +24,22 @@ namespace Project_1._0.Model
             {
                 if (File.Exists(path))
                 {
-                    Console.WriteLine("Source is a file");
                     _errorManager.SetError("SourceDirectoryExistError");
                     return false;
                 }
                 else if (Directory.Exists(path))
                 {
-                    Console.WriteLine("Source is a directory");
                     directoryInfo = new DirectoryInfo(path);
                     return true;
                 }
                 else
                 {
-                    Console.WriteLine("Source doesn't exist");
                     _errorManager.SetError("SourceDirectoryExistError");
                     return false;
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"An unexpected error occurred: {ex.Message}");
                 // Log the unexpected error
                 // Log.Error($"Unexpected error in IsDirectoryValid: {ex.Message}", ex);
                 _errorManager.SetError("PermissionToAccessSourceError");
