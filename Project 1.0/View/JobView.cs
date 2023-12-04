@@ -26,6 +26,8 @@ namespace Project_1._0.View
             this.currentLanguage = language.GetCurrentLanguage();
             this.dialogueDictionary = language.GetDialogue(currentLanguage);
 
+
+
         }
 
   
