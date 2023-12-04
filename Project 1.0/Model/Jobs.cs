@@ -69,13 +69,9 @@ namespace Project_1._0.Model
                     }
                     catch (UnauthorizedAccessException)
                     {
-                        Console.WriteLine("Read or write access to the directory is not allowed.");
                         _errorManager.SetError("PermissionToAccessSourceError");
                     }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine($"An unexpected error occurred: {ex.Message}");
-                    }
+              
                 }
                 else if (Directory.Exists(_jobConfiguration.SourceDirectoryPath))
                 {
@@ -88,23 +84,17 @@ namespace Project_1._0.Model
                     }
                     catch (UnauthorizedAccessException)
                     {
-                        Console.WriteLine("Read or write access to the directory is not allowed.");
                         _errorManager.SetError("PermissionToAccessSourceError");
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine($"An unexpected error occurred: {ex.Message}");
                     }
                 }
                 else
                 {
-                    Console.WriteLine("Source doesn't exist");
                     _errorManager.SetError("SourceDirectoryExistError");
                 }
             }
             else
             {
-                Console.WriteLine("Source is not a valid directory or file");
+                _errorManager.SetError("SourceDirectoryExistError");
             }
         }
 
@@ -120,12 +110,7 @@ namespace Project_1._0.Model
                 }
                 catch (UnauthorizedAccessException)
                 {
-                    Console.WriteLine("Read or write access to the directory is not allowed.");
                     _errorManager.SetError("PermissionToCreateInTargetError");
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"An unexpected error occurred: {ex.Message}");
                 }
             }
         }
