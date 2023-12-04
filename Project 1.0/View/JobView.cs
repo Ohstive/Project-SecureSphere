@@ -14,13 +14,18 @@ namespace Project_1._0.View
     {
         // This class is used to display the configuration of a job
         private readonly JobManager _jobManager;
-        Language language = new Language();
-
+        Language language;
+        string currentLanguage;
+        Dictionary<string, string> dialogueDictionary;
 
         // Constructor
         public JobView(JobManager jobManager)
         {
             this._jobManager = jobManager;
+            this.language = new Language();
+            this.currentLanguage = language.GetCurrentLanguage();
+            this.dialogueDictionary = language.GetDialogue(currentLanguage);
+
         }
 
   
