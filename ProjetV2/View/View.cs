@@ -22,13 +22,13 @@ namespace ProjetV2.View
 
         public ViewJob()
         {
-            ShowLogo();
             Launch();
         }
         public void Launch() // Main menu
         {
             while (true)
             {
+                ShowLogo();
                 ShowMenu();
                 int choice = int.TryParse(Console.ReadLine(), out choice) ? choice : 0;
 
