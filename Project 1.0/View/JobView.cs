@@ -7,6 +7,7 @@ using Project_1._0.Model;
 using Project_1._0.ViewModel.Services;
 using Project_1._0.ViewModel;
 using Project_1._0.Model.Language;
+using System.Xml.Linq;
 
 namespace Project_1._0.View
 {
@@ -60,24 +61,17 @@ namespace Project_1._0.View
 
                     case 2:
                         // Show created backup jobs
-                        //ShowBackupJobs();
+                        ShowBackupJobs();
                         break;
                     
                     case 3:
                         // Show log parameters
-                        //ShowLogParameters();
+                        ShowLogParameters();
                         break;
                     
                     case 4:
                         //Run one specific job
-                        foreach (JobManager job in backupJobs)
-                        {
-                            int index = backupJobs.IndexOf(job);
-                            Console.WriteLine($"{index + 1}.{job.Jobs.JobConfiguration.JobName} " +
-                                $"{job.Jobs.JobConfiguration.SourceDirectoryPath}" +
-                                $"{job.Jobs.JobConfiguration.TargetDirectoryPath}" +
-                                $"{job.Jobs.JobConfiguration.BackupType} ");
-                        }
+                        ShowIndexBackupJobs();
                         Console.WriteLine("Enter the index of the job to run:");
                         int jobIndex = int.Parse(Console.ReadLine());
                         backupJobs[jobIndex].JobRun();
@@ -121,7 +115,7 @@ namespace Project_1._0.View
             return Console.ReadLine();
         }
 
-
+        
         private void CreateBackupJobs()
         {
             // Create backup jobs
@@ -182,6 +176,18 @@ namespace Project_1._0.View
 
 
         }
+
+        private void ShowIndexBackupJobs()
+        {
+            foreach (JobManager job in backupJobs)
+            {
+                int index = backupJobs.IndexOf(job);
+                Console.WriteLine($"{index + 1}.{job.Jobs.JobConfiguration.JobName} " +
+                    $"{job.Jobs.JobConfiguration.SourceDirectoryPath}" +
+                    $"{job.Jobs.JobConfiguration.TargetDirectoryPath}" +
+                    $"{job.Jobs.JobConfiguration.BackupType} ");
+            }
+        }
         private void ModifyBackupJob(JobManager backupJob)
         {
             string nameM = GetInput("Name");
@@ -192,8 +198,102 @@ namespace Project_1._0.View
             backupJobs.Add(newBackupJobM);
         }
 
+        private void ShowBackupJobs()
+        {
+            Console.Clear();
+            ShowLogo();
+            if (backupJobs.Count == 0)
+            {
+                Console.WriteLine("There are no Jobs");
+                Console.WriteLine("Press any key to leave:");
+                string key = Console.ReadLine();
+                Console.Clear();
+            }
+            else
+            {
+                Console.WriteLine("Created Backup Jobs:");
+                ShowIndexBackupJobs();
 
 
+                Console.WriteLine("Modify any Jobs? (y/n)");
+                Console.WriteLine("");
+
+                JobsModification = Console.ReadLine();
+                if (JobsModification == "y") // Modify or delete jobs
+                {
+                    ModifyOrDeleteJobs();
+                }
+            }
+        }
+        private void ModifyOrDeleteJobs()
+        {
+            foreach (var job in backupJobs)
+            {
+                int index = backupJobs.IndexOf(job);
+                Console.WriteLine($"{index + 1}. {job}");
+            }
+            Console.WriteLine("");
+            Console.WriteLine("1. To modify one Job");
+            Console.WriteLine("2. To delete one Job");
+            int Mchoice = int.Parse(Console.ReadLine());
+            switch (Mchoice)
+            {
+                case 1:
+                    string nameM = GetInput("Enter the name of the job");
+                    string sourceM = GetInput("Enter the source directory of the job");
+                    string targetM = GetInput("Enter the target Directory");
+                    int typeJobM = GetIntegerInput("Enter the type of the job : 0 for Full 1 for Differential");
+                    JobManager newBackupJobM = new JobManager(new Jobs(nameM, sourceM, targetM, typeJobM));
+                    ModifyBackupJob(newBackupJobM);
+                    break;
+
+                case 2:
+                    DeleteJob();
+                    break;
+            }
+        }
+        private void DeleteJob()
+        {
+            Console.WriteLine("Enter the index that you want to delete:");
+            int JobIndex2 = int.Parse(Console.ReadLine());
+            backupJobs.RemoveAt(JobIndex2 - 1);
+        }
+
+        private void ShowLogParameters()
+        {
+            Console.WriteLine("1. Set Logs Repertory");
+            Console.WriteLine("2. Show Logs Repertory");
+            int logchoice = GetIntegerInput("Choice");
+            switch (logchoice)
+            {
+                case 1:
+                    SetLogsRepertory();
+                    break;
+
+                case 2:
+                    ShowLogsRepertory();
+                    break;
+            }
+        }
+
+        private void SetLogsRepertory()
+        {
+            Console.Clear();
+            ShowLogo();
+            Console.Write("Enter the directory path for logs: ");
+            logDirectory = Console.ReadLine();
+            Console.Clear();
+        }
+
+        private void ShowLogsRepertory()
+        {
+            Console.Clear();
+            ShowLogo();
+            Console.WriteLine($"Your current Logs repertory is: {logDirectory}");
+            Console.WriteLine("Press any key to leave:");
+            Console.ReadLine();
+            Console.Clear();
+        }
 
 
         static void ShowLogo()
