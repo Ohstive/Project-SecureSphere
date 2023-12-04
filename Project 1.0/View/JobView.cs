@@ -131,18 +131,19 @@ namespace Project_1._0.View
             JobManager newBackupJob = new JobManager(new Jobs(name, source, target, typeJob));
             if(typeJob == 0)
             {
-                Console.WriteLine($"Backup Job created: {name}"+"type Full "+"Source: "+source+ " Target: "+target);
+                Console.WriteLine($"Backup Job created: Name: {name} "+"Type: Full "+"Source: "+source+ " Target: "+target);
             }
             else
             {
-                Console.WriteLine($"Backup Job created: {name}" + "type Differential" + "Source: " + source + "Target: " + target);
+                Console.WriteLine($"Backup Job created: Name: {name} " + "Type: Differential " + "Source: " + source + " Target: " + target);
             }
-              
 
 
-            string answerModification = GetInput("Do you want to modify the previous Job? (y/n)");
-            while (answerModification != "y" && answerModification != "n")
+
+            string answerModification = "";
+            while (answerModification != "n")
             {
+                answerModification = GetInput("Do you want to modify the previous Job? (y/n)");
                 if (answerModification == "y")
                 {
                     answerModification = "y";
@@ -157,21 +158,16 @@ namespace Project_1._0.View
             }
 
 
-            string answerAdd = GetInput("Do you want to add another Job? (y/n)");
-            while (answerAdd != "y" && answerAdd != "n")
+            string answerAdd = "";
+            while (answerAdd != "n")
             {
+                answerAdd = GetInput("Do you want to add another Job? (y/n)");
                 if (answerAdd == "y")
                 {
                     answerAdd = "y";
                     CreateBackupJobs();
                 }
-                else
-                {
-                    answerAdd = "n";
-                    backupJobs.Add(newBackupJob);
-                    break;
-                    
-                }
+               
             }
 
 
@@ -182,10 +178,10 @@ namespace Project_1._0.View
             foreach (JobManager job in backupJobs)
             {
                 int index = backupJobs.IndexOf(job);
-                Console.WriteLine($"{index + 1}.{job.Jobs.JobConfiguration.JobName} " +
-                    $"{job.Jobs.JobConfiguration.SourceDirectoryPath}" +
-                    $"{job.Jobs.JobConfiguration.TargetDirectoryPath}" +
-                    $"{job.Jobs.JobConfiguration.BackupType} ");
+                Console.WriteLine($"{index + 1}.Name:{job.Jobs.JobConfiguration.JobName}  " +
+                    $"Source: {job.Jobs.JobConfiguration.SourceDirectoryPath} " +
+                    $"Target: {job.Jobs.JobConfiguration.TargetDirectoryPath}" +
+                    $"Type: {job.Jobs.JobConfiguration.BackupType} ");
             }
         }
         private void ModifyBackupJob(JobManager backupJob)
@@ -227,11 +223,7 @@ namespace Project_1._0.View
         }
         private void ModifyOrDeleteJobs()
         {
-            foreach (var job in backupJobs)
-            {
-                int index = backupJobs.IndexOf(job);
-                Console.WriteLine($"{index + 1}. {job}");
-            }
+            ShowIndexBackupJobs();
             Console.WriteLine("");
             Console.WriteLine("1. To modify one Job");
             Console.WriteLine("2. To delete one Job");
