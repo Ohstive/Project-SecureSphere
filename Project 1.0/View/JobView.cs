@@ -227,16 +227,17 @@ namespace Project_1._0.View
             Console.WriteLine("");
             Console.WriteLine("1. To modify one Job");
             Console.WriteLine("2. To delete one Job");
-            int Mchoice = int.Parse(Console.ReadLine());
+            int Mchoice = int.TryParse(Console.ReadLine(), out Mchoice) ? Mchoice : -1;
             switch (Mchoice)
             {
                 case 1:
+                    int Indexchoice = int.TryParse(Console.ReadLine(), out Indexchoice) ? Indexchoice : -1;
                     string nameM = GetInput("Enter the name of the job");
                     string sourceM = GetInput("Enter the source directory of the job");
                     string targetM = GetInput("Enter the target Directory");
                     int typeJobM = GetIntegerInput("Enter the type of the job : 0 for Full 1 for Differential");
                     JobManager newBackupJobM = new JobManager(new Jobs(nameM, sourceM, targetM, typeJobM));
-                    ModifyBackupJob(newBackupJobM);
+                    //backupJobs[Indexchoice] = ModifyBackupJob(newBackupJobM);
                     break;
 
                 case 2:
