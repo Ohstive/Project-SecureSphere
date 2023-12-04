@@ -148,7 +148,8 @@ namespace Project_1._0.View
                 {
                     answerModification = "y";
                     ModifyBackupJob(newBackupJob);
-                }
+                    answerModification = "n";
+                }   
                 else
                 {
                     backupJobs.Add(newBackupJob);
@@ -167,7 +168,7 @@ namespace Project_1._0.View
                     answerAdd = "y";
                     CreateBackupJobs();
                 }
-               
+                break;
             }
 
 
@@ -178,10 +179,19 @@ namespace Project_1._0.View
             foreach (JobManager job in backupJobs)
             {
                 int index = backupJobs.IndexOf(job);
+                string ModiType = "";
+                if(job.Jobs.JobConfiguration.BackupType == 0)
+                {
+                    ModiType = "Full";
+                }
+                else
+                {
+                    ModiType = "Differential";
+                }
                 Console.WriteLine($"{index + 1}.Name:{job.Jobs.JobConfiguration.JobName}  " +
                     $"Source: {job.Jobs.JobConfiguration.SourceDirectoryPath} " +
-                    $"Target: {job.Jobs.JobConfiguration.TargetDirectoryPath}" +
-                    $"Type: {job.Jobs.JobConfiguration.BackupType} ");
+                    $"Target: {job.Jobs.JobConfiguration.TargetDirectoryPath} " +
+                    $"Type: {ModiType} ");
             }
         }
         private void ModifyBackupJob(JobManager backupJob)
@@ -231,13 +241,14 @@ namespace Project_1._0.View
             switch (Mchoice)
             {
                 case 1:
+                    Console.WriteLine("Choose the job index that you want to modify");
                     int Indexchoice = int.TryParse(Console.ReadLine(), out Indexchoice) ? Indexchoice : -1;
                     string nameM = GetInput("Enter the name of the job");
                     string sourceM = GetInput("Enter the source directory of the job");
                     string targetM = GetInput("Enter the target Directory");
                     int typeJobM = GetIntegerInput("Enter the type of the job : 0 for Full 1 for Differential");
                     JobManager newBackupJobM = new JobManager(new Jobs(nameM, sourceM, targetM, typeJobM));
-                    //backupJobs[Indexchoice] = ModifyBackupJob(newBackupJobM);
+                    backupJobs[Indexchoice-1] = newBackupJobM;
                     break;
 
                 case 2:
