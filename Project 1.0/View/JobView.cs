@@ -74,7 +74,7 @@ namespace Project_1._0.View
                         ShowIndexBackupJobs();
                         Console.WriteLine("Enter the index of the job to run:");
                         int jobIndex = int.Parse(Console.ReadLine());
-                        backupJobs[jobIndex].JobRun();
+                        backupJobs[jobIndex-1].JobRun();
                         break;
                     
                     case 5:
