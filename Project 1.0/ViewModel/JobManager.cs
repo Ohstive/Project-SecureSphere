@@ -30,6 +30,17 @@ namespace Project_1._0.ViewModel
             logDirectory = path;
         }
    
+        public void JobRun()
+        {
+            if (_jobs.JobConfiguration.BackupType == 0)
+            {
+                JobFullCopy();
+            }
+            else
+            {
+                JobDifferentialCopy();
+            }
+        }
 
         public void JobFullCopy()
         {

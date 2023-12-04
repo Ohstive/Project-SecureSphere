@@ -129,7 +129,7 @@ namespace Project_1._0.View
             {
                 Console.WriteLine($"Backup Job created: {name}" + "type Differential" + "Source: " + source + "Target: " + target);
             }
-            
+              
 
 
             string answerModification = GetInput("Do you want to modify the previous Job? (y/n)");
