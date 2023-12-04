@@ -62,21 +62,23 @@ namespace Project_1._0.View
                         // Show created backup jobs
                         //ShowBackupJobs();
                         break;
-
+                    
                     case 3:
-                        // 
-                        //RunAllJobs();
-                        break;
-
-
-
-                    case 4:
                         // Show log parameters
                         //ShowLogParameters();
                         break;
+                    
+                    case 4:
+                        //Run one specific job
+
                     case 5:
-
-
+                        //Run all the jobs sequentially
+                        foreach (var job in backupJobs)
+                        {
+                            JobManager JobRun();
+                        }
+                        break;
+               
                     case 6:
                         //ChooseLanguage();
                         break;
