@@ -70,12 +70,21 @@ namespace Project_1._0.View
                     
                     case 4:
                         //Run one specific job
-
+                        foreach (JobManager job in backupJobs)
+                        {
+                            int index = backupJobs.IndexOf(job);
+                            Console.WriteLine($"{index + 1}. {job}");
+                        }
+                        Console.WriteLine("Enter the index of the job to run:");
+                        int jobIndex = int.Parse(Console.ReadLine());
+                        backupJobs.IndexOf(jobIndex).JobRun();
+                        break;
+                    
                     case 5:
                         //Run all the jobs sequentially
-                        foreach (var job in backupJobs)
+                        foreach (JobManager job in backupJobs)
                         {
-                            JobManager JobRun();
+                            job.JobRun(); 
                         }
                         break;
                
