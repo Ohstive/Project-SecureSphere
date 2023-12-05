@@ -36,8 +36,8 @@ namespace Project_1._0.Model.Language
                 {"EnterLogsRepertory","Enter the directory path for logs: "},
                 { "ChooseLanguage", "Choose the language:" },
                 { "InvalidLanguageChoice", "Please choose between French(fr) or English(en)" },
-                { "Yes", "Yes" },
-                { "No", "No" },
+                { "Yes", "Yes(y)" },
+                { "No", "No(n)" },
                 { "InvalidChoice", "Invalid choice" },
                 { "NoJobsMessage", "There are no Jobs" },
                 { "PressAnyKeyToLeave", "Press any key to leave:" },
@@ -68,7 +68,10 @@ namespace Project_1._0.Model.Language
                 {"RunOneJobMenu","Run a specific backup job" },
                 {"RunAllJobsMenu","Run all backup jobs" },
                 {"ChooseLanguageMenu","Choose the Language" },
-                {"ExitMenu","Exit" }
+                {"ExitMenu","Exit" },
+                {"y","y" },
+                {"n","n" },
+                {"EnterAnswer", "Enter your answer: " }
             }
         },
         {
@@ -88,8 +91,8 @@ namespace Project_1._0.Model.Language
                 { "ChooseLanguage", "Choisissez la langue :" },
                 { "FrenchOrEnglish", "Français(fr) ou Anglais(en) :" },
                 { "InvalidLanguageChoice", "Veuillez choisir entre Français(fr) ou Anglais(en)" },
-                { "Yes", "Oui" },
-                { "No", "Non" },
+                { "Yes", "Oui(o)" },
+                { "No", "Non(n)" },
                 { "InvalidChoice", "Choix non valide" },
                 { "NoJobsMessage", "Il n'y a pas de travaux" },
                 { "PressAnyKeyToLeave", "Appuyez sur n'importe quelle touche pour quitter :" },
@@ -120,7 +123,10 @@ namespace Project_1._0.Model.Language
                 {"RunOneJobMenu", "Exécuter une tâche de sauvegarde spécifique"},
                 {"RunAllJobsMenu", "Exécuter toutes les tâches de sauvegarde"},
                 {"ChooseLanguageMenu", "Choisir la langue"},
-                {"ExitMenu", "Quitter"}
+                {"ExitMenu", "Quitter"},
+                {"y","o" },
+                {"n","n" },
+                {"EnterAnswer", "Entrez votre réponse: " }
 
 
             }

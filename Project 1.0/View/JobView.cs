@@ -50,6 +50,7 @@ namespace Project_1._0.View
                 Console.Clear();
                 ShowLogo();
                 ShowMenu();
+                Console.Write(language.GetDialogue("EnterAnswer"));
                 int choice = int.TryParse(Console.ReadLine(), out choice) ? choice : -1;
 
                 switch (choice)
@@ -78,10 +79,12 @@ namespace Project_1._0.View
                     case 4:
                         //Run one specific job
                         ShowIndexBackupJobs();
-                        Console.WriteLine(language.GetDialogue("JobIndexToRun")); 
+                        Console.WriteLine(language.GetDialogue("JobIndexToRun"));
+                        Console.Write(language.GetDialogue("EnterAnswer"));
                         int jobIndex = int.Parse(Console.ReadLine());
                         backupJobs[jobIndex-1].JobRun();
-                        GetInput(language.GetDialogue("Job Done")); 
+                        Console.WriteLine(language.GetDialogue("Job Done"));
+                        GetInput(language.GetDialogue("PressAnyKeyToLeave"));
                         break;
                     
                     case 5:
@@ -91,7 +94,8 @@ namespace Project_1._0.View
                             job.JobRun();
                             
                         }
-                        GetInput(language.GetDialogue("Jobs Done"));
+                        Console.WriteLine(language.GetDialogue("Job Done"));
+                        GetInput(language.GetDialogue("PressAnyKeyToLeave"));
                         break;
                
                     case 6:
@@ -103,7 +107,7 @@ namespace Project_1._0.View
                         break;
 
                     default:
-                        Console.WriteLine(language.GetDialogue("InvalidChoice")); 
+                        Console.WriteLine(language.GetDialogue("InvalidChoice"));
                         break;
                 }
 
@@ -133,10 +137,21 @@ namespace Project_1._0.View
             
             Console.WriteLine(language.GetDialogue("EnterBackupJobDetails"));
             // Define the variables to create a job
-            string name = GetInput(language.GetDialogue("Job Name"));
-            string source = GetInput(language.GetDialogue("Job Source"));
-            string target = GetInput(language.GetDialogue("Job Target"));
-            int typeJob = GetIntegerInput(language.GetDialogue("Job Type"));
+            Console.WriteLine(language.GetDialogue("Job Name"));
+            Console.Write(language.GetDialogue("EnterAnswer"));
+            string name = Console.ReadLine();
+
+            Console.WriteLine(language.GetDialogue("Job Source"));
+            Console.Write(language.GetDialogue("EnterAnswer"));
+            string source = Console.ReadLine();
+
+            Console.WriteLine(language.GetDialogue("Job Target"));
+            Console.Write(language.GetDialogue("EnterAnswer"));
+            string target = Console.ReadLine();
+
+            Console.WriteLine(language.GetDialogue("Job Type"));
+            Console.Write(language.GetDialogue("EnterAnswer"));
+            int typeJob = int.TryParse(Console.ReadLine(), out typeJob) ? typeJob : -1;
 
             JobManager newBackupJob = new JobManager(new Jobs(name, source, target, typeJob));
             if(typeJob == 0)
@@ -153,17 +168,19 @@ namespace Project_1._0.View
             string answerModification = "";
             while (answerModification != language.GetDialogue("No"))
             {
-                answerModification = GetInput($"{language.GetDialogue("ModifyPreviousJob")} {language.GetDialogue("Yes")}/{language.GetDialogue("No")}");
-                if (answerModification == language.GetDialogue("Yes"))
+                Console.WriteLine($"{language.GetDialogue("ModifyPreviousJob")} {language.GetDialogue("Yes")}/{language.GetDialogue("No")}");
+                Console.Write(language.GetDialogue("EnterAnswer"));
+                answerModification = Console.ReadLine();
+                if (answerModification == language.GetDialogue("y"))
                 {
-                    answerModification = language.GetDialogue("Yes");
+                    answerModification = language.GetDialogue("y");
                     ModifyBackupJob(newBackupJob);
-                    answerModification = language.GetDialogue("No");
+                    answerModification = language.GetDialogue("n");
                 }   
                 else
                 {
                     backupJobs.Add(newBackupJob);
-                    answerModification = language.GetDialogue("No");
+                    answerModification = language.GetDialogue("n");
                     break;
                 }
             }
@@ -172,16 +189,18 @@ namespace Project_1._0.View
             string answerAdd = "";
             while (answerAdd != language.GetDialogue("No"))
             {
-                answerAdd = GetInput($"{language.GetDialogue("AddAnotherJob")} {language.GetDialogue("Yes")}/{language.GetDialogue("No")   }");
+                Console.WriteLine($"{language.GetDialogue("AddAnotherJob")} {language.GetDialogue("Yes")}/{language.GetDialogue("No")}");
+                Console.Write(language.GetDialogue("EnterAnswer"));
+                answerAdd = Console.ReadLine();
                 if (backupJobs.Count > 4)
                 {
                     Console.WriteLine(  language.GetDialogue("Jobs limit")  );
                     GetInput(language.GetDialogue("PressAnyKeyToLeave"));
                     break;
                 }
-                if (answerAdd == language.GetDialogue("Yes"))
+                else if (answerAdd == language.GetDialogue("y"))
                 {
-                    answerAdd = language.GetDialogue("Yes");
+                    answerAdd = language.GetDialogue("y");
                     CreateBackupJobs();
                 }
                 break;
@@ -212,10 +231,22 @@ namespace Project_1._0.View
         }
         private void ModifyBackupJob(JobManager backupJob)
         {
-            string nameM = GetInput(language.GetDialogue("Job Name"));
-            string sourceM = GetInput(  language.GetDialogue("Job Source"));
-            string targetM = GetInput(  language.GetDialogue("Job Target"));
-            int typeJobM = GetIntegerInput(language.GetDialogue("Job Type"));
+            Console.WriteLine(language.GetDialogue("Job Name"));
+            Console.Write(language.GetDialogue("EnterAnswer"));
+            string nameM = Console.ReadLine();
+
+            Console.WriteLine(language.GetDialogue("Job Source"));
+            Console.Write(language.GetDialogue("EnterAnswer"));
+            string sourceM = Console.ReadLine();
+
+            Console.WriteLine(language.GetDialogue("Job Target"));
+            Console.Write(language.GetDialogue("EnterAnswer"));
+            string targetM = Console.ReadLine();
+
+            Console.WriteLine(language.GetDialogue("Job Type"));
+            Console.Write(language.GetDialogue("EnterAnswer"));
+            int typeJobM = int.TryParse(Console.ReadLine(), out typeJobM) ? typeJobM : -1;
+
             JobManager newBackupJobM = new JobManager(new Jobs(nameM,sourceM,targetM,typeJobM)) ;
             backupJobs.Add(newBackupJobM);
         }
@@ -227,8 +258,7 @@ namespace Project_1._0.View
             if (backupJobs.Count == 0)
             {
                 Console.WriteLine(language.GetDialogue("NoJobsMessage"));
-                Console.WriteLine(language.GetDialogue("PressAnyKeyToLeave"));
-                string key = Console.ReadLine();
+                GetInput(language.GetDialogue("PressAnyKeyToLeave"));
                 Console.Clear();
             }
             else
@@ -237,11 +267,11 @@ namespace Project_1._0.View
                 ShowIndexBackupJobs();
 
 
-                Console.WriteLine($"{language.GetDialogue("ModifyAnyJobs")} {language.GetDialogue("Yes")}/{language.GetDialogue("No")}"); 
-                Console.WriteLine("");
+                Console.WriteLine($"{language.GetDialogue("ModifyAnyJobs")} {language.GetDialogue("Yes")}/{language.GetDialogue("No")}");
+                Console.Write(language.GetDialogue("EnterAnswer"));
 
                 JobsModification = Console.ReadLine();
-                if (JobsModification == language.GetDialogue("Yes")) // Modify or delete jobs
+                if (JobsModification == language.GetDialogue("y")) // Modify or delete jobs
                 {
                     ModifyOrDeleteJobs();
                 }
@@ -253,16 +283,31 @@ namespace Project_1._0.View
             Console.WriteLine("");
             Console.WriteLine($"1. {language.GetDialogue("ModifyOneJob")}");
             Console.WriteLine($"2. {language.GetDialogue("DeleteOneJob")}");
+            Console.Write(language.GetDialogue("EnterAnswer"));
             int Mchoice = int.TryParse(Console.ReadLine(), out Mchoice) ? Mchoice : -1;
             switch (Mchoice)
             {
                 case 1:
                     Console.WriteLine(language.GetDialogue("EnterIndexToModify"));
+                    Console.Write(language.GetDialogue("EnterAnswer"));
                     int Indexchoice = int.TryParse(Console.ReadLine(), out Indexchoice) ? Indexchoice : -1;
-                    string nameM = GetInput(language.GetDialogue("Job Name"));
-                    string sourceM = GetInput(language.GetDialogue("Job Source"));
-                    string targetM = GetInput(language.GetDialogue("Job Target"));
-                    int typeJobM = GetIntegerInput(language.GetDialogue("Job Type"));
+
+                    Console.WriteLine(language.GetDialogue("Job Name"));
+                    Console.Write(language.GetDialogue("EnterAnswer"));
+                    string nameM = Console.ReadLine();
+
+                    Console.WriteLine();
+                    Console.Write(language.GetDialogue("EnterAnswer"));
+                    string sourceM = Console.ReadLine();
+
+                    Console.WriteLine();
+                    Console.Write(language.GetDialogue("EnterAnswer"));
+                    string targetM = Console.ReadLine();
+
+                    Console.WriteLine();
+                    Console.Write(language.GetDialogue("EnterAnswer"));
+                    int typeJobM = int.TryParse(Console.ReadLine(), out typeJobM) ? typeJobM : -1;
+
                     JobManager newBackupJobM = new JobManager(new Jobs(nameM, sourceM, targetM, typeJobM));
                     backupJobs[Indexchoice-1] = newBackupJobM;
                     break;
@@ -275,7 +320,8 @@ namespace Project_1._0.View
         private void DeleteJob()
         {
             Console.WriteLine(language.GetDialogue("EnterIndexToDelete"));
-            int JobIndex2 = int.Parse(Console.ReadLine());
+            Console.Write(language.GetDialogue("EnterAnswer"));
+            int JobIndex2 = int.TryParse(Console.ReadLine(), out JobIndex2) ? JobIndex2 : -1;
             backupJobs.RemoveAt(JobIndex2 - 1);
         }
 
@@ -283,7 +329,8 @@ namespace Project_1._0.View
         {
             Console.WriteLine($"1. {language.GetDialogue("SetLogsRepertory")}");
             Console.WriteLine($"2. {language.GetDialogue("ShowLogsRepertory")}");
-            int logchoice = GetIntegerInput("Choice");
+            Console.Write(language.GetDialogue("EnterAnswer"));
+            int logchoice = int.TryParse(Console.ReadLine(), out logchoice) ? logchoice : -1;
             switch (logchoice)
             {
                 case 1:
@@ -301,6 +348,7 @@ namespace Project_1._0.View
             Console.Clear();
             ShowLogo();
             Console.Write(language.GetDialogue("ShowLogsRepertory"));
+            Console.Write(language.GetDialogue("EnterAnswer"));
             logDirectory = Console.ReadLine();
             Console.Clear();
         }
@@ -310,8 +358,7 @@ namespace Project_1._0.View
             Console.Clear();
             ShowLogo();
             Console.WriteLine($"{language.GetDialogue("CurrentLogsRepertory")}: {logDirectory}");
-            Console.WriteLine(language.GetDialogue("PressAnyKeyToLeave"));
-            Console.ReadLine();
+            GetInput(language.GetDialogue("PressAnyKeyToLeave"));
             Console.Clear();
         }
 
@@ -322,16 +369,18 @@ namespace Project_1._0.View
 
             Console.WriteLine(language.GetDialogue("ChooseLanguage"));
             Console.WriteLine(language.GetDialogue("InvalidLanguageChoice"));
+            Console.Write(language.GetDialogue("EnterAnswer"));
             string languageM = Console.ReadLine();
-            language.ChangeLanguage(languageM);
+
             if (languageM != "fr" && languageM != "en")
             {
                 Console.WriteLine(language.GetDialogue("InvalidLanguageChoice"));
-                Console.WriteLine(language.GetDialogue("PressAnyKeyToLeave"));
+                GetInput(language.GetDialogue("PressAnyKeyToLeave"));
 
             }
-            
-            
+            language.ChangeLanguage(languageM);
+
+
         }
         static void ShowLogo()
         {
