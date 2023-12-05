@@ -56,6 +56,12 @@ namespace Project_1._0.View
                 {
                     case 1:
                         // Create backup jobs
+                        if (backupJobs.Count > 4)
+                        {
+                            Console.WriteLine("The maximum number of jobs has been reached. Please adjust or delete one or more jobs in the second menu.");
+                            GetInput("Press any key to continue");
+                            break;
+                        }
                         CreateBackupJobs();
                         break;
 
@@ -124,6 +130,7 @@ namespace Project_1._0.View
             // Create backup jobs
             Console.Clear();
             ShowLogo();
+            
             Console.WriteLine("Enter details for Backup Job:");
             // Define the variables to create a job
             string name = GetInput("Enter the name of the job");
@@ -140,7 +147,7 @@ namespace Project_1._0.View
             {
                 Console.WriteLine($"Backup Job created: Name: {name} " + "Type: Differential " + "Source: " + source + " Target: " + target);
             }
-
+           
 
 
             string answerModification = "";
@@ -166,6 +173,12 @@ namespace Project_1._0.View
             while (answerAdd != "n")
             {
                 answerAdd = GetInput("Do you want to add another Job? (y/n)");
+                if (backupJobs.Count > 4)
+                {
+                    Console.WriteLine("The maximum number of jobs has been reached. Please adjust or delete one or more jobs in the second menu.");
+                    GetInput("Press any key to continue");
+                    break;
+                }
                 if (answerAdd == "y")
                 {
                     answerAdd = "y";
