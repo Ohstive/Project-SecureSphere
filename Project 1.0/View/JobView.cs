@@ -14,21 +14,10 @@ namespace Project_1._0.View
     internal class JobView
     {
         // This class is used to display the configuration of a job
-        private readonly JobManager _jobManager;
+ 
         Language language;
         string currentLanguage;
         Dictionary<string, string> dialogueDictionary;
-
-        // Constructor
-        public JobView(JobManager jobManager)
-        {
-            this._jobManager = jobManager;
-            this.language = new Language();
-            this.currentLanguage = language.GetCurrentLanguage();
-            this.dialogueDictionary = language.GetDialogue(currentLanguage);
-        }
-
-
 
         List<JobManager> backupJobs = new List<JobManager>(); //Initialize the backup jobs list
 
@@ -36,11 +25,19 @@ namespace Project_1._0.View
         string JobModification = "";
         string JobsModification = "";
 
+        // Constructor
         public JobView()
         {
+            this.language = new Language();
+            this.currentLanguage = language.GetCurrentLanguage();
+            this.dialogueDictionary = language.GetDialogue(currentLanguage);
+            Console.WriteLine(dialogueDictionary["FullNameLanguage"]);
             ShowLogo();
             Launch();
         }
+
+   
+
 
         public void Launch()
         {
