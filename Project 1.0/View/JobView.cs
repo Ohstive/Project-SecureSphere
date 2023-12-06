@@ -33,6 +33,7 @@ namespace Project_1._0.View
             this.currentLanguage = language.GetCurrentLanguage();
             this.dialogueDictionary = language.GetAllDialogue(currentLanguage);
             Console.WriteLine(language.GetDialogue("FullNameLanguage"));
+            language.InitializeLanguage(@"C:\Users\nemgb\Source\Repos\Project-SecureSphere\Project 1.0\Model\Language\Language.json");
             
             ShowLogo();
             Launch();
