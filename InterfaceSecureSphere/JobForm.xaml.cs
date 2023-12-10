@@ -19,7 +19,7 @@ using Windows.UI.Xaml.Navigation;
 using Windows.Devices.Usb;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-
+using InterfaceSecureSphere.Model;
 
 
 // Pour plus d'informations sur le modèle d'élément Page vierge, consultez la page https://go.microsoft.com/fwlink/?LinkId=234238
@@ -27,32 +27,14 @@ using System.Diagnostics;
 namespace InterfaceSecureSphere
 {
 
-    public class JobConfiguration
-    {
-        // Propriétés de la tâche
-        public string JobName { get; set; } // Rendre l'accès en écriture public
-        public string SourceDirectoryPath { get; private set; }
-        public string TargetDirectoryPath { get; private set; }
-        public string BackupType { get; private set; }
-
-        
-
-        // Constructeur
-        public JobConfiguration(string name, string source, string target, string backupType)
-        {
-            JobName = name;
-            SourceDirectoryPath = source;
-            TargetDirectoryPath = target;
-            BackupType = backupType;
-        }
-    }
+    
     public sealed partial class JobForm : Page, INotifyPropertyChanged
     {
-        private JobConfiguration jobConfig;
-        public event EventHandler<JobConfiguration> JobConfigurationSubmitted;
+        private InterfaceSecureSphere.Model.JobConfiguration jobConfig;
+        public event EventHandler<InterfaceSecureSphere.Model.JobConfiguration> JobConfigurationSubmitted;
 
 
-        public JobConfiguration JobConfig
+        public InterfaceSecureSphere.Model.JobConfiguration JobConfig
         {
             get { return jobConfig; }
             set
@@ -69,7 +51,7 @@ namespace InterfaceSecureSphere
         {
             this.InitializeComponent();
 
-            JobConfig = new JobConfiguration("", "", "", ""); // Initialisez avec des valeurs par défaut
+            JobConfig = new InterfaceSecureSphere.Model.JobConfiguration("", "", "", ""); // Initialisez avec des valeurs par défaut
 
         }
 
@@ -122,8 +104,8 @@ namespace InterfaceSecureSphere
             }
         }
 
-        private ObservableCollection<JobConfiguration> backupJobs = new ObservableCollection<JobConfiguration>();
-        private void OnJobConfigurationSubmitted(JobConfiguration jobConfig)
+        private ObservableCollection<InterfaceSecureSphere.Model.JobConfiguration> backupJobs = new ObservableCollection<InterfaceSecureSphere.Model.JobConfiguration>();
+        private void OnJobConfigurationSubmitted(InterfaceSecureSphere.Model.JobConfiguration jobConfig)
         {
             JobConfigurationSubmitted?.Invoke(this, jobConfig);
             Debug.WriteLine("Job configuration submitted.");
@@ -141,10 +123,10 @@ namespace InterfaceSecureSphere
 
             if (jobName != "" && sourceType != "" && sourcePath != "" && targetPath != "" && backupType != "")
             {
-                // Créez une nouvelle instance de JobConfiguration avec les données actuelles
-                var submittedJobConfig = new JobConfiguration(jobName, sourcePath, targetPath, backupType);
+                // Create a new job configuration
+                var submittedJobConfig = new InterfaceSecureSphere.Model.JobConfiguration(jobName, sourcePath, targetPath, backupType);
 
-                // Ajoutez directement le travail à la liste BackupJobs de l'application
+                // add the job to the list of jobs
                 ((App)Application.Current).BackupJobs.Add(submittedJobConfig);
 
                 Frame.GoBack();

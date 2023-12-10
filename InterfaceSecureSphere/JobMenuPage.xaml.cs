@@ -6,20 +6,9 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Navigation;
-
-
-
-public class JobManager
-{
-    private JobConfiguration _jobConfig;
-
-    // Correction : le paramètre doit être assigné à _jobConfig, pas l'inverse
-    public JobManager(JobConfiguration job)
-    {
-        _jobConfig = job;
-    }
-}
-
+using InterfaceSecureSphere.ViewModel.Services.Log;
+using InterfaceSecureSphere.Model;
+using InterfaceSecureSphere.ViewModel;
 
 
 namespace InterfaceSecureSphere
@@ -36,11 +25,7 @@ namespace InterfaceSecureSphere
             this.InitializeComponent();
             backupJobs = ((App)Application.Current).BackupJobs;
             JobsListView.ItemsSource = backupJobs;
-
-            
             Debug.WriteLine(backupJobs.Count);
-
-
 
         }
 
@@ -83,12 +68,18 @@ namespace InterfaceSecureSphere
 
         private void OnRunButtonClick(object sender, RoutedEventArgs e)
         {
-
+            JobConfiguration selectedJob = JobsListView.SelectedItem as JobConfiguration;
+            JobManager jobManager = new JobManager(selectedJob,"");
+            jobManager.RunJob();
         }
 
         private void OnRunAllButtonClick(object sender, RoutedEventArgs e)
         {
-
+            foreach (JobConfiguration job in backupJobs)
+            {
+                JobManager jobManager = new JobManager(job,"");
+               // jobManager.RunJob();
+            }
         }
 
     }
