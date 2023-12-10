@@ -37,7 +37,9 @@ namespace InterfaceSecureSphere
             backupJobs.Add(new BackupJob { Nom = "NewJob", Source = "NewSource", Target = "NewTarget" });
 
             JobForm jobFormPage = new JobForm();
-
+            jobFormPage.DataContext = backupJobs;
+            Frame frame = Window.Current.Content as Frame;
+            frame.Navigate(typeof(JobForm), null);
            
         }
 
