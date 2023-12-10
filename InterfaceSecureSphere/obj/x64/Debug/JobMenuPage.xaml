@@ -9,119 +9,42 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid Background="White">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+        <!-- Header StackPanel with margin for space -->
+        <StackPanel Orientation="Horizontal" Margin="5,5,5,15">
+            <!-- Adjust the bottom margin as needed -->
+            <TextBlock Text="Name" Width="150" FontWeight="Bold" Margin="5"/>
+            <TextBlock Text="Job Source" Width="150" FontWeight="Bold" Margin="5"/>
+            <TextBlock Text="Target" Width="150" FontWeight="Bold" Margin="5"/>
+            <TextBlock Text="Job Type" Width="100" FontWeight="Bold" Margin="5"/>
+            <TextBlock Width="80" Margin="5"/>
+            <!-- Empty space for buttons -->
+        </StackPanel>
 
-        <!-- Premier tableau avec des cellules de couleur de fond de thème Windows -->
-        <Grid Grid.Row="0" Background="{ThemeResource SystemControlBackgroundAccentBrush}">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="30" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="200" />
-                <ColumnDefinition Width="100" />
-                <ColumnDefinition Width="100" />
-            </Grid.ColumnDefinitions>
-
-            <TextBlock Text="Name"   Style="{StaticResource TitleTextBlockStyle}"  Margin="10,0,0,0" Grid.Column="1"/>
-            <TextBlock Text="Source" Style="{StaticResource TitleTextBlockStyle}"  Margin="10,0,0,0" Grid.Column="2"/>
-            <TextBlock Text="Target" Style="{StaticResource TitleTextBlockStyle}"  Margin="10,0,0,0" Grid.Column="3"/>
-            <TextBlock Text="Type" Style="{StaticResource TitleTextBlockStyle}"  Margin="10,0,0,0" Grid.Column="4"/>
-            <TextBlock Text="Status" Style="{StaticResource TitleTextBlockStyle}"  Margin="10,0,0,0" Grid.Column="5"/>
-        </Grid>
-
-        <!-- Icon="SaveLocal" Deuxième tableau avec des traits gris entre chaque colonne -->
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-
-                <ColumnDefinition Width="30" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="200" />
-                <ColumnDefinition Width="100" />
-                <ColumnDefinition Width="100" />
-
-            </Grid.ColumnDefinitions>
-
-            <!-- Trait gris entre la première et la deuxième colonne -->
-            <SymbolIcon Symbol="Document" Grid.Column="0" />
-
-
-            <!-- Trait gris entre la première et la deuxième colonne -->
-            <Border BorderBrush="Gray" BorderThickness="0,0,1,0" Grid.Column="1">
-                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                    <TextBlock x:ConnectionId='10' x:Name="NameTextBlock" Text="Name" Style="{StaticResource BodyTextBlockStyle}" FontSize="20" IsHitTestVisible="False" Margin="10,0,0,0" Grid.Column="1" />
-                </ScrollViewer>
-            </Border>
-
-            <!-- Trait gris entre la deuxième et la troisième colonne -->
-            <Border BorderBrush="Gray" BorderThickness="0,0,1,0" Grid.Column="2">
-                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" ManipulationMode="All">
-                    <TextBlock x:ConnectionId='9' x:Name="SourceTextBlock" Text="Source" Style="{StaticResource BodyTextBlockStyle}" FontSize="20" IsHitTestVisible="False"/>
-                </ScrollViewer>
-            </Border>
-
-
-            <!-- Trait gris entre la troisième et la quatrième colonne -->
-            <Border BorderBrush="Gray" BorderThickness="0,0,1,0" Grid.Column="3">
-                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                    <TextBlock x:ConnectionId='8' x:Name="TargetTextBlock" Text="Target" Style="{StaticResource BodyTextBlockStyle}" FontSize="20" IsHitTestVisible="False" Margin="10,0,0,0" Grid.Column="3"/>
-                </ScrollViewer>
-            </Border>
-
-
-            <!-- Trait gris entre la troisième et la quatrième colonne -->
-            <Border BorderBrush="Gray" BorderThickness="0,0,1,0" Grid.Column="4">
-                <TextBlock x:ConnectionId='7' x:Name="TypeTextBlock" Text="Type_Differential" Style="{StaticResource BodyTextBlockStyle}" FontSize="20" IsHitTestVisible="False"  Margin="10,0,0,0" Grid.Column="4"/>
-            </Border>
-
-            <!-- Trait gris entre la cinquiéme et sixiéme colonne -->
-            <Border BorderBrush="Gray" BorderThickness="0,0,1,0" Grid.Column="5">
-                <Button x:ConnectionId='6' x:Name="RunButton"                          Width="100" Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Stretch">
-                    <SymbolIcon Symbol="Play" />
-                </Button>
-            </Border>
-
-
-            <!-- Trait gris entre la quatrième et cinquiéme colonne -->
-            <Border BorderBrush="Gray" BorderThickness="0,0,1,0" Grid.Column="6">
-                <Button x:ConnectionId='5' x:Name="DeleteButton"                             Width="100" Grid.Column="6" HorizontalAlignment="Center">
-                    <SymbolIcon Symbol="Delete" />
-                </Button>
-            </Border>
-
-        </Grid>
-
-
-        <Grid Grid.Row="10">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="7*"/>
-                <ColumnDefinition Width="13*"/>
-            </Grid.ColumnDefinitions>
-            <!-- Troisième rangée avec les boutons Add et Delete -->
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="852,0,0,0" Grid.Column="1">
-                <Button x:ConnectionId='3'                          Margin="0,0,10,0">
-                    <SymbolIcon Symbol="Add" />
-                </Button>
-                <Button x:ConnectionId='4' Content="RunAll"                               />
-            </StackPanel>
-
-        </Grid>
-
-        <!-- Déclarez le ListView -->
-        <ListView x:ConnectionId='2' x:Name="JobsListView" ItemsSource="{Binding backupJobs}">
-            <!-- Définissez les colonnes et autres propriétés si nécessaire -->
+        <!-- ListView with margin for space -->
+        <ListView x:ConnectionId='2' x:Name="JobsListView" ItemsSource="{Binding backupJobs}" Margin="5,0,5,0">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Vertical"/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <!-- Data StackPanel with horizontal orientation -->
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <TextBlock Text="{Binding JobName}" Width="150" Margin="5"/>
+                        <TextBlock Text="{Binding SourceDirectoryPath}" Width="150" Margin="5"/>
+                        <TextBlock Text="{Binding TargetDirectoryPath}" Width="150" Margin="5"/>
+                        <TextBlock Text="{Binding BackupType}" Width="100" Margin="5"/>
+                        <Button x:ConnectionId='4' Content="Run"                          Width="80" HorizontalAlignment="Center" Margin="5"/>
+                        <Button x:ConnectionId='5' Content="Delete"                             Width="80" HorizontalAlignment="Center" Margin="5"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
-
-
     </Grid>
 </Page>
+
+
 
 
 

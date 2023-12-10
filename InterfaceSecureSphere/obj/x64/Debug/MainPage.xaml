@@ -35,7 +35,6 @@
                 <!-- Index 1 correspond à "FR" -->
                 <ComboBoxItem Content="ENG"/>
                 <ComboBoxItem Content="FR"/>
-                <ComboBoxItem Content="ES"/>
                 <!-- Ajoutez d'autres options de langues au besoin -->
             </ComboBox>
             <TextBlock Text="Version : 2.0" VerticalAlignment="Bottom" Margin="0,0,0,7"/>
