@@ -8,7 +8,7 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid Background="White">
+    <Grid >
         <!-- Header StackPanel with margin for space -->
         <StackPanel Orientation="Horizontal" Margin="5,5,5,15">
             <!-- Adjust the bottom margin as needed -->
