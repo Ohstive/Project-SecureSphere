@@ -29,27 +29,21 @@ namespace InterfaceSecureSphere
         public string JobName { get; set; } // Rendre l'accès en écriture public
         public string SourceDirectoryPath { get; private set; }
         public string TargetDirectoryPath { get; private set; }
-        public int BackupType { get; private set; }
+        public string BackupType { get; private set; }
 
         
 
         // Constructeur
-        public JobConfiguration(string name, string source, string target, int backupType)
+        public JobConfiguration(string name, string source, string target, string backupType)
         {
             JobName = name;
             SourceDirectoryPath = source;
             TargetDirectoryPath = target;
+            BackupType = backupType;
 
-            // Validez que backupType est dans la plage spécifiée
-            if (backupType >= 0 && backupType <= 1)
-            {
-                BackupType = backupType;
-            }
-            else
-            {
-                // Valeur par défaut
-                BackupType = 0; // Par défaut à "Full"
-            }
+            
+           
+ 
         }
     }
     public sealed partial class JobForm : Page, INotifyPropertyChanged
@@ -77,9 +71,8 @@ namespace InterfaceSecureSphere
         {
             this.InitializeComponent();
 
-            JobConfig = new JobConfiguration("", "", "", 0); // Initialisez avec des valeurs par défaut
+            JobConfig = new JobConfiguration("", "", "", ""); // Initialisez avec des valeurs par défaut
 
-           
         }
 
   
@@ -148,7 +141,7 @@ namespace InterfaceSecureSphere
             string backupType = ((ComboBoxItem)TypeComboBox.SelectedItem)?.Content.ToString();
 
             // Créez une nouvelle instance de JobConfiguration avec les données actuelles
-            var submittedJobConfig = new JobConfiguration(jobName, sourcePath, targetPath, int.Parse(backupType));
+            var submittedJobConfig = new JobConfiguration(jobName, sourcePath, targetPath, backupType);
 
             // Émettez l'événement avec la configuration du travail
             OnJobConfigurationSubmitted(submittedJobConfig);

@@ -63,7 +63,7 @@
             <!-- Trait gris entre la deuxième et la troisième colonne -->
             <Border BorderBrush="Gray" BorderThickness="0,0,1,0" Grid.Column="2">
                 <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" ManipulationMode="All">
-                    <TextBlock x:Name="SourceTextBlock" Text="C:\Users\Ostiv\Documents\Test\Test2\Test3" Style="{StaticResource BodyTextBlockStyle}" FontSize="20" IsHitTestVisible="False"/>
+                    <TextBlock x:Name="SourceTextBlock" Text="Source" Style="{StaticResource BodyTextBlockStyle}" FontSize="20" IsHitTestVisible="False"/>
                 </ScrollViewer>
             </Border>
 
