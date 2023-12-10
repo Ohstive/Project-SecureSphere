@@ -6,6 +6,57 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Width="720" Height="325">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Height="325" MinHeight="325" MinWidth="700"  MaxWidth="700" MaxHeight="325">
 
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,15">
+            <TextBlock Text="Name:" Margin="0,0,10,0" VerticalAlignment="Center" FontWeight="Bold"/>
+            <TextBox x:Name="NameTextBox" PlaceholderText="Enter Name" Text="{x:Bind JobConfig.JobName, Mode=TwoWay}" Width="200"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,15,0,15">
+            <TextBlock Text="Source Type:" Margin="0,0,10,0" VerticalAlignment="Center" FontWeight="Bold"/>
+            <ComboBox x:Name="SourceTypeComboBox" SelectedIndex="0" Margin="0,0,10,0" VerticalAlignment="Center" Width="200">
+                <ComboBoxItem Content="Folder"/>
+                <ComboBoxItem Content="File"/>
+            </ComboBox>
+
+            <TextBlock Text="Source:" Margin="10,0,10,0" VerticalAlignment="Center" FontWeight="Bold"/>
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Width="200">
+                <TextBox x:Name="SourceTextBox" PlaceholderText="Enter Source Path" Width="200"/>
+            </ScrollViewer>
+            <Button Content="&#xE838;" FontFamily="Segoe MDL2 Assets" Click="BrowseSourceButton_Click" Margin="10,0,0,0" VerticalAlignment="Center"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,15,0,15">
+            <TextBlock Text="Target:" Margin="0,0,10,0" VerticalAlignment="Center" FontWeight="Bold"/>
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Width="200">
+                <TextBox x:Name="TargetTextBox" PlaceholderText="Enter Target Path" VerticalAlignment="Center" Width="200"/>
+            </ScrollViewer>
+            <Button Content="&#xE838;" FontFamily="Segoe MDL2 Assets" Click="BrowseTargetButton_Click" Margin="10,0,0,0" VerticalAlignment="Center"/>
+        </StackPanel>
+
+
+
+        <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,15,0,15">
+            <TextBlock Text="Type:" Margin="0,0,10,0" VerticalAlignment="Center" FontWeight="Bold"/>
+            <ComboBox x:Name="TypeComboBox" SelectedIndex="0" Margin="0,0,10,0" VerticalAlignment="Center" Width="200">
+                <ComboBoxItem Content="Differential"/>
+                <ComboBoxItem Content="Full"/>
+            </ComboBox>
+        </StackPanel>
+
+        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,15,0,15">
+            <Button Content="Save" Click="SubmitButton_Click" Margin="0,0,0,0" VerticalAlignment="Center" Background="Black" Foreground="White" FontWeight="Bold"/>
+        </StackPanel>
+    </Grid>
 </Page>
