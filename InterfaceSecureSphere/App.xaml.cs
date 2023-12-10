@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -22,6 +23,8 @@ namespace InterfaceSecureSphere
     /// </summary>
     sealed partial class App : Application
     {
+        public static App CurrentApp => (App)Current;
+        public ObservableCollection<JobConfiguration> BackupJobs { get; } = new ObservableCollection<JobConfiguration>();
         /// <summary>
         /// Initialise l'objet d'application de singleton.  Il s'agit de la première ligne du code créé
         /// à être exécutée. Elle correspond donc à l'équivalent logique de main() ou WinMain().

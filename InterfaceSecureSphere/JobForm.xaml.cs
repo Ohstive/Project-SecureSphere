@@ -17,6 +17,8 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Windows.Devices.Usb;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 // Pour plus d'informations sur le modèle d'élément Page vierge, consultez la page https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -118,16 +120,17 @@ namespace InterfaceSecureSphere
             }
         }
 
+        private ObservableCollection<JobConfiguration> backupJobs = new ObservableCollection<JobConfiguration>();
         private void OnJobConfigurationSubmitted(JobConfiguration jobConfig)
         {
             JobConfigurationSubmitted?.Invoke(this, jobConfig);
+            Debug.WriteLine("Job configuration submitted.");
+
         }
 
 
         private void SubmitButton_Click(object sender, RoutedEventArgs e)
         {
-            // Vous pouvez accéder directement à JobConfig pour obtenir les valeurs mises à jour
-            // Traitez les données de configuration du travail ici
             string jobName = JobConfig.JobName;
             string sourceType = ((ComboBoxItem)SourceTypeComboBox.SelectedItem)?.Content.ToString();
             string sourcePath = SourceTextBox.Text;
@@ -137,13 +140,14 @@ namespace InterfaceSecureSphere
             // Créez une nouvelle instance de JobConfiguration avec les données actuelles
             var submittedJobConfig = new JobConfiguration(jobName, sourcePath, targetPath, backupType);
 
-            // Émettez l'événement avec la configuration du travail
-            OnJobConfigurationSubmitted(submittedJobConfig);
+            // Ajoutez directement le travail à la liste BackupJobs de l'application
+            ((App)Application.Current).BackupJobs.Add(submittedJobConfig);
 
             Frame.GoBack();
 
             System.Diagnostics.Debug.WriteLine($"JobName: {jobName}, SourceType: {sourceType}, Source: {sourcePath}, Target: {targetPath}, BackupType: {backupType}");
         }
+
 
 
         public event PropertyChangedEventHandler PropertyChanged;
