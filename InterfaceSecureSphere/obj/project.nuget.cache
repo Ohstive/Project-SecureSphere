@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "x38V/rEJgyfKkod8hODgW1HwBG8KQ79JphCyqREK+tZ5Liumc2AaNnV3uIyiefUZd743ZlIMF30dzJ1TOFC1lQ==",
+  "dgSpecHash": "ZHvfspOc5630cdIeam1ImZMwO4OX7mtGxlQchXAN4hOOiTdvM41cwVp8oVpu8EEAhW8lLkDK4dbx8fqMQiagkw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Ostiv\\source\\repos\\InterfaceSecureSphere\\InterfaceSecureSphere.csproj",
+  "projectFilePath": "C:\\Users\\nemgb\\Source\\Repos\\Project-SecureSphereINTER\\InterfaceSecureSphere\\InterfaceSecureSphere.csproj",
   "expectedPackageFiles": [
     "C:\\Program Files (x86)\\Microsoft SDKs\\UWPNuGetPackages\\microsoft.net.native.compiler\\2.2.12-rel-31116-00\\microsoft.net.native.compiler.2.2.12-rel-31116-00.nupkg.sha512",
     "C:\\Program Files (x86)\\Microsoft SDKs\\UWPNuGetPackages\\microsoft.net.uwpcoreruntimesdk\\2.2.14\\microsoft.net.uwpcoreruntimesdk.2.2.14.nupkg.sha512",

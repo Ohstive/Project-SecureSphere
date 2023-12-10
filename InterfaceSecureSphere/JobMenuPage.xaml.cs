@@ -1,24 +1,30 @@
 ﻿using InterfaceSecureSphere;
 using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Navigation;
 
 
 
 public class JobManager
 {
     private JobConfiguration _jobConfig;
-    JobManager(JobConfiguration job)
+
+    // Correction : le paramètre doit être assigné à _jobConfig, pas l'inverse
+    public JobManager(JobConfiguration job)
     {
-        job = _jobConfig;
+        _jobConfig = job;
     }
 }
 
 
+
 namespace InterfaceSecureSphere
 {
+    
     public sealed partial class JobMenuPage : Page
     {
 
@@ -26,12 +32,15 @@ namespace InterfaceSecureSphere
 
         public JobMenuPage()
         {
+
             this.InitializeComponent();
+            backupJobs = ((App)Application.Current).BackupJobs;
             JobsListView.ItemsSource = backupJobs;
-            backupJobs.Add(new JobConfiguration("Job 1", "C:\\Users\\Public\\Documents\\", "C:\\Users\\Public\\Documents\\", "Full"));
-            backupJobs.Add(new JobConfiguration("Job 2", "C:\\Users\\Public\\Documents\\", "C:\\Users\\Public\\Documents\\", "Full"));
-            backupJobs.Add(new JobConfiguration("Job 3", "C:\\Users\\Public\\Documents\\", "C:\\Users\\Public\\Documents\\", "Differential"));
-                
+
+            
+            Debug.WriteLine(backupJobs.Count);
+
+
 
         }
 
@@ -40,17 +49,25 @@ namespace InterfaceSecureSphere
             Frame frame = Window.Current.Content as Frame;
             frame.Navigate(typeof(JobForm), null);
 
-            // Abonnez-vous à l'événement JobConfigurationSubmitted
-            (frame.Content as JobForm).JobConfigurationSubmitted += JobConfigurationSubmittedHandler;
-           
-
+            frame.Navigated += Frame_Navigated;
         }
 
-        // Gérez l'événement JobConfigurationSubmitted pour récupérer les données de la nouvelle page
+        private void Frame_Navigated(object sender, NavigationEventArgs e)
+        {
+            if (e.Content is JobForm jobForm)
+            {
+                // Abonnez-vous à l'événement JobConfigurationSubmitted
+                jobForm.JobConfigurationSubmitted += JobConfigurationSubmittedHandler;
+            }
+        }
+
         private void JobConfigurationSubmittedHandler(object sender, JobConfiguration jobConfig)
         {
             // Ajoutez la configuration de travail à la liste
             backupJobs.Add(jobConfig);
+
+            // Revenez à la page précédente (JobMenuPage)
+            Frame.GoBack();
         }
 
         private void OnDeleteButtonClick(object sender, RoutedEventArgs e)

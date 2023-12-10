@@ -56,7 +56,7 @@
         </StackPanel>
 
         <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,15,0,15">
-            <Button Content="Save" Click="SubmitButton_Click" Margin="0,0,0,0" VerticalAlignment="Center" Background="Black" Foreground="White" FontWeight="Bold"/>
+            <Button Content="Save" Click="SubmitButton_Click"  Margin="0,0,0,0" VerticalAlignment="Center" Background="Black" Foreground="White" FontWeight="Bold"/>
         </StackPanel>
     </Grid>
 </Page>
