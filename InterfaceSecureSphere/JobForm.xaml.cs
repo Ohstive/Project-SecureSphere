@@ -20,6 +20,8 @@ using Windows.Devices.Usb;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 
+
+
 // Pour plus d'informations sur le modèle d'élément Page vierge, consultez la page https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace InterfaceSecureSphere
@@ -137,16 +139,21 @@ namespace InterfaceSecureSphere
             string targetPath = TargetTextBox.Text;
             string backupType = ((ComboBoxItem)TypeComboBox.SelectedItem)?.Content.ToString();
 
-            // Créez une nouvelle instance de JobConfiguration avec les données actuelles
-            var submittedJobConfig = new JobConfiguration(jobName, sourcePath, targetPath, backupType);
+            if (jobName != "" && sourceType != "" && sourcePath != "" && targetPath != "" && backupType != "")
+            {
+                // Créez une nouvelle instance de JobConfiguration avec les données actuelles
+                var submittedJobConfig = new JobConfiguration(jobName, sourcePath, targetPath, backupType);
 
-            // Ajoutez directement le travail à la liste BackupJobs de l'application
-            ((App)Application.Current).BackupJobs.Add(submittedJobConfig);
+                // Ajoutez directement le travail à la liste BackupJobs de l'application
+                ((App)Application.Current).BackupJobs.Add(submittedJobConfig);
 
-            Frame.GoBack();
+                Frame.GoBack();
 
-            System.Diagnostics.Debug.WriteLine($"JobName: {jobName}, SourceType: {sourceType}, Source: {sourcePath}, Target: {targetPath}, BackupType: {backupType}");
+                System.Diagnostics.Debug.WriteLine($"JobName: {jobName}, SourceType: {sourceType}, Source: {sourcePath}, Target: {targetPath}, BackupType: {backupType}");
+            }
+         
         }
+
 
 
 
