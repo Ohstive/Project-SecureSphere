@@ -114,6 +114,11 @@
 
         </Grid>
 
+        <!-- Déclarez le ListView -->
+        <ListView x:Name="JobsListView" ItemsSource="{Binding backupJobs}">
+            <!-- Définissez les colonnes et autres propriétés si nécessaire -->
+        </ListView>
+
 
     </Grid>
 </Page>

@@ -31,6 +31,8 @@ namespace InterfaceSecureSphere
         public string TargetDirectoryPath { get; private set; }
         public int BackupType { get; private set; }
 
+        
+
         // Constructeur
         public JobConfiguration(string name, string source, string target, int backupType)
         {
@@ -53,6 +55,10 @@ namespace InterfaceSecureSphere
     public sealed partial class JobForm : Page, INotifyPropertyChanged
     {
         private JobConfiguration jobConfig;
+        public event EventHandler<JobConfiguration> JobConfigurationSubmitted;
+
+
+        
 
         public JobConfiguration JobConfig
         {
@@ -73,21 +79,10 @@ namespace InterfaceSecureSphere
 
             JobConfig = new JobConfiguration("", "", "", 0); // Initialisez avec des valeurs par défaut
 
-            // Désactiver l'agrandissement de la fenêtre
-            ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
-            ApplicationView.PreferredLaunchViewSize = new Size(Width = 700, Height = 325);
-
-            // Désactiver la possibilité de redimensionner la fenêtre
-            Window.Current.SizeChanged += Current_SizeChanged;
+           
         }
 
-        private void Current_SizeChanged(object sender, Windows.UI.Core.WindowSizeChangedEventArgs e)
-        {
-            // Rétablir la taille préférée
-            ApplicationView.GetForCurrentView().TryResizeView(new Size(700, 325));
-        }
-
-
+  
         private async void BrowseSourceButton_Click(object sender, RoutedEventArgs e)
         {
             var folderPicker = new FolderPicker();
@@ -136,6 +131,12 @@ namespace InterfaceSecureSphere
             }
         }
 
+        private void OnJobConfigurationSubmitted(JobConfiguration jobConfig)
+        {
+            JobConfigurationSubmitted?.Invoke(this, jobConfig);
+        }
+
+
         private void SubmitButton_Click(object sender, RoutedEventArgs e)
         {
             // Vous pouvez accéder directement à JobConfig pour obtenir les valeurs mises à jour
@@ -146,8 +147,17 @@ namespace InterfaceSecureSphere
             string targetPath = TargetTextBox.Text;
             string backupType = ((ComboBoxItem)TypeComboBox.SelectedItem)?.Content.ToString();
 
+            // Créez une nouvelle instance de JobConfiguration avec les données actuelles
+            var submittedJobConfig = new JobConfiguration(jobName, sourcePath, targetPath, int.Parse(backupType));
+
+            // Émettez l'événement avec la configuration du travail
+            OnJobConfigurationSubmitted(submittedJobConfig);
+
+            Frame.GoBack();
+
             System.Diagnostics.Debug.WriteLine($"JobName: {jobName}, SourceType: {sourceType}, Source: {sourcePath}, Target: {targetPath}, BackupType: {backupType}");
         }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 
