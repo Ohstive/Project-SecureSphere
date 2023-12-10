@@ -10255,18 +10255,18 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Ostiv\\.nuget\\packages\\": {},
+    "C:\\Users\\nemgb\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
     "C:\\Program Files (x86)\\Microsoft SDKs\\UWPNuGetPackages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Ostiv\\source\\repos\\InterfaceSecureSphere\\InterfaceSecureSphere.csproj",
+      "projectUniqueName": "C:\\Users\\nemgb\\Source\\Repos\\Project-SecureSphereINTER\\InterfaceSecureSphere\\InterfaceSecureSphere.csproj",
       "projectName": "InterfaceSecureSphere",
-      "projectPath": "C:\\Users\\Ostiv\\source\\repos\\InterfaceSecureSphere\\InterfaceSecureSphere.csproj",
-      "packagesPath": "C:\\Users\\Ostiv\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Ostiv\\source\\repos\\InterfaceSecureSphere\\obj\\",
+      "projectPath": "C:\\Users\\nemgb\\Source\\Repos\\Project-SecureSphereINTER\\InterfaceSecureSphere\\InterfaceSecureSphere.csproj",
+      "packagesPath": "C:\\Users\\nemgb\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\nemgb\\Source\\Repos\\Project-SecureSphereINTER\\InterfaceSecureSphere\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "fallbackFolders": [
@@ -10274,7 +10274,7 @@
         "C:\\Program Files (x86)\\Microsoft SDKs\\UWPNuGetPackages\\"
       ],
       "configFilePaths": [
-        "C:\\Users\\Ostiv\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\nemgb\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
