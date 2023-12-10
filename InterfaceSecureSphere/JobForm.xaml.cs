@@ -40,10 +40,6 @@ namespace InterfaceSecureSphere
             SourceDirectoryPath = source;
             TargetDirectoryPath = target;
             BackupType = backupType;
-
-            
-           
- 
         }
     }
     public sealed partial class JobForm : Page, INotifyPropertyChanged
@@ -51,8 +47,6 @@ namespace InterfaceSecureSphere
         private JobConfiguration jobConfig;
         public event EventHandler<JobConfiguration> JobConfigurationSubmitted;
 
-
-        
 
         public JobConfiguration JobConfig
         {

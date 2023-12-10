@@ -24,10 +24,14 @@ namespace InterfaceSecureSphere
         {
             this.InitializeComponent();
             NavView.ItemInvoked += NavView_ItemInvoked;
+
+            // Set the default selected menu item
+            NavView.SelectedItem = NavView.MenuItems[0];
+
+            // Navigate to the default page
+            NavigateToDefaultPage();
         }
 
-
-        
         private void NavView_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
         {
             if (args.IsSettingsInvoked)
@@ -38,18 +42,28 @@ namespace InterfaceSecureSphere
             {
                 // Handle regular item invocation
                 string selectedItemTag = args.InvokedItemContainer.Tag.ToString();
-                switch (selectedItemTag)
-                {
-                    case "JobMenu":
-                        ContentFrame.Navigate(typeof(JobMenuPage));
-                        break;
-                    case "LogsMenu":
-                        ContentFrame.Navigate(typeof(LogsMenuPage));
-                        break;
-                        // Add more cases as needed
-                }
+                NavigateToPage(selectedItemTag);
+            }
+        }
+
+        private void NavigateToDefaultPage()
+        {
+            // Navigate to the default page (adjust this based on your default page)
+            ContentFrame.Navigate(typeof(JobMenuPage));
+        }
+
+        private void NavigateToPage(string pageTag)
+        {
+            switch (pageTag)
+            {
+                case "JobMenu":
+                    ContentFrame.Navigate(typeof(JobMenuPage));
+                    break;
+                case "LogsMenu":
+                    ContentFrame.Navigate(typeof(LogsMenuPage));
+                    break;
+                    // Add more cases as needed
             }
         }
     }
 }
-

@@ -28,6 +28,10 @@ namespace InterfaceSecureSphere
         {
             this.InitializeComponent();
             JobsListView.ItemsSource = backupJobs;
+            backupJobs.Add(new JobConfiguration("Job 1", "C:\\Users\\Public\\Documents\\", "C:\\Users\\Public\\Documents\\", "Full"));
+            backupJobs.Add(new JobConfiguration("Job 2", "C:\\Users\\Public\\Documents\\", "C:\\Users\\Public\\Documents\\", "Full"));
+            backupJobs.Add(new JobConfiguration("Job 3", "C:\\Users\\Public\\Documents\\", "C:\\Users\\Public\\Documents\\", "Differential"));
+                
 
         }
 
@@ -38,6 +42,7 @@ namespace InterfaceSecureSphere
 
             // Abonnez-vous à l'événement JobConfigurationSubmitted
             (frame.Content as JobForm).JobConfigurationSubmitted += JobConfigurationSubmittedHandler;
+           
 
         }
 
