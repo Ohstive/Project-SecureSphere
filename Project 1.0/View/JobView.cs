@@ -29,11 +29,12 @@ namespace Project_1._0.View
         public JobView()
         {
             this.language = new Language();
-            language.ChangeLanguage("en");
+            
             this.currentLanguage = language.GetCurrentLanguage();
             this.dialogueDictionary = language.GetAllDialogue(currentLanguage);
             Console.WriteLine(language.GetDialogue("FullNameLanguage"));
-            language.InitializeLanguage(@"C:\Users\nemgb\Source\Repos\Project-SecureSphere\Project 1.0\Model\Language\Language.json");
+            language.InitializeLanguage(@"C:\Users\nemgb\source\repos\Project-SecureSphereIIIIIIINNNNN\Project 1.0\Model\Language\Language.json");
+            language.ChangeLanguage("es");
             
             ShowLogo();
             Launch();
@@ -269,7 +270,7 @@ namespace Project_1._0.View
 
                 Console.WriteLine();
                 Console.WriteLine($"1.{language.GetDialogue("ModifyAnyJobs")}  ");
-               
+                Console.WriteLine($"2.{language.GetDialogue("Delete")}  ");
                 Console.Write(language.GetDialogue("EnterAnswer"));
 
                 int JobsModification = int.TryParse(Console.ReadLine(),out JobsModification) ? JobsModification:-1;
@@ -281,7 +282,15 @@ namespace Project_1._0.View
                     case 1:
                         ModifyOrDeleteJobs();
                         break;
-                    
+                    case 2:
+                        var jobsCopy = backupJobs.ToList();
+
+                        // Iterate over the copy and remove each job from the original collection
+                        foreach (var job in jobsCopy)
+                        {
+                            backupJobs.Remove(job);
+                        }
+                        break;
                 }
                 
             }
@@ -421,7 +430,7 @@ namespace Project_1._0.View
             Console.WriteLine("╔═════════════════════════════════╗");
             Console.WriteLine("║           SecureSphere          ║");
             Console.WriteLine("╚═════════════════════════════════╝");
-
+            
         }
 
 

@@ -48,7 +48,8 @@
     "ExitMenu": "Exit",
     "y": "y",
     "n": "n",
-    "EnterAnswer": "Enter your answer: "
+    "EnterAnswer": "Enter your answer: ",
+    "Delete":  "Delete all the jobs ?"
   },
   "fr": {
     "FullNameLanguage": "Francais(fr)",
@@ -100,7 +101,8 @@
     "ExitMenu": "Quitter",
     "y": "o",
     "n": "n",
-    "EnterAnswer": "Entrez votre réponse: "
+    "EnterAnswer": "Entrez votre réponse: ",
+    "Delete": "Supprimer tous les travaux ?"
   },
   "es": {
     "FullNameLanguage": "Español(es)",
@@ -151,6 +153,8 @@
     "ExitMenu": "Salir",
     "y": "s",
     "n": "n",
-    "EnterAnswer": "Ingrese su respuesta: "
+    "EnterAnswer": "Ingrese su respuesta: ",
+    "Delete": "Eliminar todos los trabajos ?"
+
   }
 }

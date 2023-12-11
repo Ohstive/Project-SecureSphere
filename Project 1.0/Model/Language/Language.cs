@@ -72,7 +72,7 @@ namespace Project_1._0.Model.Language
                 {"y","y" },
                 {"n","n" },
                 {"EnterAnswer", "Enter your answer: " },
-                {"DeleteAllJobs", "Delelte all the jobs ?" }
+                {"DeleteJobs", "Delelte all the jobs ?" }
             }
         },
         {
@@ -128,7 +128,7 @@ namespace Project_1._0.Model.Language
                 {"y","o" },
                 {"n","n" },
                 {"EnterAnswer", "Entrez votre réponse: " },
-                {"DeleteAllJobs", "Supprimer tous les travaux ?" }
+                {"DeleteJobs", "Supprimer tous les travaux ?" }
 
 
             }
