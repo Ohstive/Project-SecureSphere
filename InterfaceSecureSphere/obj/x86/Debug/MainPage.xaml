@@ -1,0 +1,50 @@
+﻿<Page
+    x:Class="InterfaceSecureSphere.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:InterfaceSecureSphere"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <NavigationView x:ConnectionId='2' x:Name="NavView" PaneDisplayMode="Auto" PaneTitle="Menu" OpenPaneLength="150" IsBackButtonVisible="Collapsed"  >
+            <!-- Menu Items with Icons -->
+            <NavigationView.MenuItems>
+                <NavigationViewItem Icon="SaveLocal" Tag="JobMenu">
+                    <NavigationViewItem.Content>
+                        <TextBlock Text="JobMenu" VerticalAlignment="Center"/>
+                    </NavigationViewItem.Content>
+                </NavigationViewItem>
+
+                <NavigationViewItem Icon="Page2" Tag="LogsMenu">
+                    <NavigationViewItem.Content>
+                        <TextBlock Text="LogsMenu" VerticalAlignment="Center"/>
+                    </NavigationViewItem.Content>
+                </NavigationViewItem>
+            </NavigationView.MenuItems>
+
+            <!-- Content Area For the other Pages-->
+            <Frame x:ConnectionId='3' x:Name="ContentFrame" />
+        </NavigationView>
+
+
+        <StackPanel HorizontalAlignment="Right" VerticalAlignment="Bottom" Orientation="Horizontal" Margin="0,0,40,0">
+            <ComboBox SelectedIndex="1" BorderThickness="0">
+                <!-- Index 1 correspond à "FR" -->
+                <ComboBoxItem Content="ENG"/>
+                <ComboBoxItem Content="FR"/>
+                <ComboBoxItem Content="ES"/>
+                <!-- Ajoutez d'autres options de langues au besoin -->
+            </ComboBox>
+            <TextBlock Text="Version : 2.0" VerticalAlignment="Bottom" Margin="0,0,0,7"/>
+ 
+        </StackPanel>
+
+
+
+    </Grid>
+</Page>
+
+
