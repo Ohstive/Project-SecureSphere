@@ -71,7 +71,8 @@ namespace Project_1._0.Model.Language
                 {"ExitMenu","Exit" },
                 {"y","y" },
                 {"n","n" },
-                {"EnterAnswer", "Enter your answer: " }
+                {"EnterAnswer", "Enter your answer: " },
+                {"DeleteAllJobs", "Delelte all the jobs ?" }
             }
         },
         {
@@ -126,7 +127,8 @@ namespace Project_1._0.Model.Language
                 {"ExitMenu", "Quitter"},
                 {"y","o" },
                 {"n","n" },
-                {"EnterAnswer", "Entrez votre réponse: " }
+                {"EnterAnswer", "Entrez votre réponse: " },
+                {"DeleteAllJobs", "Supprimer tous les travaux ?" }
 
 
             }
@@ -177,7 +179,7 @@ namespace Project_1._0.Model.Language
             }
             else
             {
-                throw new Exception("This language doesn't exist");
+                Console.WriteLine("This language doesn't exist");
             }
         }
 

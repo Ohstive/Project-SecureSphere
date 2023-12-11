@@ -267,15 +267,23 @@ namespace Project_1._0.View
                 Console.WriteLine(language.GetDialogue("BackupJobCreated"));
                 ShowIndexBackupJobs();
 
-
-                Console.WriteLine($"{language.GetDialogue("ModifyAnyJobs")} {language.GetDialogue("Yes")}/{language.GetDialogue("No")}");
+                Console.WriteLine();
+                Console.WriteLine($"1.{language.GetDialogue("ModifyAnyJobs")}  ");
+               
                 Console.Write(language.GetDialogue("EnterAnswer"));
 
-                JobsModification = Console.ReadLine();
-                if (JobsModification == language.GetDialogue("y")) // Modify or delete jobs
+                int JobsModification = int.TryParse(Console.ReadLine(),out JobsModification) ? JobsModification:-1;
+                switch (JobsModification)
                 {
-                    ModifyOrDeleteJobs();
+                    default:
+                        Console.WriteLine(language.GetDialogue("InvalidChoice"));
+                        break;
+                    case 1:
+                        ModifyOrDeleteJobs();
+                        break;
+                    
                 }
+                
             }
         }
         private void ModifyOrDeleteJobs()
