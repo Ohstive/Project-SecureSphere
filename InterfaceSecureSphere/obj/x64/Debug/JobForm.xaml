@@ -26,56 +26,54 @@
         
         <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,15">
             <TextBlock Text="Name:" Margin="0,0,10,0" VerticalAlignment="Center" FontWeight="Bold"/>
-            <TextBox x:ConnectionId='11' x:Name="NameTextBox" PlaceholderText="Enter Name"                                                Width="200"/>
+            <TextBox x:ConnectionId='12' x:Name="NameTextBox" PlaceholderText="Enter Name"                                                Width="200"/>
         </StackPanel>
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,15,0,15">
             <TextBlock Text="Source Type:" Margin="0,0,10,0" VerticalAlignment="Center" FontWeight="Bold"/>
-            <ComboBox x:ConnectionId='8' x:Name="SourceTypeComboBox" SelectedIndex="0" Margin="0,0,10,0" VerticalAlignment="Center" Width="200">
+            <ComboBox x:ConnectionId='9' x:Name="SourceTypeComboBox" SelectedIndex="0" Margin="0,0,10,0" VerticalAlignment="Center" Width="200">
                 <ComboBoxItem Content="Folder"/>
                 <ComboBoxItem Content="File"/>
             </ComboBox>
 
             <TextBlock Text="Source:" Margin="10,0,10,0" VerticalAlignment="Center" FontWeight="Bold"/>
             <ScrollViewer VerticalScrollBarVisibility="Auto" Width="200">
-                <TextBox x:ConnectionId='10' x:Name="SourceTextBox" PlaceholderText="Enter Source Path" Width="200"/>
+                <TextBox x:ConnectionId='11' x:Name="SourceTextBox" PlaceholderText="Enter Source Path" Width="200"/>
             </ScrollViewer>
-            <Button x:ConnectionId='9' Content="&#xE838;" FontFamily="Segoe MDL2 Assets"                                  Margin="10,0,0,0" VerticalAlignment="Center"/>
+            <Button x:ConnectionId='10' Content="&#xE838;" FontFamily="Segoe MDL2 Assets"                                  Margin="10,0,0,0" VerticalAlignment="Center"/>
         </StackPanel>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,15,0,15">
             <TextBlock Text="Target:" Margin="0,0,10,0" VerticalAlignment="Center" FontWeight="Bold"/>
             <ScrollViewer VerticalScrollBarVisibility="Auto" Width="200">
-                <TextBox x:ConnectionId='7' x:Name="TargetTextBox" PlaceholderText="Enter Target Path" VerticalAlignment="Center" Width="200"/>
+                <TextBox x:ConnectionId='8' x:Name="TargetTextBox" PlaceholderText="Enter Target Path" VerticalAlignment="Center" Width="200"/>
             </ScrollViewer>
-            <Button x:ConnectionId='6' Content="&#xE838;" FontFamily="Segoe MDL2 Assets"                                  Margin="10,0,0,0" VerticalAlignment="Center"/>
+            <Button x:ConnectionId='7' Content="&#xE838;" FontFamily="Segoe MDL2 Assets"                                  Margin="10,0,0,0" VerticalAlignment="Center"/>
         </StackPanel>
 
         <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="0,3,0,15">
-            <TextBlock Text="Encryption:"  Margin="0,0,10,0" VerticalAlignment="Center" FontWeight="Bold"/>
-            <ComboBox x:ConnectionId='5' x:Name="MyEncryptionComboBox"                                                             SelectedIndex="0" Margin="0,0,3,0" VerticalAlignment="Center" Width="200">
-                <ComboBoxItem Content="On"/>
-                <ComboBoxItem Content="Off"/>
-            </ComboBox>
+            <TextBlock Text="Encryption:" Margin="0,0,10,0" VerticalAlignment="Center" FontWeight="Bold"/>
+
+            <CheckBox x:ConnectionId='6' x:Name="MyEncryptionCheckBox"                                                       VerticalAlignment="Center" Content="Enable Encryption"                                                                                  />
         </StackPanel>
 
 
 
         <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,15,0,15">
             <TextBlock Text="Type:" Margin="0,0,10,0" VerticalAlignment="Center" FontWeight="Bold"/>
-            <ComboBox x:ConnectionId='4' x:Name="TypeComboBox" SelectedIndex="0" Margin="0,0,10,0" VerticalAlignment="Center" Width="200">
+            <ComboBox x:ConnectionId='5' x:Name="TypeComboBox" SelectedIndex="0" Margin="0,0,10,0" VerticalAlignment="Center" Width="200">
                 <ComboBoxItem Content="Differential"/>
                 <ComboBoxItem Content="Full"/>
             </ComboBox>
         </StackPanel>
 
         <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,15,0,15">
-            <Button x:ConnectionId='3' Content="Save"                             Margin="0,0,0,0" VerticalAlignment="Center" Background="#0078D7" Foreground="White" FontWeight="Bold"/>
+            <Button x:ConnectionId='4' Content="Save"                             Margin="0,0,0,0" VerticalAlignment="Center" Background="#0078D7" Foreground="White" FontWeight="Bold"/>
         </StackPanel>
 
         <StackPanel Grid.Row="5" Orientation="Horizontal" Margin="0,3,0,15">
-            <TextBlock Text="Encryption Key:" Margin="0,0,10,0" VerticalAlignment="Center" FontWeight="Bold"/>
-            <TextBox x:ConnectionId='2' x:Name="EncryptionKeyTextBox" 
+            <TextBlock x:ConnectionId='2' x:Name="EncryptionKeyTextBlock" Text="Encryption Key:" Margin="0,0,10,0" VerticalAlignment="Center" FontWeight="Bold"/>
+            <TextBox x:ConnectionId='3' x:Name="EncryptionKeyTextBox" 
                                                            
              PlaceholderText="Enter Encryption Key" 
              Width="200"/>

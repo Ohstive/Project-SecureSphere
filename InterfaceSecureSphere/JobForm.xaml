@@ -52,11 +52,9 @@
         </StackPanel>
 
         <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="0,3,0,15">
-            <TextBlock Text="Encryption:"  Margin="0,0,10,0" VerticalAlignment="Center" FontWeight="Bold"/>
-            <ComboBox x:Name="MyEncryptionComboBox" SelectedItem="{x:Bind EncryptionSelectedItem, Mode=TwoWay}" SelectedIndex="0" Margin="0,0,3,0" VerticalAlignment="Center" Width="200">
-                <ComboBoxItem Content="On"/>
-                <ComboBoxItem Content="Off"/>
-            </ComboBox>
+            <TextBlock Text="Encryption:" Margin="0,0,10,0" VerticalAlignment="Center" FontWeight="Bold"/>
+
+            <CheckBox x:Name="MyEncryptionCheckBox" IsChecked="{x:Bind IsEncryptionEnabled, Mode=TwoWay}" VerticalAlignment="Center" Content="Enable Encryption" Checked="MyEncryptionCheckBox_Checked" Unchecked="MyEncryptionCheckBox_Unchecked"/>
         </StackPanel>
 
 
@@ -74,7 +72,7 @@
         </StackPanel>
 
         <StackPanel Grid.Row="5" Orientation="Horizontal" Margin="0,3,0,15">
-            <TextBlock Text="Encryption Key:" Margin="0,0,10,0" VerticalAlignment="Center" FontWeight="Bold"/>
+            <TextBlock x:Name="EncryptionKeyTextBlock" Text="Encryption Key:" Margin="0,0,10,0" VerticalAlignment="Center" FontWeight="Bold"/>
             <TextBox x:Name="EncryptionKeyTextBox" 
              Text="{x:Bind EncryptionKey, Mode=TwoWay}"    
              PlaceholderText="Enter Encryption Key" 

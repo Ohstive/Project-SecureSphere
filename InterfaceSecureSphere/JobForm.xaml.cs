@@ -34,7 +34,7 @@ namespace InterfaceSecureSphere
         private InterfaceSecureSphere.Model.JobConfiguration jobConfig;
         public event EventHandler<InterfaceSecureSphere.Model.JobConfiguration> JobConfigurationSubmitted;
 
-        public string EncryptionSelectedItem { get; set; }
+        public bool IsEncryptionEnabled { get; set; }
         public string EncryptionKey { get; set; }
        
         public InterfaceSecureSphere.Model.JobConfiguration JobConfig
@@ -53,12 +53,26 @@ namespace InterfaceSecureSphere
         public JobForm()
         {
             this.InitializeComponent();
-
+            
             JobConfig = new InterfaceSecureSphere.Model.JobConfiguration("", "", "", "",""); // Initialisez avec des valeurs par défaut
-
+            EncryptionKeyTextBlock.Visibility = Visibility.Collapsed;
+            EncryptionKeyTextBox.Visibility = Visibility.Collapsed; // Cela masquera la TextBox par défaut
+            EncryptionKeyTextBox.IsReadOnly = true;
         }
 
-        
+        private void MyEncryptionCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            EncryptionKeyTextBlock.Visibility = Visibility.Visible;
+            EncryptionKeyTextBox.Visibility = Visibility.Visible;
+            EncryptionKeyTextBox.IsReadOnly = false;
+        }
+
+        private void MyEncryptionCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            EncryptionKeyTextBlock.Visibility = Visibility.Collapsed;
+            EncryptionKeyTextBox.Visibility = Visibility.Collapsed;
+            EncryptionKeyTextBox.IsReadOnly = true;
+        }
 
 
 
@@ -126,9 +140,9 @@ namespace InterfaceSecureSphere
             string sourcePath = SourceTextBox.Text;
             string targetPath = TargetTextBox.Text;
             string backupType = ((ComboBoxItem)TypeComboBox.SelectedItem)?.Content.ToString();
-            string encryption = ((ComboBoxItem)MyEncryptionComboBox.SelectedItem)?.Content.ToString();
+            string encryption = IsEncryptionEnabled.ToString();
 
-            if (jobName != "" && sourceType != "" && sourcePath != "" && targetPath != "" && backupType != "" && encryption != "")
+            if (jobName != "" && sourceType != "" && sourcePath != "" && targetPath != "" && backupType != "")
             {
                 // Create a new job configuration
                 var submittedJobConfig = new InterfaceSecureSphere.Model.JobConfiguration(jobName, sourcePath, targetPath, backupType, encryption);
@@ -143,9 +157,7 @@ namespace InterfaceSecureSphere
          
         }
 
-
-       
-
+        
 
         public event PropertyChangedEventHandler PropertyChanged;
 
