@@ -51,7 +51,7 @@ namespace InterfaceSecureSphere
         {
             this.InitializeComponent();
 
-            JobConfig = new InterfaceSecureSphere.Model.JobConfiguration("", "", "", ""); // Initialisez avec des valeurs par défaut
+            JobConfig = new InterfaceSecureSphere.Model.JobConfiguration("", "", "", "",""); // Initialisez avec des valeurs par défaut
 
         }
 
@@ -120,18 +120,19 @@ namespace InterfaceSecureSphere
             string sourcePath = SourceTextBox.Text;
             string targetPath = TargetTextBox.Text;
             string backupType = ((ComboBoxItem)TypeComboBox.SelectedItem)?.Content.ToString();
+            string encryption = ((ComboBoxItem)EncryptionComboBox.SelectedItem)?.Content.ToString();
 
-            if (jobName != "" && sourceType != "" && sourcePath != "" && targetPath != "" && backupType != "")
+            if (jobName != "" && sourceType != "" && sourcePath != "" && targetPath != "" && backupType != "" && encryption != "")
             {
                 // Create a new job configuration
-                var submittedJobConfig = new InterfaceSecureSphere.Model.JobConfiguration(jobName, sourcePath, targetPath, backupType);
+                var submittedJobConfig = new InterfaceSecureSphere.Model.JobConfiguration(jobName, sourcePath, targetPath, backupType, encryption);
 
                 // add the job to the list of jobs
                 ((App)Application.Current).BackupJobs.Add(submittedJobConfig);
 
                 Frame.GoBack();
 
-                System.Diagnostics.Debug.WriteLine($"JobName: {jobName}, SourceType: {sourceType}, Source: {sourcePath}, Target: {targetPath}, BackupType: {backupType}");
+                System.Diagnostics.Debug.WriteLine($"JobName: {jobName}, SourceType: {sourceType}, Source: {sourcePath}, Target: {targetPath}, BackupType: {backupType}, Encryption: {encryption}");
             }
          
         }

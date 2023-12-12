@@ -16,14 +16,16 @@ namespace InterfaceSecureSphere.Model
         public string TargetDirectoryPath { get; private set; }
         public string BackupType { get; private set;}
 
+        public string Encryption { get; private set; }
 
         // Constructeur
-        public JobConfiguration(string name, string source, string target, string backupType)
+        public JobConfiguration(string name, string source, string target, string backupType, string encryption)
         {
             JobName = name;
             SourceDirectoryPath = source;
             TargetDirectoryPath = target;
             BackupType = backupType;
+            Encryption = encryption;
         }
     }
 }
