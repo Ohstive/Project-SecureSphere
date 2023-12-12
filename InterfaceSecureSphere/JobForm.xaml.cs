@@ -22,18 +22,21 @@ using System.Diagnostics;
 using InterfaceSecureSphere.Model;
 
 
+
 // Pour plus d'informations sur le modèle d'élément Page vierge, consultez la page https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace InterfaceSecureSphere
 {
 
-    
+
     public sealed partial class JobForm : Page, INotifyPropertyChanged
     {
         private InterfaceSecureSphere.Model.JobConfiguration jobConfig;
         public event EventHandler<InterfaceSecureSphere.Model.JobConfiguration> JobConfigurationSubmitted;
 
-
+        public string EncryptionSelectedItem { get; set; }
+        public string EncryptionKey { get; set; }
+       
         public InterfaceSecureSphere.Model.JobConfiguration JobConfig
         {
             get { return jobConfig; }
@@ -55,7 +58,10 @@ namespace InterfaceSecureSphere
 
         }
 
-  
+        
+
+
+
         private async void BrowseSourceButton_Click(object sender, RoutedEventArgs e)
         {
             var folderPicker = new FolderPicker();
@@ -120,7 +126,7 @@ namespace InterfaceSecureSphere
             string sourcePath = SourceTextBox.Text;
             string targetPath = TargetTextBox.Text;
             string backupType = ((ComboBoxItem)TypeComboBox.SelectedItem)?.Content.ToString();
-            string encryption = ((ComboBoxItem)EncryptionComboBox.SelectedItem)?.Content.ToString();
+            string encryption = ((ComboBoxItem)MyEncryptionComboBox.SelectedItem)?.Content.ToString();
 
             if (jobName != "" && sourceType != "" && sourcePath != "" && targetPath != "" && backupType != "" && encryption != "")
             {
@@ -138,6 +144,7 @@ namespace InterfaceSecureSphere
         }
 
 
+       
 
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -147,4 +154,6 @@ namespace InterfaceSecureSphere
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
+   
+
 }
