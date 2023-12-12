@@ -7,6 +7,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" >
+    
+    
+
+
 
     <Grid Margin="20">
         <Grid.RowDefinitions>
@@ -18,6 +22,8 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+        
+        
         <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,15">
             <TextBlock Text="Name:" Margin="0,0,10,0" VerticalAlignment="Center" FontWeight="Bold"/>
             <TextBox x:Name="NameTextBox" PlaceholderText="Enter Name" Text="{x:Bind JobConfig.JobName, Mode=TwoWay}" Width="200"/>
@@ -45,6 +51,14 @@
             <Button Content="&#xE838;" FontFamily="Segoe MDL2 Assets" Click="BrowseTargetButton_Click" Margin="10,0,0,0" VerticalAlignment="Center"/>
         </StackPanel>
 
+        <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="0,3,0,15">
+            <TextBlock Text="Encryption:"  Margin="0,0,10,0" VerticalAlignment="Center" FontWeight="Bold"/>
+            <ComboBox x:Name="MyEncryptionComboBox" SelectedItem="{x:Bind EncryptionSelectedItem, Mode=TwoWay}" SelectedIndex="0" Margin="0,0,3,0" VerticalAlignment="Center" Width="200">
+                <ComboBoxItem Content="On"/>
+                <ComboBoxItem Content="Off"/>
+            </ComboBox>
+        </StackPanel>
+
 
 
         <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,15,0,15">
@@ -59,14 +73,16 @@
             <Button Content="Save" Click="SubmitButton_Click"  Margin="0,0,0,0" VerticalAlignment="Center" Background="#0078D7" Foreground="White" FontWeight="Bold"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="0,3,0,15">
-            <TextBlock Text="Encryption:" Margin="0,0,10,0" VerticalAlignment="Center" FontWeight="Bold"/>
-            <ComboBox x:Name="EncryptionComboBox" SelectedIndex="0" Margin="0,0,3,0" VerticalAlignment="Center" Width="200">
-                <ComboBoxItem Content="On"/>
-                <ComboBoxItem Content="Off"/>
-            </ComboBox>
+        <StackPanel Grid.Row="5" Orientation="Horizontal" Margin="0,3,0,15">
+            <TextBlock Text="Encryption Key:" Margin="0,0,10,0" VerticalAlignment="Center" FontWeight="Bold"/>
+            <TextBox x:Name="EncryptionKeyTextBox" 
+             Text="{x:Bind EncryptionKey, Mode=TwoWay}"    
+             PlaceholderText="Enter Encryption Key" 
+             Width="200"/>
         </StackPanel>
-        
-        
+
+
+
+
     </Grid>
 </Page>
