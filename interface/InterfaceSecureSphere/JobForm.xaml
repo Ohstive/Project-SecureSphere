@@ -58,5 +58,14 @@
         <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,15,0,15">
             <Button Content="Save" Click="SubmitButton_Click"  Margin="0,0,0,0" VerticalAlignment="Center" Background="#0078D7" Foreground="White" FontWeight="Bold"/>
         </StackPanel>
+
+        <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="0,3,0,15">
+            <TextBlock Text="Encryption:" Margin="0,0,10,0" VerticalAlignment="Center" FontWeight="Bold"/>
+            <ComboBox x:Name="EncryptionComboBox" SelectedIndex="0" Margin="0,0,3,0" VerticalAlignment="Center" Width="200">
+                <ComboBoxItem Content="On"/>
+                <ComboBoxItem Content="Off"/>
+            </ComboBox>
+        </StackPanel>
+
     </Grid>
 </Page>
