@@ -1,0 +1,17 @@
+C:\Users\Ostiv\source\repos\SecureSphere_V1\bin\Debug\net8.0\SecureSphere_V1.exe
+C:\Users\Ostiv\source\repos\SecureSphere_V1\bin\Debug\net8.0\SecureSphere_V1.deps.json
+C:\Users\Ostiv\source\repos\SecureSphere_V1\bin\Debug\net8.0\SecureSphere_V1.runtimeconfig.json
+C:\Users\Ostiv\source\repos\SecureSphere_V1\bin\Debug\net8.0\SecureSphere_V1.dll
+C:\Users\Ostiv\source\repos\SecureSphere_V1\bin\Debug\net8.0\SecureSphere_V1.pdb
+C:\Users\Ostiv\source\repos\SecureSphere_V1\obj\Debug\net8.0\SecureSphere_V1.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Ostiv\source\repos\SecureSphere_V1\obj\Debug\net8.0\SecureSphere_V1.AssemblyInfoInputs.cache
+C:\Users\Ostiv\source\repos\SecureSphere_V1\obj\Debug\net8.0\SecureSphere_V1.AssemblyInfo.cs
+C:\Users\Ostiv\source\repos\SecureSphere_V1\obj\Debug\net8.0\SecureSphere_V1.csproj.CoreCompileInputs.cache
+C:\Users\Ostiv\source\repos\SecureSphere_V1\obj\Debug\net8.0\SecureSphere_V1.dll
+C:\Users\Ostiv\source\repos\SecureSphere_V1\obj\Debug\net8.0\refint\SecureSphere_V1.dll
+C:\Users\Ostiv\source\repos\SecureSphere_V1\obj\Debug\net8.0\SecureSphere_V1.pdb
+C:\Users\Ostiv\source\repos\SecureSphere_V1\obj\Debug\net8.0\SecureSphere_V1.genruntimeconfig.cache
+C:\Users\Ostiv\source\repos\SecureSphere_V1\obj\Debug\net8.0\ref\SecureSphere_V1.dll
+C:\Users\Ostiv\source\repos\SecureSphere_V1\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\Ostiv\source\repos\SecureSphere_V1\obj\Debug\net8.0\SecureSphere_V1.csproj.AssemblyReference.cache
+C:\Users\Ostiv\source\repos\SecureSphere_V1\obj\Debug\net8.0\SecureSphere_V1.csproj.CopyComplete
