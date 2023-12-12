@@ -16,6 +16,7 @@
             <TextBlock Text="Job Source" Width="150" FontWeight="Bold" Margin="5"/>
             <TextBlock Text="Target" Width="150" FontWeight="Bold" Margin="5"/>
             <TextBlock Text="Job Type" Width="100" FontWeight="Bold" Margin="5"/>
+            <TextBlock Text="Encryption" Width="100" FontWeight="Bold" Margin="5"/>
             <TextBlock Text="State" Width="100" FontWeight="Bold" Margin="5"/>
             <TextBlock Width="80" Margin="5"/>
             <!-- Empty space for buttons -->
@@ -37,6 +38,7 @@
                         <TextBlock Text="{Binding SourceDirectoryPath}" Width="150" Margin="5"/>
                         <TextBlock Text="{Binding TargetDirectoryPath}" Width="150" Margin="5"/>
                         <TextBlock Text="{Binding BackupType}" Width="100" Margin="5"/>
+                        <TextBlock Text="{Binding Encryption}" Width="100" Margin="5"/>
                         <Button Content="Run" Click="OnRunButtonClick" Width="80" HorizontalAlignment="Center" Margin="5"/>
                         <Button Content="Delete" Click="OnDeleteButtonClick" Width="80" HorizontalAlignment="Center" Margin="5"/>
                     </StackPanel>
