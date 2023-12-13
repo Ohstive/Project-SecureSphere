@@ -1,17 +1,34 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-
-using SecureSphereV2.ViewModel;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using SecureSphereV2.Model;
-using SecureSphereV2.View;
+using System.Diagnostics;
+using SecureSphereV2.ViewModel;
 
 namespace SecureSphereV2.View
 {
-    public partial class JobMenuPage : Page
+    public partial class JobMenuPage : Page, INotifyPropertyChanged
     {
         private SharedDataService sharedDataService;
-        private List<JobManager> ListJob;
+        private ObservableCollection<JobConfiguration> listJobConfigurations;
+
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public ObservableCollection<JobConfiguration> ListJobConfigurations
+        {
+            get { return listJobConfigurations; }
+            set
+            {
+                if (value != listJobConfigurations)
+                {
+                    listJobConfigurations = value;
+                    OnPropertyChanged(nameof(ListJobConfigurations));
+                }
+            }
+        }
 
         public JobMenuPage(SharedDataService sharedDataService)
         {
@@ -19,54 +36,61 @@ namespace SecureSphereV2.View
             this.sharedDataService = sharedDataService;
             DataContext = sharedDataService.LogInitInstance;
 
-            // Create a sample job
-            JobConfiguration job = new JobConfiguration("Name", @"Sources", @"Target", "TypeOfCopy", "Key");
-            JobManager jobManager = new JobManager(job, sharedDataService.LogInitInstance.DailylogFolderPath, sharedDataService.LogInitInstance.LogStatusFolderPath);
+            // Initialize ListJobConfigurations with ObservableCollection
+            ListJobConfigurations = new ObservableCollection<JobConfiguration>();
+            ListJobConfigurations.Add(new JobConfiguration("Name", @"Sources", @"Target", "TypeOfCopy", "Key"));
+            ListJobConfigurations.Add(new JobConfiguration("Name", @"Sources", @"Target", "TypeOfCopy", "Key"));
+            ListJobConfigurations.Add(new JobConfiguration("Name", @"Sources", @"Target", "TypeOfCopy", "Key"));
 
-            // Initialize ListJob if necessary
-            ListJob = new List<JobManager>();
-
-            // Add the sample job to the list
-            ListJob.Add(jobManager);
         }
 
         private void OnRunButtonClick(object sender, RoutedEventArgs e)
         {
             // Handle the Run button click event for the selected job
-            if (JobsListView.SelectedItem is JobManager selectedJob)
+            if (JobsListView.SelectedItem is JobConfiguration selectedJob)
             {
-                selectedJob.JobRun();
+                // Handle the run operation for JobConfiguration
             }
         }
 
         private void OnDeleteButtonClick(object sender, RoutedEventArgs e)
         {
             // Handle the Delete button click event for the selected job
-            if (JobsListView.SelectedItem is JobManager selectedJob)
+            if (JobsListView.SelectedItem is JobConfiguration selectedJob)
             {
-                ListJob.Remove(selectedJob);
+                ListJobConfigurations.Remove(selectedJob);
+            }
+        }
+        private void OnDeleteItemButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (sender is System.Windows.Controls.Button deleteButton && deleteButton.Tag is JobConfiguration jobToDelete)
+            {
+                ListJobConfigurations.Remove(jobToDelete);
             }
         }
 
         private void OnAddButtonClick(object sender, RoutedEventArgs e)
         {
-            // Add a new job (sample job for demonstration purposes)
+            // Add a new job configuration (sample job for demonstration purposes)
             JobConfiguration newJobConfig = new JobConfiguration("NewJob", @"NewSource", @"NewTarget", "Incremental", "NewKey");
-            JobManager newJobManager = new JobManager(newJobConfig, sharedDataService.LogInitInstance.DailylogFolderPath, sharedDataService.LogInitInstance.LogStatusFolderPath);
 
-            // Add the new job to the list
-            ListJob.Add(newJobManager);
+            // Add the new job configuration to the ObservableCollection
+            ListJobConfigurations.Add(newJobConfig);
+
         }
 
         private void OnRunAllButtonClick(object sender, RoutedEventArgs e)
         {
             // Handle the RunAll button click event (run all jobs)
-            foreach (var job in ListJob)
+            foreach (var jobConfig in ListJobConfigurations)
             {
-                job.JobRun();
+
             }
+        }
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
-
-

@@ -66,7 +66,7 @@ Both log files and configuration files are in JSON format, with line breaks for 
 
 ### CryptoSoft Utilisation
 The process that use the cryptosoft software need to know where is the cryptosoft.exe.
-In the CryptoCopy.cs file on the value of CryptoSoftPath note the path of the Cryptosoft.exe like that @"C:\...\CryptoSoft.exe";.
+In the CryptoCopy.cs file on the value of CryptoSoftPath note the path of the Cryptosoft.exe like that @"C:\\...\CryptoSoft.exe";.
 The ... represent the path on which is the software.
 
 Important Note:
