@@ -28,6 +28,7 @@ namespace SecureSphereV2
         private void NavigateToLogsMenu(object sender, RoutedEventArgs e)
         {
             ContentFrame.Navigate(new LogsMenuPage(sharedDataService));
+
         }
 
         private void ToggleMenuVisibility(object sender, RoutedEventArgs e)
