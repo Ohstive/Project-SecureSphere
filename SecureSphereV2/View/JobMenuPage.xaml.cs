@@ -6,6 +6,7 @@ using System.ComponentModel;
 using SecureSphereV2.Model;
 using System.Diagnostics;
 using SecureSphereV2.ViewModel;
+using System.Windows.Media;
 
 namespace SecureSphereV2.View
 {
@@ -71,13 +72,18 @@ namespace SecureSphereV2.View
 
         private void OnAddButtonClick(object sender, RoutedEventArgs e)
         {
-            // Add a new job configuration (sample job for demonstration purposes)
-            JobConfiguration newJobConfig = new JobConfiguration("NewJob", @"NewSource", @"NewTarget", "Incremental", "NewKey");
+            // ... your existing code
 
-            // Add the new job configuration to the ObservableCollection
-            ListJobConfigurations.Add(newJobConfig);
+            // Create an instance of the JobForm window
+            JobForm jobFormWindow = new JobForm();
 
+            // Show the JobForm window
+            jobFormWindow.Show();
+
+            // Optionally, close the current window or handle navigation logic
+            Window.GetWindow(this)?.Close();
         }
+
 
         private void OnRunAllButtonClick(object sender, RoutedEventArgs e)
         {

@@ -36,9 +36,11 @@
                 </GridView>
             </ListView.View>
         </ListView>
+        
+        
 
-        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Content="Add" Click="OnAddButtonClick" Margin="10"/>
+        <StackPanel    Margin="643,380,0,46">
+            <Button Content="Add" Click="OnAddButtonClick" Width="51"/>
         </StackPanel>
     </Grid>
 </Page>
