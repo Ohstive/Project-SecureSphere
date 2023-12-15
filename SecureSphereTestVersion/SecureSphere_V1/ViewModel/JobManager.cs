@@ -45,7 +45,8 @@ namespace SecureSphere_V1.ViewModel
             logger = new FileLogger(logDirectory, logDirectory);
             loggerStatus = new FileLogger(logDirectory, logStatutDirectory);
 
-            fileCopyHandler = new SimpleFileCopy(logger);
+            //fileCopyHandler = new SimpleFileCopy(logger);
+            fileCopyHandler = new CryptoCopy(logger);
             directoryCopyHandler = new DirectoryCopyHandler(fileCopyHandler, logger, loggerStatus);
             jobConfiguration = job;
            

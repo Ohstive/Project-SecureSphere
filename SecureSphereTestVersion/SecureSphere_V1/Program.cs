@@ -8,8 +8,8 @@ namespace SecureSphere_V1
     {
         static void Main(string[] args)
         {
-            JobConfiguration job = new JobConfiguration("Job1", @"C:\Users\Ostiv\Documents\Test3", @"C:\Users\Ostiv\Documents\Test4", "Full", "Sequential");
-            JobManager jobManager = new JobManager(job, @"C:\Users\Ostiv\Documents\Log", @"C:\Users\Ostiv\Documents\LogStatut");
+            JobConfiguration job = new JobConfiguration("Job1", @"C:\test", @"C:\test2", "Full", "Sequential");
+            JobManager jobManager = new JobManager(job, @"C:\log", @"C:\DailyLog");
             jobManager.RunJob();
             JobView jobView = new JobView(jobManager);
         }
