@@ -4,21 +4,37 @@ namespace SecureSphereV2.Model
 {
     public class JobConfiguration
     {
-        // Task Priority
-        public string JobName { get; set; } // Give public access to writing
-        public string SourceDirectoryPath { get; private set; }
-        public string TargetDirectoryPath { get; private set; }
-        public string BackupType { get; private set; }
-        public string CryptKey { get; set; }
+        // Propriétés de la tâche
+        public string JobName { get; set; } // Rendre l'accès en écriture public
+        public string SourceDirectoryPath { get; set; }
+        public bool IsSourceDirectory { get; set; }
+        public string TargetDirectoryPath { get; set; }
+        public string BackupType { get; set; }
+        public string EncryptionKey { get; set; }
+        public bool IsEncryptionEnabled { get; set; }
+        public string Encryption { get; set; }
+        public bool IsFinished { get; set; }
 
-        // Constructor
-        public JobConfiguration(string name, string source, string target, string backupType,string cryptKey )
+        // Constructeur
+        public JobConfiguration(string name, string source, bool isSourceDirectory, string target, string backupType, string encryptionKey, bool isEncryptionEnabled)
         {
             JobName = name;
             SourceDirectoryPath = source;
+            IsSourceDirectory = isSourceDirectory;
             TargetDirectoryPath = target;
             BackupType = backupType;
-            CryptKey = cryptKey;
+            EncryptionKey = encryptionKey;
+            IsEncryptionEnabled = isEncryptionEnabled;
+
+            if (IsEncryptionEnabled)
+            {
+                Encryption = "Enabled";
+            }
+            else
+            {
+                Encryption = "Disabled";
+            }
+
         }
     }
 }
