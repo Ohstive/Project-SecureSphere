@@ -6,14 +6,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Collections.ObjectModel;
+using SecureSphereV2.Model;
 
 namespace SecureSphereV2.View
 {
     public class SharedDataService
-    { 
-        public LogInit LogInitInstance { get; } = new LogInit();
-    }
+    {
+        private ObservableCollection<JobConfiguration> listJobConfigurations = new ObservableCollection<JobConfiguration>();
 
+        public LogInit LogInitInstance { get; } = new LogInit();
+
+        public ObservableCollection<JobConfiguration> ListJobConfigurations
+        {
+            get { return listJobConfigurations; }
+            set
+            {
+                listJobConfigurations = value;
+            }
+        }
+    }
 }
 public class LogInit : INotifyPropertyChanged
 {
@@ -45,7 +57,10 @@ public class LogInit : INotifyPropertyChanged
 
     public LogInit()
     {
-        rootPath = @"C:\";
+        string systemDirectory = Environment.SystemDirectory;
+        string systemDrive = Path.GetPathRoot(systemDirectory);
+        rootPath = systemDrive;
+
         LogStatusFolderPath = Path.Combine(rootPath, "LogStatus");
         DailylogFolderPath = Path.Combine(rootPath, "DailyLog");
         CreateLogStatusFolder();

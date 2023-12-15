@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:SecureSphereV2.View"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="JobForm" Height="450" Width="800">
+        Title="JobForm" Height="380" Width="645">
+
     <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -18,12 +19,11 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        
-        
 
         <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,15">
             <TextBlock Text="Name:" Margin="0,0,10,0" VerticalAlignment="Center" FontWeight="Bold"/>
             <TextBox x:Name="NameTextBox" Text="{Binding JobConfig.JobName, Mode=TwoWay}" Width="200">
+
                 <TextBox.ToolTip>
                     <ToolTip Content="Enter Name"/>
                 </TextBox.ToolTip>
@@ -67,29 +67,27 @@
 
         <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,15,0,15">
             <TextBlock Text="Type:" Margin="0,0,10,0" VerticalAlignment="Center" FontWeight="Bold"/>
-            <ComboBox x:Name="TypeComboBox" SelectedIndex="0" Margin="0,0,10,0" VerticalAlignment="Center" Width="200">
-                <ComboBoxItem Content="Differential"/>
+            <ComboBox x:Name="TypeComboBox" SelectedIndex="0" SelectedValuePath="Content" Margin="0,0,10,0" VerticalAlignment="Center" Width="200">
                 <ComboBoxItem Content="Full"/>
+                <ComboBoxItem Content="Differential"/>
             </ComboBox>
         </StackPanel>
 
-        <StackPanel Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,15,0,15">
+        <StackPanel Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,15,0,15">
             <Button Content="Save" Click="SubmitButton_Click" Margin="0,0,0,0" VerticalAlignment="Center" Background="#0078D7" Foreground="White" FontWeight="Bold"/>
         </StackPanel>
 
         <StackPanel Grid.Row="5" Orientation="Horizontal" Margin="0,3,0,15">
             <TextBlock x:Name="EncryptionKeyTextBlock" Text="Encryption Key:" Margin="0,0,10,0" VerticalAlignment="Center" FontWeight="Bold"/>
-            <TextBox x:Name="EncryptionKeyTextBox" Text="{Binding EncryptionKey, Mode=TwoWay}" Width="200">
+            <TextBox x:Name="EncryptionKeyTextBox" Text="{Binding JobConfig.EncryptionKey, Mode=TwoWay}" Width="200">
                 <TextBox.ToolTip>
                     <ToolTip Content="Enter Encryption Key"/>
                 </TextBox.ToolTip>
             </TextBox>
         </StackPanel>
-
-        
     </Grid>
-</Window>
 
+</Window>
 
 
     

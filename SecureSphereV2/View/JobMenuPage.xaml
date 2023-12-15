@@ -22,27 +22,54 @@
                     <GridViewColumn Header="Target Directory" DisplayMemberBinding="{Binding TargetDirectoryPath}" Width="150"/>
                     <GridViewColumn Header="Backup Type" DisplayMemberBinding="{Binding BackupType}" Width="120"/>
                     <GridViewColumn Header="Encryption" DisplayMemberBinding="{Binding Encryption}" Width="120"/>
+                    <GridViewColumn Header="EncryptionKey" DisplayMemberBinding="{Binding EncryptionKey}" Width="120"/>
+
+                    <!-- New column for RunAll button at the bottom right -->
+                    <GridViewColumn Width="50">
+                        <GridViewColumn.Header>
+                            <TextBlock Text="State"/>
+                        </GridViewColumn.Header>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"  x:Name="B">
+                                    <Button Click="OnRunButtonClick" Tag="{Binding}" Margin="2">
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon x:Name="RunButtonIcon" Kind="Play" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
+                                </StackPanel>
+                            </DataTemplate>
+
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
 
                     <!-- New column for Delete button -->
                     <GridViewColumn Width="50">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Click="OnDeleteItemButtonClick" Tag="{Binding}" Margin="2">
-                                    <materialDesign:PackIcon Kind="Delete" VerticalAlignment="Center"/>
-                                </Button>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Button Click="OnDeleteItemButtonClick" Tag="{Binding}" Margin="2">
+                                        <materialDesign:PackIcon Kind="Delete" VerticalAlignment="Center" />
+                                    </Button>
+                                </StackPanel>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
+
+
                 </GridView>
             </ListView.View>
         </ListView>
-        
-        
 
-        <StackPanel    Margin="643,380,0,46">
-            <Button Content="Add" Click="OnAddButtonClick" Width="51"/>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="Add" Click="OnAddButtonClick" Margin="10"/>
+            <Button Content="RunAllAtOnce" Click="OnRunAllAtOnceButtonClick" Margin="10"/>
+            <Button Content="RunAll" Click="OnRunAllButtonClick" Margin="10"/>
         </StackPanel>
+
+
     </Grid>
 </Page>
+
 
 

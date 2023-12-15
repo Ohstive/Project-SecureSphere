@@ -1,5 +1,5 @@
-﻿using MaterialDesignThemes.Wpf;
-using SecureSphereV2.Model;
+﻿using SecureSphereV2.Model;
+using SecureSphereV2.ViewModel;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -11,28 +11,62 @@ using System.Windows.Forms; // Add this using directive
 
 namespace SecureSphereV2.View
 {
+
+
     public partial class JobForm : Window
     {
-        public JobForm()
+
+        public JobConfiguration JobConfig { get; set; }
+        private SharedDataService sharedDataService;
+
+        public JobForm(SharedDataService sharedDataService)
         {
             InitializeComponent();
+            this.sharedDataService = sharedDataService;
             HandleEncryptionCheckboxState();
-
+            DataContext = sharedDataService.LogInitInstance;
         }
 
         private void BrowseSourceButton_Click(object sender, RoutedEventArgs e)
         {
-            // Use Windows Forms FolderBrowserDialog
-            using (var folderDialog = new FolderBrowserDialog())
-            {
-                DialogResult result = folderDialog.ShowDialog();
+            // Check the selected item in SourceTypeComboBox
+            ComboBoxItem selectedItem = (ComboBoxItem)SourceTypeComboBox.SelectedItem;
 
-                if (result == System.Windows.Forms.DialogResult.OK)
+            if (selectedItem != null)
+            {
+                string sourceType = selectedItem.Content.ToString();
+
+                // Use Windows Forms FolderBrowserDialog for folders
+                if (sourceType.Equals("Folder", StringComparison.OrdinalIgnoreCase))
                 {
-                    SourceTextBox.Text = folderDialog.SelectedPath;
+                    using (var folderDialog = new FolderBrowserDialog())
+                    {
+                        DialogResult result = folderDialog.ShowDialog();
+
+                        if (result == System.Windows.Forms.DialogResult.OK)
+                        {
+                            SourceTextBox.Text = folderDialog.SelectedPath;
+                        }
+                    }
+                }
+                // Use Windows Forms OpenFileDialog for files
+                else if (sourceType.Equals("File", StringComparison.OrdinalIgnoreCase))
+                {
+                    using (var fileDialog = new OpenFileDialog())
+                    {
+                        fileDialog.Filter = "All Files (*.*)|*.*";
+
+                        DialogResult result = fileDialog.ShowDialog();
+
+                        if (result == System.Windows.Forms.DialogResult.OK)
+                        {
+                            SourceTextBox.Text = fileDialog.FileName;
+                        }
+                    }
                 }
             }
         }
+
 
         private void BrowseTargetButton_Click(object sender, RoutedEventArgs e)
         {
@@ -47,6 +81,7 @@ namespace SecureSphereV2.View
                 }
             }
         }
+
 
         private void MyEncryptionCheckBox_Checked(object sender, RoutedEventArgs e)
         {
@@ -66,25 +101,56 @@ namespace SecureSphereV2.View
             EncryptionKeyTextBox.IsReadOnly = !(MyEncryptionCheckBox.IsChecked == true);
         }
 
-        public ObservableCollection<JobConfiguration> ListJobConfigurations { get; } = new ObservableCollection<JobConfiguration>();
         private void SubmitButton_Click(object sender, RoutedEventArgs e)
         {
-            // Retrieve data from the UI controls
-            string jobName = NameTextBox.Text;
-            string sourceType = ((ComboBoxItem)SourceTypeComboBox.SelectedItem)?.Content.ToString();
-            string source = SourceTextBox.Text;
-            string target = TargetTextBox.Text;
-            bool isEncryptionEnabled = MyEncryptionCheckBox.IsChecked ?? false;
-            string encryptionKey = EncryptionKeyTextBox.Text;
-            string jobType = ((ComboBoxItem)TypeComboBox.SelectedItem)?.Content.ToString();
 
-            // Handle the logic to add a job with the retrieved information
-            JobConfiguration newJob = new JobConfiguration(jobName, source, target, jobType, encryptionKey);
+            // Create a new JobConfiguration based on the entered data
+            JobConfiguration newJobConfig = new JobConfiguration(
+                name: NameTextBox.Text,
+                source: SourceTextBox.Text,
+                isSourceDirectory: (SourceTypeComboBox.SelectedIndex == 0), // Check if "Folder" is selected
+                target: TargetTextBox.Text,
+                backupType: ((ComboBoxItem)TypeComboBox.SelectedItem).Content.ToString(),
+                encryptionKey: EncryptionKeyTextBox.Text,
+                isEncryptionEnabled: MyEncryptionCheckBox.IsChecked == true
+            );
 
-            // Add the new job to ListJobConfigurations
-            
+            JobManager manager = new JobManager(newJobConfig, sharedDataService.LogInitInstance.DailylogFolderPath, sharedDataService.LogInitInstance.LogStatusFolderPath);
+            // Add the new job configuration to sharedDataService.ListJobConfigurations
 
 
+            if (newJobConfig.JobName != "" && newJobConfig.SourceDirectoryPath != "" && newJobConfig.TargetDirectoryPath != "")
+            {
+                if (File.Exists(newJobConfig.SourceDirectoryPath) || Directory.Exists(newJobConfig.SourceDirectoryPath))
+                {
+                    if (manager.JobIsValid())
+                    {
+                        if (Directory.Exists(newJobConfig.TargetDirectoryPath))
+                        {
+                            sharedDataService.ListJobConfigurations.Add(newJobConfig);
+                            Close();
+                        }
+                        else
+                        {
+                            System.Windows.MessageBox.Show("Please fill in with a valid target path");
+                        }
+                    }
+                    else
+                    {
+                        System.Windows.MessageBox.Show("Backup Job with software in are not allowed");
+                    }
+                }
+
+                else
+                {
+                    System.Windows.MessageBox.Show("Please fill in with a valid source path");
+                }
+
+            }
+            else
+            {
+                System.Windows.MessageBox.Show("Please fill in the necessary information");
+            }
         }
     }
 }

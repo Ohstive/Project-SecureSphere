@@ -6,62 +6,86 @@ using System.ComponentModel;
 using SecureSphereV2.Model;
 using System.Diagnostics;
 using SecureSphereV2.ViewModel;
+using System.Windows.Navigation;
+using MaterialDesignThemes.Wpf;
 using System.Windows.Media;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace SecureSphereV2.View
 {
     public partial class JobMenuPage : Page, INotifyPropertyChanged
     {
         private SharedDataService sharedDataService;
-        private ObservableCollection<JobConfiguration> listJobConfigurations;
-
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         public ObservableCollection<JobConfiguration> ListJobConfigurations
         {
-            get { return listJobConfigurations; }
-            set
-            {
-                if (value != listJobConfigurations)
-                {
-                    listJobConfigurations = value;
-                    OnPropertyChanged(nameof(ListJobConfigurations));
-                }
-            }
+            get { return sharedDataService?.ListJobConfigurations; }
         }
 
         public JobMenuPage(SharedDataService sharedDataService)
         {
             InitializeComponent();
             this.sharedDataService = sharedDataService;
-            DataContext = sharedDataService.LogInitInstance;
 
-            // Initialize ListJobConfigurations with ObservableCollection
-            ListJobConfigurations = new ObservableCollection<JobConfiguration>();
-            ListJobConfigurations.Add(new JobConfiguration("Name", @"Sources", @"Target", "TypeOfCopy", "Key"));
-            ListJobConfigurations.Add(new JobConfiguration("Name", @"Sources", @"Target", "TypeOfCopy", "Key"));
-            ListJobConfigurations.Add(new JobConfiguration("Name", @"Sources", @"Target", "TypeOfCopy", "Key"));
-
+            //sharedDataService.ListJobConfigurations.Add(new JobConfiguration("Name", @"C:\Users\Ostiv\Documents\Test3", false, @"C:\Users\Ostiv\Documents\Test4", "Full", "Key",true));
         }
+
+        // OnPropertyChanged method to raise the PropertyChanged event
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
 
         private void OnRunButtonClick(object sender, RoutedEventArgs e)
         {
-            // Handle the Run button click event for the selected job
-            if (JobsListView.SelectedItem is JobConfiguration selectedJob)
+            if (sender is System.Windows.Controls.Button runButton && runButton.DataContext is JobConfiguration clickedJob)
             {
-                // Handle the run operation for JobConfiguration
+                if (!clickedJob.IsFinished)
+                {
+                    JobManager jobManager = new JobManager(clickedJob, sharedDataService.LogInitInstance.DailylogFolderPath, sharedDataService.LogInitInstance.LogStatusFolderPath);
+                    jobManager.RunJob();
+
+                    //Change the play icon the finish one
+                    PackIcon packIcon = VisualTreeHelperExtensions.FindChild<PackIcon>(runButton, "RunButtonIcon");
+                    if (packIcon != null)
+                    {
+                        packIcon.Kind = PackIconKind.CheckCircle;
+                    }
+                }
             }
         }
 
-        private void OnDeleteButtonClick(object sender, RoutedEventArgs e)
+
+        public static class VisualTreeHelperExtensions
         {
-            // Handle the Delete button click event for the selected job
-            if (JobsListView.SelectedItem is JobConfiguration selectedJob)
+            public static T FindChild<T>(DependencyObject parent, string childName) where T : DependencyObject
             {
-                ListJobConfigurations.Remove(selectedJob);
+                if (parent == null)
+                    return null;
+
+                for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
+                {
+                    DependencyObject child = VisualTreeHelper.GetChild(parent, i);
+
+                    if (child is T typedChild && (child as FrameworkElement)?.Name == childName)
+                        return typedChild;
+
+                    T childOfChild = FindChild<T>(child, childName);
+
+                    if (childOfChild != null)
+                        return childOfChild;
+                }
+
+                return null;
             }
         }
+
+
+
+
         private void OnDeleteItemButtonClick(object sender, RoutedEventArgs e)
         {
             if (sender is System.Windows.Controls.Button deleteButton && deleteButton.Tag is JobConfiguration jobToDelete)
@@ -72,31 +96,40 @@ namespace SecureSphereV2.View
 
         private void OnAddButtonClick(object sender, RoutedEventArgs e)
         {
-            // ... your existing code
 
-            // Create an instance of the JobForm window
-            JobForm jobFormWindow = new JobForm();
+            JobForm jobForm = new JobForm(sharedDataService);
+            jobForm.Show();
 
-            // Show the JobForm window
-            jobFormWindow.Show();
-
-            // Optionally, close the current window or handle navigation logic
-            Window.GetWindow(this)?.Close();
         }
 
 
         private void OnRunAllButtonClick(object sender, RoutedEventArgs e)
         {
             // Handle the RunAll button click event (run all jobs)
-            foreach (var jobConfig in ListJobConfigurations)
+            foreach (JobConfiguration jobConfig in ListJobConfigurations)
             {
+                JobManager jobManager = new JobManager(jobConfig, sharedDataService.LogInitInstance.DailylogFolderPath, sharedDataService.LogInitInstance.LogStatusFolderPath);
+                jobManager.RunJob();
+                System.Windows.MessageBox.Show("All Job is finished");
+
 
             }
         }
 
-        protected virtual void OnPropertyChanged(string propertyName)
+        private void OnRunAllAtOnceButtonClick(object sender, RoutedEventArgs e)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            // List to store all created tasks
+            List<Task> tasks = new List<Task>();
+
+            // Handle the RunAll button click event (run all jobs)
+            foreach (var jobConfig in ListJobConfigurations)
+            {
+                // Create a task for each JobManager.RunJob() and add it to the list
+                tasks.Add(Task.Run(() => new JobManager(jobConfig, sharedDataService.LogInitInstance.DailylogFolderPath, sharedDataService.LogInitInstance.LogStatusFolderPath).RunJob()));
+            }
+
+
         }
+
     }
 }
