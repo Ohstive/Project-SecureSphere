@@ -63,9 +63,12 @@
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Content="Add" Click="OnAddButtonClick" Margin="10"/>
-            <Button Content="RunAllAtOnce" Click="OnRunAllAtOnceButtonClick" Margin="10"/>
-            <Button Content="RunAll" Click="OnRunAllButtonClick" Margin="10"/>
+            <Button Content="Run All At Once" Click="OnRunAllAtOnceButtonClick" ToolTip="Run all jobs in parallel (All jobs will start at the same time)." Margin="10"/>
+            <Button Content="Run All" Click="OnRunAllButtonClick" ToolTip="Run all jobs sequentially (One job at a time)." Margin="10"/>
+            <Button Content="Delete All" Click="OnDeleteAllButtonClick" Margin="10"/>
         </StackPanel>
+        
+        
 
 
     </Grid>
