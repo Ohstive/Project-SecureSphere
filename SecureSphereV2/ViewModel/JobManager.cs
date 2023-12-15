@@ -45,11 +45,11 @@ namespace SecureSphereV2.ViewModel
             // Define the type of copy
             if (jobConfiguration.IsEncryptionEnabled)
             {
-                fileCopyHandler = new SimpleFileCopy(logger);
+                fileCopyHandler = new CryptoCopy(logger);
             }
             else
             {
-                fileCopyHandler = new CryptoCopy(logger);
+                fileCopyHandler = new SimpleFileCopy(logger);
             }
 
             directoryCopyHandler = new DirectoryCopyHandler(fileCopyHandler, logger, loggerStatus);
