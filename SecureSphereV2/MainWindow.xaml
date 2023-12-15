@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:SecureSphereV2"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="1100">
 
     <Window.Resources>
         <Style TargetType="RadioButton">
@@ -61,7 +61,7 @@
         </DockPanel>
 
         <!-- Language Options and Version -->
-        <StackPanel HorizontalAlignment="Right" VerticalAlignment="Bottom" Orientation="Horizontal" Margin="0,5,10,0">
+        <StackPanel HorizontalAlignment="Right" VerticalAlignment="Bottom" Orientation="Horizontal" Margin="0,5,970,10">
             <ComboBox SelectedIndex="1" BorderThickness="0">
                 <ComboBoxItem Content="ENG"/>
                 <ComboBoxItem Content="FR"/>

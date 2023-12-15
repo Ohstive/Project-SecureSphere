@@ -35,5 +35,10 @@ namespace SecureSphereV2
         {
             NavigateToJobMenu();  // You can change this to navigate to the default menu
         }
+
+        private void MainContentFrame_Navigated(object sender, NavigationEventArgs e)
+        {
+
+        }
     }
 }
