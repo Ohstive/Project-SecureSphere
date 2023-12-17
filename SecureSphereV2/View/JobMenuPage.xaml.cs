@@ -102,7 +102,20 @@ namespace SecureSphereV2.View
 
         }
 
-
+        private void OnDeleteAllButtonClick(object sender, RoutedEventArgs e) 
+        {
+            if (ListJobConfigurations.Count == 0) 
+            {
+                System.Windows.MessageBox.Show("There is no jobs.");
+            }
+            else if(System.Windows.MessageBox.Show("Do you really want to delete all jobs ?","Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            {
+                ListJobConfigurations.Clear();
+            }
+            
+            
+            
+        }
         private void OnRunAllButtonClick(object sender, RoutedEventArgs e)
         {
             // Handle the RunAll button click event (run all jobs)
@@ -110,7 +123,7 @@ namespace SecureSphereV2.View
             {
                 JobManager jobManager = new JobManager(jobConfig, sharedDataService.LogInitInstance.DailylogFolderPath, sharedDataService.LogInitInstance.LogStatusFolderPath);
                 jobManager.RunJob();
-                System.Windows.MessageBox.Show("All Job is finished");
+                System.Windows.MessageBox.Show("All jobs are finished.");
 
 
             }
