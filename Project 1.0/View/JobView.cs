@@ -33,8 +33,8 @@ namespace Project_1._0.View
             this.currentLanguage = language.GetCurrentLanguage();
             this.dialogueDictionary = language.GetAllDialogue(currentLanguage);
             Console.WriteLine(language.GetDialogue("FullNameLanguage"));
-            language.InitializeLanguage(@"C:\Users\nemgb\source\repos\Project-SecureSphereIIIIIIINNNNN\Project 1.0\Model\Language\Language.json");
-            language.ChangeLanguage("es");
+            //language.InitializeLanguage(@"C:\Users\Ostiv\source\repos\Project-SecureSphere1234\Project 1.0\Model\Language\Language.json");
+            //language.ChangeLanguage("es");
             
             ShowLogo();
             Launch();
