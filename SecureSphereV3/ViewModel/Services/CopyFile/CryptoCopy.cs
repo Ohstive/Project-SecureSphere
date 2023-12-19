@@ -6,16 +6,20 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Windows;
 namespace SecureSphereV2.ViewModel.Services.CopyFile
 {
     internal class CryptoCopy : ICopyFileHandler
     {
         private readonly ILoger _log;
+        private readonly string _cryptoCopyPath;
+        private readonly string _key;
 
-        public CryptoCopy(ILoger log)
+        public CryptoCopy(ILoger log,string cryptoCopyPath, string key)
         {
             _log = log;
+            _cryptoCopyPath = cryptoCopyPath;
+            _key = key;
         }
 
         public void DifferentialCopy(string CopieName, string sourcePath, string targetPath, FileInfo file)
@@ -59,7 +63,6 @@ namespace SecureSphereV2.ViewModel.Services.CopyFile
         public void FullCopy(string CopieName, string sourcePath, string targetPath, FileInfo file)
         {
             string newFilePath = DuplicateFileHandler(sourcePath, targetPath, file);
-
             try
             {
                 FileCryptoCopy(file.FullName, newFilePath);
@@ -117,43 +120,40 @@ namespace SecureSphereV2.ViewModel.Services.CopyFile
         //This method runs the CryptoSoft.exe program to encrypt the file
         public void FileCryptoCopy(string sourcePath, string targetPath)
         {
-            string CryptoSoftPath = @"C:\CryptoSoft.exe";
-
-            Console.WriteLine(File.Exists(sourcePath) ? "File exists." : "File does not exist.");
-
-            if (File.Exists(sourcePath) == false)
+            string executablePath = this._cryptoCopyPath;
+            string inputFilePath = sourcePath;
+            string outputFolderPath = targetPath;
+            string encryptionKey = this._key;
+            try
             {
-                Console.WriteLine("File doesn't exists.");
-            }
-
-            using (Process process = new Process())
-            {
-                ProcessStartInfo startInfo = new ProcessStartInfo
+                ProcessStartInfo psi = new ProcessStartInfo
                 {
-                    FileName = CryptoSoftPath,
-                    Arguments = $"{sourcePath} {targetPath}",
-                    UseShellExecute = false,
+                    FileName = executablePath,
+                    RedirectStandardInput = true,
                     RedirectStandardOutput = true,
-                    CreateNoWindow = true
+                    RedirectStandardError = true,  // Redirect standard error output
+                    UseShellExecute = false,
+                    CreateNoWindow = true,
+                    Arguments = $"{inputFilePath} {outputFolderPath} {encryptionKey}"
                 };
 
-                process.StartInfo = startInfo;
-                process.Start();
-
-                process.WaitForExit();
-
+                using (Process process = new Process { StartInfo = psi })
+                {
+                    process.Start();
+                    // Read standard output
+                    string output = process.StandardOutput.ReadToEnd();
+                    // Read standard error
+                    string error = process.StandardError.ReadToEnd();
+                    Console.WriteLine(error);
+                }
+            }
+           
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show($"CryptoCopy2_{ex.Message}");
             }
 
-            Console.WriteLine("Opération terminée.");
-        }
-
-        public static bool IsFile(string path)
-        {
-            FileAttributes attr = File.GetAttributes(path);
-            if (attr.HasFlag(FileAttributes.Directory))
-                return false;
-            else
-                return true;
+            
         }
     }
 }

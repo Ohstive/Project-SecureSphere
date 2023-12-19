@@ -31,6 +31,8 @@ namespace SecureSphereV2.ViewModel
         DirectoryCopyHandler directoryCopyHandler;
         JobConfiguration jobConfiguration;
 
+        private string _cryptoCopyPath;
+
         public JobManager(JobConfiguration job, string logDirectory, string logStatutDirectory)
         {
             logEntries = new List<LogEntry>();
@@ -40,12 +42,14 @@ namespace SecureSphereV2.ViewModel
             logger = new FileLogger(logDirectory, logDirectory);
             loggerStatus = new FileLogger(logDirectory, logStatutDirectory);
 
+            _cryptoCopyPath = @"CryptoSoft\CryptoSoft.exe";
+
             jobConfiguration = job;
 
             // Define the type of copy
             if (jobConfiguration.IsEncryptionEnabled)
             {
-                fileCopyHandler = new CryptoCopy(logger);
+                fileCopyHandler = new CryptoCopy(logger,_cryptoCopyPath,job.EncryptionKey);
             }
             else
             {

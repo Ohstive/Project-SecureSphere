@@ -15,6 +15,9 @@ namespace SecureSphereV2.Model
         public string Encryption { get; set; }
         public bool IsFinished { get; set; }
 
+       
+        public string IsPriority { get; set; }
+        public List<string> ExtensionPriority { get; set; }
         // Constructeur
         public JobConfiguration(string name, string source, bool isSourceDirectory, string target, string backupType, string encryptionKey, bool isEncryptionEnabled)
         {
