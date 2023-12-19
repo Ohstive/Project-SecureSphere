@@ -73,6 +73,8 @@
                 <ComboBoxItem Content="Full"/>
                 <ComboBoxItem Content="Differential"/>
             </ComboBox>
+
+            
         </StackPanel>
 
         <StackPanel Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,15,0,15">
