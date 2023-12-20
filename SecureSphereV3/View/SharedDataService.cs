@@ -8,15 +8,26 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Collections.ObjectModel;
 using SecureSphereV2.Model;
+using System.Security;
+using static LogInit;
 
 namespace SecureSphereV2.View
 {
     public class SharedDataService
     {
+       
+        private string savedPassword { get; set; }
+
         private ObservableCollection<JobConfiguration> listJobConfigurations = new ObservableCollection<JobConfiguration>();
 
         public LogInit LogInitInstance { get; } = new LogInit();
 
+        public string SavedPassword {
+            get { return savedPassword; }
+            set { 
+                savedPassword = value;
+            }
+        }
         public ObservableCollection<JobConfiguration> ListJobConfigurations
         {
             get { return listJobConfigurations; }
@@ -109,4 +120,8 @@ public class LogInit : INotifyPropertyChanged
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
+
+    
+    
 }
+

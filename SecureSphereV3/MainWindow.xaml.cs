@@ -51,6 +51,7 @@ namespace SecureSphereV2
 using SecureSphereV2.View;
 using System.Windows;
 using System.Windows.Navigation;
+using SecureSphereV2.D;
 
 namespace SecureSphereV2
 {
@@ -124,6 +125,7 @@ namespace SecureSphereV2
         private void btnRemoteAccess_Click(object sender, RoutedEventArgs e)
         {
             ToggleVisibility(3);
+            MainContentFrame.Navigate(new DistanceAcess(sharedDataService));
         }
     }
 }
