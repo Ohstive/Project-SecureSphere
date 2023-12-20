@@ -1,54 +1,6 @@
-﻿/*
-
-using System.Windows;
-using System.Windows.Navigation;
+﻿
+using SecureSphereV2.View;
 using SecureSphereV2.ViewModel;
-using SecureSphereV2.Model;
-using SecureSphereV2.View;
-
-
-
-
-namespace SecureSphereV2
-{
-    public partial class MainWindow : Window
-    {
-        private SharedDataService sharedDataService = new SharedDataService();
-
-        public MainWindow()
-        {
-            InitializeComponent();
-            NavigateToJobMenu();  // Set NavigateToJobMenu as the default action
-            ContentFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
-        }
-
-        private void NavigateToJobMenu(object sender = null, RoutedEventArgs e = null)
-        {
-            ContentFrame.Navigate(new JobMenuPage(sharedDataService));
-        }
-
-        private void NavigateToLogsMenu(object sender, RoutedEventArgs e)
-        {
-            ContentFrame.Navigate(new LogsMenuPage(sharedDataService));
-
-        }
-
-        private void ToggleMenuVisibility(object sender, RoutedEventArgs e)
-        {
-            NavigateToJobMenu();  // You can change this to navigate to the default menu
-        }
-
-        private void MainContentFrame_Navigated(object sender, NavigationEventArgs e)
-        {
-
-        }
-    }
-}
-
-*/
-
-
-using SecureSphereV2.View;
 using System.Windows;
 using System.Windows.Navigation;
 
@@ -116,14 +68,17 @@ namespace SecureSphereV2
             MainContentFrame.Navigate(new LogsMenuPage(sharedDataService));
         }
 
-        private void btnCryptoSoft_Click(object sender, RoutedEventArgs e)
+        private void btnRemoteAccess_Click(object sender, RoutedEventArgs e)
         {
             ToggleVisibility(2);
         }
 
-        private void btnRemoteAccess_Click(object sender, RoutedEventArgs e)
+        private void btnParameters_Click(object sender, RoutedEventArgs e)
         {
             ToggleVisibility(3);
+            MainContentFrame.Navigate(new ParametersPage(sharedDataService));
         }
+
+
     }
 }

@@ -17,11 +17,12 @@ using System.Windows.Forms;
 //using System.Windows.Forms; // Add this using statement
 
 using Microsoft.Win32;
+using SecureSphereV2.ViewModel;
 
 namespace SecureSphereV2.View
 {
 
-    
+
     public partial class LogsMenuPage : Page
     {
         private SharedDataService sharedDataService;

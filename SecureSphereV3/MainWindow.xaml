@@ -12,7 +12,7 @@
         <Grid.ColumnDefinitions>
             <!-- Fixed width for the sidebar -->
             <ColumnDefinition Width="250"/>
-            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
         <!-- Sidebar StackPanel -->
@@ -58,23 +58,11 @@
                     <Grid HorizontalAlignment="Left" Height="25" Margin="72,0,0,0" VerticalAlignment="Center" Width="175">
                         <TextBlock HorizontalAlignment="Right" Height="30" TextWrapping="Wrap" VerticalAlignment="Center" Width="175" FontSize="20"><Run Language="fr-fr" Text="Logs"/></TextBlock>
                     </Grid>
-                    <Rectangle HorizontalAlignment="Left" Height="30" Margin="8,0,0,0" Stroke="Cyan" VerticalAlignment="Center" Width="7" Fill="Cyan" StrokeThickness="0" x:Name="ActiveBarMenu2" Visibility="Collapsed" />
+                    <Rectangle x:Name="ActiveBarMenu2" HorizontalAlignment="Left" Height="30" Margin="8,0,0,0" Stroke="Cyan" VerticalAlignment="Center" Width="7" Fill="Cyan" StrokeThickness="0" Visibility="Collapsed" />
                 </Grid>
             </Button>
 
-            <Button x:Name="btnCryptoSoft" Width="250" Height="45" Click="btnCryptoSoft_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Background="White" BorderBrush="White" Foreground="Black" BorderThickness="0">
-                <Grid Height="40" Width="250" Background="White">
-                    <Grid HorizontalAlignment="Left" Height="30" Margin="20,0,0,0" VerticalAlignment="Center" Width="30">
-                        <Grid.Background>
-                            <ImageBrush ImageSource="/Asset/LogoMenu/locked.ico"/>
-                        </Grid.Background>
-                    </Grid>
-                    <Grid HorizontalAlignment="Left" Height="25" Margin="72,0,0,0" VerticalAlignment="Center" Width="175">
-                        <TextBlock HorizontalAlignment="Right" Height="25" TextWrapping="Wrap" VerticalAlignment="Center" Width="175" FontSize="20"><Run Language="fr-fr" Text="CryptoSoft"/></TextBlock>
-                    </Grid>
-                    <Rectangle HorizontalAlignment="Left" Height="30" Margin="8,0,0,0" Stroke="Cyan" VerticalAlignment="Center" Width="7" Fill="Cyan" StrokeThickness="0" x:Name="ActiveBarMenu3" Visibility="Collapsed" />
-                </Grid>
-            </Button>
+            
 
             <Button x:Name="btnRemoteAccess" Width="250" Height="45" Click="btnRemoteAccess_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Background="White" BorderBrush="White" Foreground="Black" BorderThickness="0">
                 <Grid Height="40" Width="247" Background="White">
@@ -86,11 +74,27 @@
                     <Grid HorizontalAlignment="Left" Height="25" Margin="72,0,0,0" VerticalAlignment="Center" Width="175">
                         <TextBlock HorizontalAlignment="Right" Height="25" TextWrapping="Wrap" VerticalAlignment="Center" Width="175" FontSize="20"><Run Language="fr-fr" Text="RemoteAccess"/></TextBlock>
                     </Grid>
-                    <Rectangle HorizontalAlignment="Left" Height="30" Margin="8,0,0,0" Stroke="Cyan" VerticalAlignment="Center" Width="7" Fill="Cyan" StrokeThickness="0" x:Name="ActiveBarMenu4" Visibility="Collapsed"/>
+                    <Rectangle x:Name="ActiveBarMenu3" HorizontalAlignment="Left" Height="30" Margin="8,0,0,0" Stroke="Cyan" VerticalAlignment="Center" Width="7" Fill="Cyan" StrokeThickness="0"  Visibility="Collapsed"/>
                 </Grid>
             </Button>
 
+
+            
+
         </StackPanel>
+        <Button x:Name="btnParameters" Width="250" Height="45" Click="btnParameters_Click" VerticalAlignment="Bottom" HorizontalAlignment="Left" Background="White" BorderBrush="White" Foreground="Black" BorderThickness="0">
+            <Grid Height="40" Width="247" Background="White">
+                <Grid HorizontalAlignment="Left" Height="30" Margin="20,0,0,0" VerticalAlignment="Center" Width="30">
+                    <Grid.Background>
+                        <ImageBrush ImageSource="/Asset/LogoMenu/parametres.ico"/>
+                    </Grid.Background>
+                </Grid>
+                <Grid HorizontalAlignment="Left" Height="25" Margin="72,0,0,0" VerticalAlignment="Center" Width="175">
+                    <TextBlock HorizontalAlignment="Right" Height="30" TextWrapping="Wrap" VerticalAlignment="Center" Width="175" FontSize="20"><Run Language="fr-fr" Text="Parameters"/></TextBlock>
+                </Grid>
+                <Rectangle x:Name="ActiveBarMenu4" HorizontalAlignment="Left" Height="30" Margin="8,0,0,0" Stroke="Cyan" VerticalAlignment="Center" Width="7" Fill="Cyan" StrokeThickness="0"  Visibility="Collapsed" />
+            </Grid>
+        </Button>
 
         <!-- Content Area -->
         <Grid  Grid.Column="1" Margin="10,0,0,0">

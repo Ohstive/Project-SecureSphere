@@ -16,37 +16,68 @@ using System.Windows.Shapes;
 
 
 
+using System.Collections.ObjectModel;
+using System.Windows;
+using System.Windows.Controls;
+using SecureSphereV2.ViewModel;
+
 namespace SecureSphereV2.View
 {
     public partial class ParametersPage : Page
     {
-        // Assuming Parameters is a property in your view model
+        public ObservableCollection<string> Parameters { get; set; } = new ObservableCollection<string>();
         public ObservableCollection<string> ExtensionParameters { get; set; } = new ObservableCollection<string>();
 
         public ParametersPage(SharedDataService sharedDataService)
         {
             InitializeComponent();
-
-            // Set the DataContext to the instance of your view model or data source
-            DataContext = this; // Assuming Parameters is a property in your view model
+            DataContext = this;
         }
 
-        private void AddExtensionButton_Click(object sender, RoutedEventArgs e)
+        private void AddButton_Click(object sender, RoutedEventArgs e)
         {
             string newString = stringTextBox.Text.Trim();
             if (!string.IsNullOrEmpty(newString))
             {
-                ExtensionParameters.Add(newString.ToLower());
+                Parameters.Add(newString.ToLower());
                 stringTextBox.Clear();
+            }
+        }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (ParametersListBox.SelectedItem != null)
+            {
+                Parameters.Remove(ParametersListBox.SelectedItem.ToString());
+            }
+        }
+
+        private void AddExtensionButton_Click(object sender, RoutedEventArgs e)
+        {
+            string newString = extensionTextBox.Text.Trim();
+            if (!string.IsNullOrEmpty(newString))
+            {
+                ExtensionParameters.Add(newString.ToLower());
+                extensionTextBox.Clear();
             }
         }
 
         private void DeleteExtensionButton_Click(object sender, RoutedEventArgs e)
         {
-            if (stringListBox.SelectedItem != null)
+            if (PriorityExtensionListBox.SelectedItem != null)
             {
-                ExtensionParameters.Remove(stringListBox.SelectedItem.ToString());
+                ExtensionParameters.Remove(PriorityExtensionListBox.SelectedItem.ToString());
             }
+        }
+
+        private void DeleteAllButton_Click(object sender, RoutedEventArgs e)
+        {
+            Parameters.Clear();
+        }
+
+        private void DeleteAllExtensionButton_Click(object sender, RoutedEventArgs e)
+        {
+            ExtensionParameters.Clear();
         }
     }
 }

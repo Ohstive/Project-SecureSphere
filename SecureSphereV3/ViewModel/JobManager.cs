@@ -54,6 +54,7 @@ namespace SecureSphereV2.ViewModel
             else
             {
                 fileCopyHandler = new SimpleFileCopy(logger);
+                //fileCopyHandler = new CopyWithProgress(logger);
             }
 
             directoryCopyHandler = new DirectoryCopyHandler(fileCopyHandler, logger, loggerStatus);
