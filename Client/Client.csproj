@@ -9,7 +9,37 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Asset\LogoMenu\backup.ico" />
+    <None Remove="Asset\LogoMenu\document.ico" />
+    <None Remove="Asset\LogoMenu\locked.ico" />
+    <None Remove="Asset\LogoMenu\MainMenu.ico" />
+    <None Remove="Asset\LogoMenu\parametres.ico" />
+    <None Remove="Asset\LogoMenu\remote-access.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\SecureSphereV3\SecureSphereV2.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Asset\LogoMenu\backup.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Asset\LogoMenu\document.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Asset\LogoMenu\locked.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Asset\LogoMenu\MainMenu.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Asset\LogoMenu\parametres.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Asset\LogoMenu\remote-access.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

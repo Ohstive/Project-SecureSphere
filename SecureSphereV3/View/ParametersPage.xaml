@@ -1,0 +1,74 @@
+﻿<Page x:Class="SecureSphereV2.View.ParametersPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SecureSphereV2.View"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="ParametersPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                <TextBlock Text="Parameters" FontSize="20" Margin="10"/>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                <TextBlock Text="Encrypted extension with Cryptosoft" FontSize="16" Height="20" Width="260" Margin="20,0,0,0"/>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+
+            </Grid.ColumnDefinitions>
+
+            <!-- First ListBox -->
+         
+            <ListBox Grid.Column="0" x:Name="ParametersListBox" Margin="20,0,120,0" ItemsSource="{Binding Parameters}" SelectedItem="{Binding SelectedParameter}" />
+            <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center" Width="350" Margin="10,0,0,0">
+                <TextBox x:Name="stringTextBox" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="80" />
+                <Button Content="Add" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="80"  Click="AddButton_Click"/>
+                <Button Content="Delete" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="80"  Click="DeleteButton_Click"/>
+                <Button Content="DeleteAll" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="80"  Click="DeleteAllButton_Click"/>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="3">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                <TextBlock Text="Prioritized extension" FontSize="16" Height="20" Width="260"  Margin="20,0,0,0"/>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <!-- Second ListBox -->
+            <ListBox  Grid.Column="0" x:Name="PriorityExtensionListBox" Margin="20,0,120,0" ItemsSource="{Binding ExtensionParameters}" SelectedItem="{Binding SelectedExtensionParameter}"/>
+            <StackPanel Grid.Column="1"  Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center" Width="350" Margin="10,0,0,0">
+                <TextBox x:Name="extensionTextBox" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="80" />
+                <Button Content="Add" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="80"  Click="AddExtensionButton_Click"/>
+                <Button Content="Delete" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="80"  Click="DeleteExtensionButton_Click"/>
+                <Button Content="DeleteAll" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="80"  Click=" DeleteAllExtensionButton_Click"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>
+
+
