@@ -16,7 +16,12 @@ namespace SecureSphereV2.View
     public partial class JobForm : Window
     {
 
-        public JobConfiguration JobConfig { get; set; }
+        public JobConfiguration JobConfig
+        {
+            get; set; 
+        }
+
+
         private SharedDataService sharedDataService;
 
         public JobForm(SharedDataService sharedDataService)
