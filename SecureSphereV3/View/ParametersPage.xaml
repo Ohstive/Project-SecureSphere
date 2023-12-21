@@ -38,13 +38,26 @@
             </Grid.ColumnDefinitions>
 
             <!-- First ListBox -->
-         
-            <ListBox Grid.Column="0" x:Name="ParametersListBox" Margin="20,0,120,0" ItemsSource="{Binding Parameters}" SelectedItem="{Binding SelectedParameter}" />
+
+            <ListBox Grid.Column="0" x:Name="ParametersListBox" Margin="20,0,0,0" ItemsSource="{Binding Path=ExtensionCrypted}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{Binding}" VerticalAlignment="Center"/>
+                            <Button Content="Delete" Margin="5,0,0,0" Click="DeleteItemButton_Click" Grid.Column="1"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
             <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center" Width="350" Margin="10,0,0,0">
                 <TextBox x:Name="stringTextBox" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="80" />
-                <Button Content="Add" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="80"  Click="AddButton_Click"/>
-                <Button Content="Delete" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="80"  Click="DeleteButton_Click"/>
-                <Button Content="DeleteAll" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="80"  Click="DeleteAllButton_Click"/>
+                <Button Content="Add" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="80"  Click="AddButtonExtensionCrypted_Click"/>
+                <Button Content="Delete" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="80"  Click="DeleteButtonExtensionCrypted_Click"/>
+                <Button Content="DeleteAll" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="80"  Click="DeleteAllButtonExtensionCrypted_Click"/>
             </StackPanel>
         </Grid>
 
@@ -53,21 +66,37 @@
                 <TextBlock Text="Prioritized extension" FontSize="16" Height="20" Width="260"  Margin="20,0,0,0"/>
             </StackPanel>
         </Grid>
-
+        
+        
+        <!-- Second ListBox -->
         <Grid Grid.Row="4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <!-- Second ListBox -->
-            <ListBox  Grid.Column="0" x:Name="PriorityExtensionListBox" Margin="20,0,120,0" ItemsSource="{Binding ExtensionParameters}" SelectedItem="{Binding SelectedExtensionParameter}"/>
+            <ListBox Grid.Column="0" x:Name="PriorityExtensionListBox" Margin="20,0,0,0" ItemsSource="{Binding Path=ExtensionPriority}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{Binding}" VerticalAlignment="Center"/>
+                            <Button Content="Delete" Margin="5,0,0,0" Click="DeletePriorityItemButton_Click" Grid.Column="1"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
             <StackPanel Grid.Column="1"  Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center" Width="350" Margin="10,0,0,0">
                 <TextBox x:Name="extensionTextBox" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="80" />
-                <Button Content="Add" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="80"  Click="AddExtensionButton_Click"/>
-                <Button Content="Delete" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="80"  Click="DeleteExtensionButton_Click"/>
-                <Button Content="DeleteAll" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="80"  Click=" DeleteAllExtensionButton_Click"/>
+                <Button Content="Add" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="80"  Click="AddButtonExtensionPriority_Click"/>
+                <Button Content="Delete" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="80"  Click="DeleteButtonExtensionPriority_Click"/>
+                <Button Content="DeleteAll" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="80"  Click=" DeleteAllButtonExtensionPriority_Click"/>
             </StackPanel>
         </Grid>
+
     </Grid>
 </Page>
 

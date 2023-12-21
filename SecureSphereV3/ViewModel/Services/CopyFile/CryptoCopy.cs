@@ -1,10 +1,10 @@
 ﻿using SecureSphereV2.ViewModel.Services.Log;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 namespace SecureSphereV2.ViewModel.Services.CopyFile
@@ -15,7 +15,7 @@ namespace SecureSphereV2.ViewModel.Services.CopyFile
         private readonly string _cryptoCopyPath;
         private readonly string _key;
 
-        public CryptoCopy(ILoger log,string cryptoCopyPath, string key)
+        public CryptoCopy(ILoger log,string cryptoCopyPath, string key, ObservableCollection<string> extension)
         {
             _log = log;
             _cryptoCopyPath = cryptoCopyPath;
@@ -31,19 +31,48 @@ namespace SecureSphereV2.ViewModel.Services.CopyFile
             {
                 if (!File.Exists(path))
                 {
-                    FileCryptoCopy(file.FullName, path);
-                    _log.LogDaily(new LogEntry
-                    {
+                    DateTime start = DateTime.UtcNow;
+                    string extension = file.Extension;
 
-                        CopyName = CopieName,
-                        Timestamp = DateTime.Now,
-                        EventType = "DifferentialCopy",
-                        SourceDirectory = sourcePath,
-                        DestinationDirectory = targetPath,
-                        SourceFile = file.FullName,
-                        DestinationFile = path,
-                        FileSize = file.Length
-                    });
+                    if (extension.Contains(extension.Substring(1)))
+                    {
+                        FileCryptoCopy(file.FullName, path);
+
+                        _log.LogDaily(new LogEntry
+                        {
+
+                            CopyName = CopieName,
+                            Timestamp = DateTime.Now,
+                            EventType = "DifferentialCopy",
+                            SourceDirectory = sourcePath,
+                            DestinationDirectory = targetPath,
+                            SourceFile = file.FullName,
+                            DestinationFile = path,
+                            FileSize = file.Length,
+                             EncryptionTime = DateTime.Now - start
+                        });
+                    }
+                    else
+                    {
+                        File.Copy(file.FullName, path);
+                        _log.LogDaily(new LogEntry
+                        {
+
+                            CopyName = CopieName,
+                            Timestamp = DateTime.Now,
+                            EventType = "DifferentialCopy",
+                            SourceDirectory = sourcePath,
+                            DestinationDirectory = targetPath,
+                            SourceFile = file.FullName,
+                            DestinationFile = path,
+                            FileSize = file.Length,
+                          
+                        });
+
+                    }
+
+
+                    
                 }
             }
             catch (Exception ex)
@@ -65,19 +94,44 @@ namespace SecureSphereV2.ViewModel.Services.CopyFile
             string newFilePath = DuplicateFileHandler(sourcePath, targetPath, file);
             try
             {
-                FileCryptoCopy(file.FullName, newFilePath);
-                Console.WriteLine($"{newFilePath} copied");
-                _log.LogDaily(new LogEntry
+                DateTime start = DateTime.UtcNow;
+
+
+                string extension = file.Extension;
+                if (extension.Contains(extension.Substring(1)))
                 {
-                    CopyName = CopieName,
-                    Timestamp = DateTime.Now,
-                    EventType = "FullCopy",
-                    SourceDirectory = sourcePath,
-                    DestinationDirectory = targetPath,
-                    SourceFile = file.FullName,
-                    DestinationFile = newFilePath,
-                    FileSize = file.Length
-                });
+                    FileCryptoCopy(file.FullName, newFilePath);
+
+                    _log.LogDaily(new LogEntry
+                    {
+                        CopyName = CopieName,
+                        Timestamp = DateTime.Now,
+                        EventType = "FullCopy",
+                        SourceDirectory = sourcePath,
+                        DestinationDirectory = targetPath,
+                        SourceFile = file.FullName,
+                        DestinationFile = newFilePath,
+                        FileSize = file.Length,
+                        EncryptionTime = DateTime.Now - start
+                    }); ;
+                }
+                else
+                {
+                    File.Copy(file.FullName, newFilePath);
+                    _log.LogDaily(new LogEntry
+                    {
+                        CopyName = CopieName,
+                        Timestamp = DateTime.Now,
+                        EventType = "FullCopy",
+                        SourceDirectory = sourcePath,
+                        DestinationDirectory = targetPath,
+                        SourceFile = file.FullName,
+                        DestinationFile = newFilePath,
+                        FileSize = file.Length,
+                    }); ;
+                }
+              
+                
             }
             catch (Exception ex)
             {
@@ -150,7 +204,7 @@ namespace SecureSphereV2.ViewModel.Services.CopyFile
            
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show($"CryptoCopy2_{ex.Message}");
+                System.Windows.MessageBox.Show($"Error_{ex.Message}");
             }
 
             

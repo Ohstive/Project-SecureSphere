@@ -1,84 +1,123 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
-
-
-using System.Collections.ObjectModel;
-using System.Windows;
 using System.Windows.Controls;
 using SecureSphereV2.ViewModel;
+
 
 namespace SecureSphereV2.View
 {
     public partial class ParametersPage : Page
     {
-        public ObservableCollection<string> Parameters { get; set; } = new ObservableCollection<string>();
-        public ObservableCollection<string> ExtensionParameters { get; set; } = new ObservableCollection<string>();
+
+
+
+        private SharedDataService sharedDataService;
 
         public ParametersPage(SharedDataService sharedDataService)
         {
             InitializeComponent();
-            DataContext = this;
+            this.sharedDataService = sharedDataService;
+            DataContext = this.sharedDataService;
         }
 
-        private void AddButton_Click(object sender, RoutedEventArgs e)
+        private void AddButtonExtensionCrypted_Click(object sender, RoutedEventArgs e)
         {
             string newString = stringTextBox.Text.Trim();
             if (!string.IsNullOrEmpty(newString))
             {
-                Parameters.Add(newString.ToLower());
-                stringTextBox.Clear();
+                if(sharedDataService.ExtensionCrypted.Contains(newString.ToLower()))
+                {
+                    System.Windows.MessageBox.Show("This extension is already in the list.");
+                    return;
+                }
+                else
+                {
+                    sharedDataService.ExtensionCrypted.Add(newString.ToLower());
+                    stringTextBox.Clear();
+                }
             }
         }
-
-        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+     
+        private void DeleteButtonExtensionCrypted_Click(object sender, RoutedEventArgs e)
         {
             if (ParametersListBox.SelectedItem != null)
             {
-                Parameters.Remove(ParametersListBox.SelectedItem.ToString());
+                sharedDataService.ExtensionCrypted.Remove(ParametersListBox.SelectedItem.ToString());
             }
         }
 
-        private void AddExtensionButton_Click(object sender, RoutedEventArgs e)
+        private void DeleteAllButtonExtensionCrypted_Click(object sender, RoutedEventArgs e)
+        {
+            sharedDataService.ExtensionCrypted.Clear();
+        }
+
+        private void DeleteItemButton_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Controls.Button deleteButton = (System.Windows.Controls.Button)sender;
+            string itemToDelete = (string)deleteButton.DataContext;
+
+            if (!string.IsNullOrEmpty(itemToDelete))
+            {
+                sharedDataService.ExtensionCrypted.Remove(itemToDelete);
+            }
+        }
+
+
+
+
+
+        private void AddButtonExtensionPriority_Click(object sender, RoutedEventArgs e)
         {
             string newString = extensionTextBox.Text.Trim();
+
+
+
             if (!string.IsNullOrEmpty(newString))
             {
-                ExtensionParameters.Add(newString.ToLower());
-                extensionTextBox.Clear();
+                if (sharedDataService.ExtensionPriority.Contains(newString.ToLower()))
+                {
+                    System.Windows.MessageBox.Show("This extension is already in the list.");
+                    return;
+                }
+                else
+                {
+                    sharedDataService.ExtensionPriority.Add(newString.ToLower());
+                    extensionTextBox.Clear();
+
+                }
             }
         }
 
-        private void DeleteExtensionButton_Click(object sender, RoutedEventArgs e)
+        private void DeletePriorityItemButton_Click(object sender, RoutedEventArgs e)
         {
-            if (PriorityExtensionListBox.SelectedItem != null)
+            System.Windows.Controls.Button deleteButton = (System.Windows.Controls.Button)sender;
+            string itemToDelete = (string)deleteButton.DataContext;
+
+            if (!string.IsNullOrEmpty(itemToDelete))
             {
-                ExtensionParameters.Remove(PriorityExtensionListBox.SelectedItem.ToString());
+                sharedDataService.ExtensionPriority.Remove(itemToDelete);
             }
         }
 
-        private void DeleteAllButton_Click(object sender, RoutedEventArgs e)
+      
+
+        private void DeleteAllButtonExtensionPriority_Click(object sender, RoutedEventArgs e)
         {
-            Parameters.Clear();
+            sharedDataService.ExtensionPriority.Clear();
         }
 
-        private void DeleteAllExtensionButton_Click(object sender, RoutedEventArgs e)
+        private void DeleteButtonExtensionPriority_Click(object sender, RoutedEventArgs e)
         {
-            ExtensionParameters.Clear();
+            if (ParametersListBox.SelectedItem != null)
+            {
+                sharedDataService.ExtensionPriority.Remove(ParametersListBox.SelectedItem.ToString());
+            }
         }
+
+
     }
 }
 

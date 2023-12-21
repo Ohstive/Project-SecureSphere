@@ -125,7 +125,7 @@ namespace SecureSphereV2.View
                 isEncryptionEnabled: MyEncryptionCheckBox.IsChecked == true
             );
 
-            JobManager manager = new JobManager(newJobConfig, sharedDataService.LogInitInstance.DailylogFolderPath, sharedDataService.LogInitInstance.LogStatusFolderPath);
+            JobManager manager = new JobManager(newJobConfig, sharedDataService.LogInitInstance.DailylogFolderPath, sharedDataService.LogInitInstance.LogStatusFolderPath, sharedDataService.ExtensionCrypted, sharedDataService.ExtensionPriority);
             // Add the new job configuration to sharedDataService.ListJobConfigurations
 
 

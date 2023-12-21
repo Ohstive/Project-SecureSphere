@@ -12,10 +12,52 @@ using SecureSphereV2.Model;
 
 namespace SecureSphereV2.ViewModel
 {
-    public class SharedDataService
+    public class SharedDataService : INotifyPropertyChanged
     {
         private ObservableCollection<JobConfiguration> listJobConfigurations = new ObservableCollection<JobConfiguration>();
+        private ObservableCollection<string> _extensionPriority;
+        private ObservableCollection<string> _extensionCrypted;
 
+
+        public SharedDataService()
+        {
+            ExtensionPriority = new ObservableCollection<string>();
+            ExtensionCrypted = new ObservableCollection<string>();
+        }
+        public ObservableCollection<string> ExtensionPriority
+        {
+            get { return _extensionPriority; }
+            set
+            {
+                if (_extensionPriority != value)
+                {
+                    _extensionPriority = value;
+                    OnPropertyChanged(nameof(ExtensionPriority));
+                }
+            }
+        }
+
+        
+        // Implement INotifyPropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public ObservableCollection<string> ExtensionCrypted
+        {
+            get { return _extensionCrypted; }
+            set
+            {
+                if (_extensionCrypted != value)
+                {
+                    _extensionCrypted = value;
+                    OnPropertyChanged(nameof(ExtensionCrypted));
+                }
+            }
+        }
         public LogInit LogInitInstance { get; } = new LogInit();
 
         public ObservableCollection<JobConfiguration> ListJobConfigurations
@@ -58,6 +100,7 @@ public class LogInit : INotifyPropertyChanged
 
     public LogInit()
     {
+        // Get the root directory path of the application
         string systemDirectory = Environment.SystemDirectory;
         string systemDrive = Path.GetPathRoot(systemDirectory);
         rootPath = systemDrive;
@@ -72,7 +115,6 @@ public class LogInit : INotifyPropertyChanged
     {
         try
         {
-            // Get the root directory path of the application
 
             // Check if the folder exists
             if (!Directory.Exists(logStatusFolderPath))

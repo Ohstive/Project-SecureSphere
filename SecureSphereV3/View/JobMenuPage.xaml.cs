@@ -45,7 +45,7 @@ namespace SecureSphereV2.View
             {
                 if (!clickedJob.IsFinished)
                 {
-                    JobManager jobManager = new JobManager(clickedJob, sharedDataService.LogInitInstance.DailylogFolderPath, sharedDataService.LogInitInstance.LogStatusFolderPath);
+                    JobManager jobManager = new JobManager(clickedJob, sharedDataService.LogInitInstance.DailylogFolderPath, sharedDataService.LogInitInstance.LogStatusFolderPath, sharedDataService.ExtensionCrypted, sharedDataService.ExtensionPriority);
                     jobManager.RunJob();
 
                     //Change the play icon the finish one
@@ -121,7 +121,7 @@ namespace SecureSphereV2.View
             // Handle the RunAll button click event (run all jobs)
             foreach (JobConfiguration jobConfig in ListJobConfigurations)
             {
-                JobManager jobManager = new JobManager(jobConfig, sharedDataService.LogInitInstance.DailylogFolderPath, sharedDataService.LogInitInstance.LogStatusFolderPath);
+                JobManager jobManager = new JobManager(jobConfig, sharedDataService.LogInitInstance.DailylogFolderPath, sharedDataService.LogInitInstance.LogStatusFolderPath, sharedDataService.ExtensionCrypted, sharedDataService.ExtensionPriority);
                 jobManager.RunJob();
                 System.Windows.MessageBox.Show("All jobs are finished.");
 
@@ -138,7 +138,7 @@ namespace SecureSphereV2.View
             foreach (var jobConfig in ListJobConfigurations)
             {
                 // Create a task for each JobManager.RunJob() and add it to the list
-                tasks.Add(Task.Run(() => new JobManager(jobConfig, sharedDataService.LogInitInstance.DailylogFolderPath, sharedDataService.LogInitInstance.LogStatusFolderPath).RunJob()));
+                tasks.Add(Task.Run(() => new JobManager(jobConfig, sharedDataService.LogInitInstance.DailylogFolderPath, sharedDataService.LogInitInstance.LogStatusFolderPath, sharedDataService.ExtensionCrypted, sharedDataService.ExtensionPriority).RunJob()));
             }
 
 

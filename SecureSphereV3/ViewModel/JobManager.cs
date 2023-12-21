@@ -10,7 +10,7 @@ using SecureSphereV2.ViewModel.Services.CopyFile;
 using SecureSphereV2.ViewModel.Services.Directory;
 using SecureSphereV2.ViewModel.Services.Log;
 
-
+using System.Collections.ObjectModel;
 
 namespace SecureSphereV2.ViewModel
 {
@@ -20,8 +20,10 @@ namespace SecureSphereV2.ViewModel
         private string logDirectory;
         private string logStatutDirectory;
 
+
         private List<LogEntry> logEntries;
         private List<LogStatutEntry> logStatutEntries;
+
 
         private ILoger logger;
         private ILoger loggerStatus;
@@ -33,7 +35,9 @@ namespace SecureSphereV2.ViewModel
 
         private string _cryptoCopyPath;
 
-        public JobManager(JobConfiguration job, string logDirectory, string logStatutDirectory)
+
+
+        public JobManager(JobConfiguration job, string logDirectory, string logStatutDirectory, ObservableCollection<string> extensioncrypted, ObservableCollection<string> extensionPriority)
         {
             logEntries = new List<LogEntry>();
             logStatutEntries = new List<LogStatutEntry>();
@@ -42,14 +46,14 @@ namespace SecureSphereV2.ViewModel
             logger = new FileLogger(logDirectory, logDirectory);
             loggerStatus = new FileLogger(logDirectory, logStatutDirectory);
 
-            _cryptoCopyPath = @"CryptoSoft\CryptoSoft.exe";
+            _cryptoCopyPath = @"C:\Users\Ostiv\Source\Repos\Project-SecureSphere\SecureSphereV3\CryptoSoft\CryptoSoft.exe";
 
             jobConfiguration = job;
 
             // Define the type of copy
             if (jobConfiguration.IsEncryptionEnabled)
             {
-                fileCopyHandler = new CryptoCopy(logger,_cryptoCopyPath,job.EncryptionKey);
+                fileCopyHandler = new CryptoCopy(logger,_cryptoCopyPath,job.EncryptionKey, extensioncrypted);
             }
             else
             {
