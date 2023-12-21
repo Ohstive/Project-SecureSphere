@@ -1,6 +1,14 @@
-﻿using System;
+﻿// ServerSocketManager.cs
+
+using Newtonsoft.Json;
+using SecureSphereV2.Model;
+using SecureSphereV2.ViewModel;
+using System;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Net;
 using System.Net.Sockets;
-using System.Security;
+using System.Text;
 using System.Threading;
 
 namespace SecureSphereV2
@@ -9,10 +17,16 @@ namespace SecureSphereV2
     {
         private TcpListener tcpListener;
         private Thread listenerThread;
+        private SharedDataService sharedDataService;
+
+        public ServerSocketManager(SharedDataService sharedDataService)
+        {
+            this.sharedDataService = sharedDataService;
+        }
 
         public void Start()
         {
-            tcpListener = new TcpListener(System.Net.IPAddress.Any, 63774);
+            tcpListener = new TcpListener(IPAddress.Any, 63774);
             listenerThread = new Thread(ListenForClients);
             listenerThread.Start();
         }
@@ -37,34 +51,21 @@ namespace SecureSphereV2
             {
                 using (NetworkStream stream = tcpClient.GetStream())
                 {
-                    byte[] data = new byte[256];
-                    int bytesRead = stream.Read(data, 0, data.Length);
-                    string clientData = System.Text.Encoding.ASCII.GetString(data, 0, bytesRead).Trim();
+                    // Example: Send the ListJobConfigurations to the client
+                    ObservableCollection<JobConfiguration> jobConfigurations = GetJobConfigurations();
+                    string jobConfigurationsJson = JsonConvert.SerializeObject(jobConfigurations);
 
-                    // Vérifiez si le mot de passe est fourni (non vide)
-                    if (string.IsNullOrWhiteSpace(clientData))
-                    {
-                        // Aucun mot de passe fourni, autoriser la connexion
-                        SendJobList(stream);
-                    }
-                    else if (IsCorrectPassword(clientData))
-                    {
-                        // Password is correct, perform further actions
-                        SendJobList(stream);
-                    }
-                    else
-                    {
-                        // Password is incorrect
-                        Console.WriteLine("Incorrect password.");
-                        // Inform the client about the incorrect password
-                        byte[] response = System.Text.Encoding.ASCII.GetBytes("INCORRECT_PASSWORD");
-                        stream.Write(response, 0, response.Length);
-                    }
+                    // Send the JSON data to the client
+                    byte[] response = Encoding.ASCII.GetBytes(jobConfigurationsJson);
+                    stream.Write(response, 0, response.Length);
+                    byte[] message = Encoding.ASCII.GetBytes("Hello from the server!");
+                    stream.Write(message, 0, message.Length);
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error handling client: {ex.Message}");
+                Debug.WriteLine($"Error handling client: {ex.Message}");
+                Debug.WriteLine(ex.StackTrace);
             }
             finally
             {
@@ -72,61 +73,12 @@ namespace SecureSphereV2
             }
         }
 
-        private void SendJobList(NetworkStream stream)
+        private ObservableCollection<JobConfiguration> GetJobConfigurations()
         {
-            // Convert the list of jobs to a JSON string (use a JSON serialization library like Newtonsoft.Json)
-            string jobsJson = "[\"Job1\", \"Job2\", \"Job3\"]"; // Replace with your own logic
+            // Replace this with your actual logic to retrieve ListJobConfigurations
+            Debug.WriteLine("Retrieving job configurations...");
 
-            byte[] response = System.Text.Encoding.ASCII.GetBytes(jobsJson);
-            stream.Write(response, 0, response.Length);
-        }
-
-        private bool IsCorrectPassword(string enteredPassword)
-        {
-            // Replace this with your actual logic to validate the password
-            SecureString savedPassword = GetSecureSavedPassword();
-            return SecureStringEqual(savedPassword, SecureStringFromPlainText(enteredPassword));
-        }
-
-        private SecureString GetSecureSavedPassword()
-        {
-            // Replace this with your actual logic to retrieve the saved password securely
-            return SecureStringFromPlainText("YourStoredSecurePassword");
-        }
-
-        private SecureString SecureStringFromPlainText(string plainText)
-        {
-            SecureString secureString = new SecureString();
-            foreach (char c in plainText)
-            {
-                secureString.AppendChar(c);
-            }
-            return secureString;
-        }
-
-        private bool SecureStringEqual(SecureString s1, SecureString s2)
-        {
-            if (s1.Length != s2.Length)
-                return false;
-
-            IntPtr bstr1 = IntPtr.Zero;
-            IntPtr bstr2 = IntPtr.Zero;
-
-            try
-            {
-                bstr1 = System.Runtime.InteropServices.Marshal.SecureStringToBSTR(s1);
-                bstr2 = System.Runtime.InteropServices.Marshal.SecureStringToBSTR(s2);
-
-                return string.Equals(System.Runtime.InteropServices.Marshal.PtrToStringBSTR(bstr1), System.Runtime.InteropServices.Marshal.PtrToStringBSTR(bstr2), StringComparison.Ordinal);
-            }
-            finally
-            {
-                if (bstr1 != IntPtr.Zero)
-                    System.Runtime.InteropServices.Marshal.ZeroFreeBSTR(bstr1);
-
-                if (bstr2 != IntPtr.Zero)
-                    System.Runtime.InteropServices.Marshal.ZeroFreeBSTR(bstr2);
-            }
+            return sharedDataService?.ListJobConfigurations;
         }
     }
 }

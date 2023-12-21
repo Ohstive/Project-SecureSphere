@@ -15,11 +15,12 @@
     <None Remove="Asset\LogoMenu\locked.ico" />
     <None Remove="Asset\LogoMenu\MainMenu.ico" />
     <None Remove="Asset\LogoMenu\parametres.ico" />
-    <None Remove="Asset\LogoMenu\remote-access.ico" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Asset\remote-access.ico" />
+    <Resource Include="Asset\LogoMenu\remote-access.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
@@ -42,7 +43,7 @@
     <Resource Include="Asset\LogoMenu\parametres.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Asset\LogoMenu\remote-access.ico">
+    <Resource Include="remote-access.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

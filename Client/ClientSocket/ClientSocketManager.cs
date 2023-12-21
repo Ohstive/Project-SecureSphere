@@ -33,6 +33,8 @@ namespace SecureSphereV2.Client
                 List<JobConfiguration> jobConfigurations = JsonConvert.DeserializeObject<List<JobConfiguration>>(jobConfigurationsJson);
 
                 return jobConfigurations;
+                string serverMessage = reader.ReadLine();
+                Debug.WriteLine($"Server message: {serverMessage}");
             }
             catch (Exception ex)
             {
