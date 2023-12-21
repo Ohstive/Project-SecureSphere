@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="remote-access.ico" />
+    <Content Include="Asset\remote-access.ico" />
   </ItemGroup>
 
   <ItemGroup>
