@@ -9,49 +9,30 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using SecureSphereV2;
 using SecureSphereV2.View;
+using SecureSphereV2.ViewModel;
 
 namespace Client
 {
     public partial class MainWindow : Window
     {
-        private SharedDataService sharedDataService;
+
+
+        private System.Windows.Shapes.Rectangle[] activeBarMenus;
+        private bool[] switchMenu;
+        private int activeMenuIndex = -1;
+        private SharedDataService sharedDataService = new SharedDataService();
 
         public MainWindow()
         {
             InitializeComponent();
-            sharedDataService = new SharedDataService(); // You may need to create an instance of SharedDataService here
+            activeBarMenus = new System.Windows.Shapes.Rectangle[] { ActiveBarMenu1, ActiveBarMenu4 };
+            switchMenu = new bool[activeBarMenus.Length];
+
+            ToggleVisibility(0);
+            MainContentFrame.Navigate(new JobsClientPage());
         }
 
-        private async void ConnectButton_Click(object sender, RoutedEventArgs e)
-        {
-            string enteredPassword = serverPasswordBox.Password;
-
-            try
-            {
-                // Continue with the connection to the server (async operation)
-                TcpClient client = await Task.Run(() => TryConnectToServer(enteredPassword));
-
-                if (client != null)
-                {
-                    JobsClientPage jobsPage = new JobsClientPage(client);
-                    NavigationWindow navigationWindow = new NavigationWindow();
-                    navigationWindow.Content = jobsPage;
-                    navigationWindow.Show();
-
-                    // Close the current window
-                    this.Close();
-                }
-                else
-                {
-                    MessageBox.Show("Connection failed. Check credentials.");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"An error occurred: {ex.Message}");
-                // Log the exception for further analysis
-            }
-        }
+        
 
 
         private void SendJobList(NetworkStream stream)
@@ -160,6 +141,49 @@ namespace Client
         {
             // Replace this with your actual logic to retrieve the saved password securely
             return SecureStringFromPlainText("YourStoredSecurePassword");
+        }
+
+        private void btnJobs_Click(object sender, RoutedEventArgs e)
+        {
+            ToggleVisibility(0);
+            MainContentFrame.Navigate(new JobsClientPage());
+        }
+
+        private void ToggleVisibility(int index)
+        {
+            if (index >= 0 && index < activeBarMenus.Length)
+            {
+                if (activeMenuIndex != index)
+                {
+                    if (activeMenuIndex != -1)
+                    {
+                        SetVisibility(activeMenuIndex, false);
+                    }
+                    SetVisibility(index, true);
+                    activeMenuIndex = index;
+
+                }
+            }
+        }
+
+        private void SetVisibility(int index, bool isVisible)
+        {
+            if (index >= 0 && index < activeBarMenus.Length)
+            {
+                activeBarMenus[index].Visibility = isVisible ? Visibility.Visible : Visibility.Collapsed;
+            }
+        }
+
+        private void btnParameters_Click(object sender, RoutedEventArgs e)
+        {
+            ToggleVisibility(3);
+            MainContentFrame.Navigate(new ClientParametersPage());
+        }
+
+        private void btnHome_Click(object sender, RoutedEventArgs e)
+        {
+            ToggleVisibility(0);
+            MainContentFrame.Navigate(new JobsClientPage());
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Windows;
 
 namespace Client
 {
-    public partial class JobsClientPage : Window
+    public partial class JobsClientPage
     {
         public ObservableCollection<JobStatusViewModel> Jobs { get; } = new ObservableCollection<JobStatusViewModel>();
 
@@ -14,25 +14,14 @@ namespace Client
         {
             InitializeComponent();
             // Initialize the Jobs ListView through data binding
-            jobsListView.ItemsSource = Jobs;
+
 
             // Add sample jobs (replace this with your actual logic)
             AddSampleJobs();
         }
 
         // Add a constructor that accepts arguments
-        public JobsClientPage(TcpClient client)
-        {
-            InitializeComponent();
-            // You can use the TcpClient instance as needed.
-            // For example, you might want to pass it to a ViewModel.
-
-            // Initialize the Jobs ListView through data binding
-            jobsListView.ItemsSource = Jobs;
-
-            // Add sample jobs (replace this with your actual logic)
-            AddSampleJobs();
-        }
+        
 
         private void AddSampleJobs()
         {
