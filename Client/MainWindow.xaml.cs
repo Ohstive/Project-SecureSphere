@@ -53,6 +53,7 @@ namespace Client
             }
         }
 
+
         private void SendJobList(NetworkStream stream)
         {
             // TODO: Implement the logic to send job list to the client
@@ -63,32 +64,39 @@ namespace Client
             stream.Write(response, 0, response.Length);
         }
 
-        private TcpClient TryConnectToServer(string password)
+        private async Task<TcpClient> TryConnectToServer(string enteredPassword)
         {
             try
             {
-                TcpClient client = new TcpClient(System.Net.IPAddress.Loopback.ToString(), 12345);
+                TcpClient client = new TcpClient(System.Net.IPAddress.Loopback.ToString(), 63774);
 
                 using (NetworkStream stream = client.GetStream())
                 using (StreamWriter writer = new StreamWriter(stream))
-                using (StreamReader reader = new StreamReader(stream))
                 {
-                    writer.WriteLine(password);
-                    writer.Flush();
+                    // Vérifiez si le mot de passe sauvegardé existe
+                    if (!string.IsNullOrWhiteSpace(enteredPassword))
+                    {
+                        // Envoyez le mot de passe saisi au serveur
+                        writer.WriteLine(enteredPassword);
+                        writer.Flush();
+                    }
 
                     // Read the server response
-                    string serverResponse = reader.ReadLine();
+                    using (StreamReader reader = new StreamReader(stream))
+                    {
+                        string serverResponse = await reader.ReadLineAsync();
 
-                    if (serverResponse == "INCORRECT_PASSWORD")
-                    {
-                        MessageBox.Show("Incorrect password.");
-                        client.Close();
-                        return null;
-                    }
-                    else
-                    {
-                        // Connection successful
-                        return client;
+                        if (serverResponse == "INCORRECT_PASSWORD")
+                        {
+                            MessageBox.Show("Incorrect password.");
+                            client.Close();
+                            return null;
+                        }
+                        else
+                        {
+                            // Connection successful
+                            return client;
+                        }
                     }
                 }
             }
@@ -98,6 +106,7 @@ namespace Client
                 return null;
             }
         }
+
 
         private bool IsCorrectPassword(string enteredPassword)
         {

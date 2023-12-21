@@ -59,6 +59,7 @@ namespace Client
         }
 
         private string status;
+
         public string Status
         {
             get { return status; }

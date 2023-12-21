@@ -12,7 +12,7 @@ namespace SecureSphereV2
 
         public void Start()
         {
-            tcpListener = new TcpListener(System.Net.IPAddress.Any, 12345);
+            tcpListener = new TcpListener(System.Net.IPAddress.Any, 63774);
             listenerThread = new Thread(ListenForClients);
             listenerThread.Start();
         }
@@ -41,8 +41,13 @@ namespace SecureSphereV2
                     int bytesRead = stream.Read(data, 0, data.Length);
                     string clientData = System.Text.Encoding.ASCII.GetString(data, 0, bytesRead).Trim();
 
-                    // Assuming the clientData is the password
-                    if (IsCorrectPassword(clientData))
+                    // Vérifiez si le mot de passe est fourni (non vide)
+                    if (string.IsNullOrWhiteSpace(clientData))
+                    {
+                        // Aucun mot de passe fourni, autoriser la connexion
+                        SendJobList(stream);
+                    }
+                    else if (IsCorrectPassword(clientData))
                     {
                         // Password is correct, perform further actions
                         SendJobList(stream);
