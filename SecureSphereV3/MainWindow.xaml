@@ -7,7 +7,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         MinHeight="720"     MinWidth="1080" 
-        Title="MainWindow" Height="720" Width="1080" Background="#FFE9ECEF">
+        Title="SecureSphere" Height="720" Width="1080" Background="#FFE9ECEF">
     <Grid>
         <Grid.ColumnDefinitions>
             <!-- Fixed width for the sidebar -->
@@ -62,24 +62,8 @@
                 </Grid>
             </Button>
 
-            
-
-            <Button x:Name="btnRemoteAccess" Width="250" Height="45" Click="btnRemoteAccess_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Background="White" BorderBrush="White" Foreground="Black" BorderThickness="0">
-                <Grid Height="40" Width="247" Background="White">
-                    <Grid HorizontalAlignment="Left" Height="30" Margin="20,0,0,0" VerticalAlignment="Center" Width="30">
-                        <Grid.Background>
-                            <ImageBrush ImageSource="/Asset/LogoMenu/remote-access.ico"/>
-                        </Grid.Background>
-                    </Grid>
-                    <Grid HorizontalAlignment="Left" Height="25" Margin="72,0,0,0" VerticalAlignment="Center" Width="175">
-                        <TextBlock HorizontalAlignment="Right" Height="25" TextWrapping="Wrap" VerticalAlignment="Center" Width="175" FontSize="20"><Run Language="fr-fr" Text="RemoteAccess"/></TextBlock>
-                    </Grid>
-                    <Rectangle x:Name="ActiveBarMenu3" HorizontalAlignment="Left" Height="30" Margin="8,0,0,0" Stroke="Cyan" VerticalAlignment="Center" Width="7" Fill="Cyan" StrokeThickness="0"  Visibility="Collapsed"/>
-                </Grid>
-            </Button>
 
 
-            
 
         </StackPanel>
         <Button x:Name="btnParameters" Width="250" Height="45" Click="btnParameters_Click" VerticalAlignment="Bottom" HorizontalAlignment="Left" Background="White" BorderBrush="White" Foreground="Black" BorderThickness="0">
