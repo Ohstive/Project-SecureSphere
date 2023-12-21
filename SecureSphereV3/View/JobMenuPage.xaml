@@ -1,0 +1,78 @@
+﻿<Page x:Class="SecureSphereV2.View.JobMenuPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d"
+      d:DesignHeight="450" d:DesignWidth="887"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+            <ListView x:Name="JobsListView" ItemsSource="{Binding ListJobConfigurations, RelativeSource={RelativeSource AncestorType=Page}}" SelectionMode="Single" BorderBrush="White" FontSize="14" BorderThickness="0,0,0,0">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Job Name" DisplayMemberBinding="{Binding JobName}" Width="120"/>
+                        <GridViewColumn Header="Source Directory" DisplayMemberBinding="{Binding SourceDirectoryPath}" Width="150"/>
+                        <GridViewColumn Header="Target Directory" DisplayMemberBinding="{Binding TargetDirectoryPath}" Width="150"/>
+                        <GridViewColumn Header="Backup Type" DisplayMemberBinding="{Binding BackupType}" Width="120"/>
+                        <GridViewColumn Header="Encryption" DisplayMemberBinding="{Binding Encryption}" Width="120"/>
+                        <GridViewColumn Header="EncryptionKey" DisplayMemberBinding="{Binding EncryptionKey}" Width="120"/>
+
+                        <!-- New column for RunAll button at the bottom right -->
+                        <GridViewColumn Width="50">
+                            <GridViewColumn.Header>
+                                <TextBlock Text="State"/>
+                            </GridViewColumn.Header>
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"  x:Name="B">
+                                        <Button Click="OnRunButtonClick" Tag="{Binding}" Margin="2">
+                                            <StackPanel Orientation="Horizontal">
+                                                <materialDesign:PackIcon x:Name="RunButtonIcon" Kind="Play" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </Button>
+                                    </StackPanel>
+                                </DataTemplate>
+
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <!-- New column for Delete button -->
+                        <GridViewColumn Width="50">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <Button Click="OnDeleteItemButtonClick" Tag="{Binding}" Margin="2">
+                                            <materialDesign:PackIcon Kind="Delete" VerticalAlignment="Center" />
+                                        </Button>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+        </ScrollViewer>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,30,0" >
+            <Button Content="Add" Click="OnAddButtonClick" Margin="10" FontSize="14" Background="White" BorderBrush="#FF707070"/>
+            <Button Content="Run All At Once" Click="OnRunAllAtOnceButtonClick" ToolTip="Run all jobs in parallel (All jobs will start at the same time)." Margin="10" FontSize="14" Background="White"/>
+            <Button Content="Run All" Click="OnRunAllButtonClick" ToolTip="Run all jobs sequentially (One job at a time)." Margin="10" FontSize="14" Background="White"/>
+            <Button Content="Delete All" Click="OnDeleteAllButtonClick" Margin="10" FontSize="14" Background="White"/>
+        </StackPanel>
+
+    </Grid>
+</Page>
+
+
+
