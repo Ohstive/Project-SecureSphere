@@ -5,7 +5,7 @@ VisualStudioVersion = 17.8.34309.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SecureSphereV2", "SecureSphereV2.csproj", "{A084F0AA-04DF-4A09-A473-37515299578A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "..\Client\Client.csproj", "{09293D9E-7D11-4E03-ACA9-603E622B4925}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client", "..\Client\Client.csproj", "{09293D9E-7D11-4E03-ACA9-603E622B4925}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

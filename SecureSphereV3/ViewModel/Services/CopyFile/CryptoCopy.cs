@@ -14,12 +14,14 @@ namespace SecureSphereV2.ViewModel.Services.CopyFile
         private readonly ILoger _log;
         private readonly string _cryptoCopyPath;
         private readonly string _key;
+        private readonly ObservableCollection<string> extensionToBeCrypted;
 
-        public CryptoCopy(ILoger log,string cryptoCopyPath, string key, ObservableCollection<string> extension)
+        public CryptoCopy(ILoger log,string cryptoCopyPath, string key, ObservableCollection<string>extensionToBeCrypted)
         {
             _log = log;
             _cryptoCopyPath = cryptoCopyPath;
             _key = key;
+            this.extensionToBeCrypted = extensionToBeCrypted;
         }
 
         public void DifferentialCopy(string CopieName, string sourcePath, string targetPath, FileInfo file)
@@ -34,7 +36,7 @@ namespace SecureSphereV2.ViewModel.Services.CopyFile
                     DateTime start = DateTime.UtcNow;
                     string extension = file.Extension;
 
-                    if (extension.Contains(extension.Substring(1)))
+                    if (extensionToBeCrypted.Contains(extension.Substring(1)))
                     {
                         FileCryptoCopy(file.FullName, path);
 
@@ -95,10 +97,9 @@ namespace SecureSphereV2.ViewModel.Services.CopyFile
             try
             {
                 DateTime start = DateTime.UtcNow;
-
-
                 string extension = file.Extension;
-                if (extension.Contains(extension.Substring(1)))
+           
+                if (extensionToBeCrypted.Contains(extension.Substring(1)))
                 {
                     FileCryptoCopy(file.FullName, newFilePath);
 

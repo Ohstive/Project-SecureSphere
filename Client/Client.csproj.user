@@ -7,18 +7,18 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="JobsClientPage.xaml.cs">
+    <Compile Update="ClientView\JobsClientPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="JobsClientPage.xaml">
+    <Page Update="ClientView\JobsClientPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="ClientParametersPage.xaml">
+    <Page Update="ClientView\ClientParametersPage.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

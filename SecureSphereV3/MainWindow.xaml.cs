@@ -3,7 +3,6 @@ using SecureSphereV2.View;
 using SecureSphereV2.ViewModel;
 using System.Windows;
 using System.Windows.Navigation;
-using SecureSphereV2.D;
 
 namespace SecureSphereV2
 {
@@ -17,7 +16,7 @@ namespace SecureSphereV2
         public MainWindow()
         {
             InitializeComponent(); 
-            activeBarMenus = new System.Windows.Shapes.Rectangle[] { ActiveBarMenu1, ActiveBarMenu2, ActiveBarMenu3, ActiveBarMenu4 };
+            activeBarMenus = new System.Windows.Shapes.Rectangle[] { ActiveBarMenu1, ActiveBarMenu2, ActiveBarMenu4 };
             switchMenu = new bool[activeBarMenus.Length];
 
             ToggleVisibility(0);
@@ -69,10 +68,7 @@ namespace SecureSphereV2
             MainContentFrame.Navigate(new LogsMenuPage(sharedDataService));
         }
 
-        private void btnRemoteAccess_Click(object sender, RoutedEventArgs e)
-        {
-            ToggleVisibility(2);
-        }
+       
 
         private void btnParameters_Click(object sender, RoutedEventArgs e)
         {
