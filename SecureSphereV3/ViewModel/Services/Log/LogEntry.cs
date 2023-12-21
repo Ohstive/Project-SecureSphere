@@ -1,5 +1,6 @@
 ﻿namespace SecureSphereV2.ViewModel.Services.Log
 {
+    //LogEntry is a class that contains all the information that will be logged in the log file
     public class LogEntry
     {
         public string CopyName { get; set; }
