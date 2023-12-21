@@ -47,7 +47,7 @@ namespace SecureSphereV2.ViewModel
             _loggerStatus = new FileLogger(logDirectory, logStatutDirectory);
 
 
-            _cryptoCopyPath = @"C:\Users\Ostiv\Source\Repos\Project-SecureSphere\SecureSphereV3\CryptoSoft\CryptoSoft.exe";
+            _cryptoCopyPath = @"CryptoSoft\CryptoSoft.exe";
 
 
             _jobConfiguration = job;
