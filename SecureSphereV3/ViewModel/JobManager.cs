@@ -17,21 +17,21 @@ namespace SecureSphereV2.ViewModel
 
     public class JobManager
     {
-        private string logDirectory;
-        private string logStatutDirectory;
+        private string _logDirectory;
+        private string _logStatutDirectory;
 
 
-        private List<LogEntry> logEntries;
-        private List<LogStatutEntry> logStatutEntries;
+        private List<LogEntry> _logEntries;
+        private List<LogStatutEntry> _logStatutEntries;
 
 
-        private ILoger logger;
-        private ILoger loggerStatus;
+        private ILoger _logger;
+        private ILoger _loggerStatus;
 
-        ICopyFileHandler fileCopyHandler;
+        private ICopyFileHandler _fileCopyHandler;
 
-        DirectoryCopyHandler directoryCopyHandler;
-        JobConfiguration jobConfiguration;
+        private DirectoryCopyHandler _directoryCopyHandler;
+        private JobConfiguration _jobConfiguration;
 
         private string _cryptoCopyPath;
 
@@ -39,34 +39,36 @@ namespace SecureSphereV2.ViewModel
 
         public JobManager(JobConfiguration job, string logDirectory, string logStatutDirectory, ObservableCollection<string> extensioncrypted, ObservableCollection<string> extensionPriority)
         {
-            logEntries = new List<LogEntry>();
-            logStatutEntries = new List<LogStatutEntry>();
-            this.logDirectory = logDirectory;
-            this.logStatutDirectory = logStatutDirectory;
-            logger = new FileLogger(logDirectory, logDirectory);
-            loggerStatus = new FileLogger(logDirectory, logStatutDirectory);
+            _logEntries = new List<LogEntry>();
+            _logStatutEntries = new List<LogStatutEntry>();
+            this._logDirectory = logDirectory;
+            this._logStatutDirectory = logStatutDirectory;
+            _logger = new FileLogger(logDirectory, logDirectory);
+            _loggerStatus = new FileLogger(logDirectory, logStatutDirectory);
+
 
             _cryptoCopyPath = @"C:\Users\Ostiv\Source\Repos\Project-SecureSphere\SecureSphereV3\CryptoSoft\CryptoSoft.exe";
 
-            jobConfiguration = job;
+
+            _jobConfiguration = job;
 
             // Define the type of copy
-            if (jobConfiguration.IsEncryptionEnabled)
+            if (_jobConfiguration.IsEncryptionEnabled)
             {
-                fileCopyHandler = new CryptoCopy(logger,_cryptoCopyPath,job.EncryptionKey, extensioncrypted);
+                _fileCopyHandler = new CryptoCopy(_logger,_cryptoCopyPath,job.EncryptionKey, extensioncrypted);
             }
             else
             {
-                fileCopyHandler = new SimpleFileCopy(logger);
+                _fileCopyHandler = new SimpleFileCopy(_logger);
                 //fileCopyHandler = new CopyWithProgress(logger);
             }
 
-            directoryCopyHandler = new DirectoryCopyHandler(fileCopyHandler, logger, loggerStatus);
+            _directoryCopyHandler = new DirectoryCopyHandler(_fileCopyHandler, _logger, _loggerStatus, extensionPriority);
         }
 
         public void RunJob()
         {
-            if (jobConfiguration.BackupType == "Full")
+            if (_jobConfiguration.BackupType == "Full")
             {
                 JobFullCopy();
             }
@@ -78,25 +80,25 @@ namespace SecureSphereV2.ViewModel
 
         public void JobDifferentialCopy()
         {
-            directoryCopyHandler.DifferentialCopyDirectory(jobConfiguration.JobName, jobConfiguration.SourceDirectoryPath, jobConfiguration.TargetDirectoryPath);
-            logger.WriteLogsToFile();
-            loggerStatus.WriteLogsToFileStatut();
-            jobConfiguration.IsFinished = true;
+            _directoryCopyHandler.DifferentialCopyDirectory(_jobConfiguration.JobName, _jobConfiguration.SourceDirectoryPath, _jobConfiguration.TargetDirectoryPath);
+            _logger.WriteLogsToFile();
+            _loggerStatus.WriteLogsToFileStatut();
+            _jobConfiguration.IsFinished = true;
         }
 
         public void JobFullCopy()
         {
-            directoryCopyHandler.FullCopyDirectory(jobConfiguration.JobName, jobConfiguration.SourceDirectoryPath, jobConfiguration.TargetDirectoryPath);
-            logger.WriteLogsToFile();
-            loggerStatus.WriteLogsToFileStatut();
-            jobConfiguration.IsFinished = true;
+            _directoryCopyHandler.FullCopyDirectory(_jobConfiguration.JobName, _jobConfiguration.SourceDirectoryPath, _jobConfiguration.TargetDirectoryPath);
+            _logger.WriteLogsToFile();
+            _loggerStatus.WriteLogsToFileStatut();
+            _jobConfiguration.IsFinished = true;
         }
 
         public bool JobIsValid()
         {
-            if (jobConfiguration.IsSourceDirectory)
+            if (_jobConfiguration.IsSourceDirectory)
             {
-                System.IO.DirectoryInfo SourceDirectory = new System.IO.DirectoryInfo(jobConfiguration.SourceDirectoryPath);
+                System.IO.DirectoryInfo SourceDirectory = new System.IO.DirectoryInfo(_jobConfiguration.SourceDirectoryPath);
                 IEnumerable<System.IO.FileInfo> list1 = SourceDirectory.GetFiles("*.*", System.IO.SearchOption.AllDirectories);
                 foreach (System.IO.FileInfo fi in list1)
                 {
@@ -110,7 +112,7 @@ namespace SecureSphereV2.ViewModel
             }
             else
             {
-                FileInfo file = new FileInfo(jobConfiguration.SourceDirectoryPath);
+                FileInfo file = new FileInfo(_jobConfiguration.SourceDirectoryPath);
                 if (ExtensionIsExecutable(file.Extension))
                 {
                     return false;

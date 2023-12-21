@@ -3,6 +3,7 @@ using SecureSphereV2.ViewModel.Services.Log;
 
 namespace SecureSphereV2.ViewModel.Services.Directory
 {
+    using System.Collections.ObjectModel;
     using System.IO;
     internal class DirectoryCopyHandler
     {
@@ -10,12 +11,29 @@ namespace SecureSphereV2.ViewModel.Services.Directory
         private readonly ILoger _log;
         private readonly ILoger _logStatus;
         private readonly ICopyFileHandler _fileCopyHandler;
+        private readonly ObservableCollection<string> _extensionPriority;
 
-        public DirectoryCopyHandler(ICopyFileHandler fileCopyHandler, ILoger log, ILoger logStatus)
+
+
+        public DirectoryCopyHandler(ICopyFileHandler fileCopyHandler, ILoger log, ILoger logStatus,ObservableCollection<string> extensionPriority)
         {
             _fileCopyHandler = fileCopyHandler ?? throw new ArgumentNullException(nameof(fileCopyHandler));
             _log = log ?? throw new ArgumentNullException(nameof(log));
             _logStatus = logStatus ?? throw new ArgumentNullException(nameof(logStatus));
+            _extensionPriority = extensionPriority;
+        }
+         
+
+        private List<FileInfo> FilterAndSortFiles(FileInfo[] files, ObservableCollection<string> extensions)
+        {
+            var selectedFiles = files
+                .Where(file => extensions.Contains(file.Extension?.Substring(1)))
+                .OrderBy(file => extensions.IndexOf(file.Extension?.Substring(1)))
+                .ToList();
+
+            var remainingFiles = files.Except(selectedFiles).ToList();
+
+            return selectedFiles.Concat(remainingFiles).ToList();
         }
 
 
@@ -27,7 +45,7 @@ namespace SecureSphereV2.ViewModel.Services.Directory
                 DirectoryInfo sourceDirectory = new DirectoryInfo(sourceDirectoryPath);
 
                 FileInfo[] fileList = sourceDirectory.GetFiles("*.*", SearchOption.AllDirectories);
-
+                List<FileInfo> fileListFiltred = FilterAndSortFiles(fileList, _extensionPriority);
 
                 RecreateFolderStructure(sourceDirectoryPath, targetDirectoryPath);
                
@@ -54,7 +72,7 @@ namespace SecureSphereV2.ViewModel.Services.Directory
                  });
 
 
-            foreach (FileInfo file in fileList)
+            foreach (FileInfo file in fileListFiltred)
             {
                 _fileCopyHandler.FullCopy( copyName,sourceDirectoryPath, targetDirectoryPath, file);
                 totalFileCopied++;
@@ -121,11 +139,12 @@ namespace SecureSphereV2.ViewModel.Services.Directory
 
                 DirectoryInfo sourceDirectory = new DirectoryInfo(sourceDirectoryPath);
                 FileInfo[] fileList = sourceDirectory.GetFiles("*.*", SearchOption.AllDirectories);
+                List<FileInfo> fileListFiltred = FilterAndSortFiles(fileList, _extensionPriority);
                 RecreateFolderStructure(sourceDirectoryPath, targetDirectoryPath);
 
                 DateTime startTime = DateTime.UtcNow;
 
-                foreach (FileInfo file in fileList)
+                foreach (FileInfo file in fileListFiltred)
                 {
 
                     _fileCopyHandler.DifferentialCopy(copyName, sourceDirectoryPath, targetDirectoryPath, file);

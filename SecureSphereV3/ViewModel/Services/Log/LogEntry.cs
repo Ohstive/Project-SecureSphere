@@ -13,6 +13,5 @@
         public string ErrorMessage { get; set; }
         public long FileSize { get; set; }
         public TimeSpan EncryptionTime { get; set; }
-
     }
 }
